@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slide</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css"
+          integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css"
+          integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+    <!-- build:css -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/jquery.jdSlider.css">
+    <!-- endbuild -->
+    <style>
+        body {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-top: 5px;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        .jd-slider {
+            margin: 50px 0;
+        }
+
+        .jd-slider .slide-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            border: 1px solid #888;
+        }
+
+        .jd-slider .slide-area > li {
+            border-right: 1px solid #888;
+            border-left: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .jd-slider .slide-area > li:first-child {
+            border-left: 1px solid #888;
+        }
+
+        .jd-slider .slide-area > li > a {
+            display: block;
+            height: 200px;
+            line-height: 200px;
+            font-size: 3em;
+            font-weight: bold;
+            outline: 0;
+        }
+
+        .jd-slider .controller {
+            margin: 10px 0 0;
+        }
+
+        .jd-slider.slider3 .slide-area > li,
+        .jd-slider.slider3-2 .slide-area > li,
+        .jd-slider.slider3-3 .slide-area > li {
+            width: 50%;
+        }
+
+        .jd-slider.slider3 .slide-area > li:nth-child(2),
+        .jd-slider.slider3-2 .slide-area > li:nth-child(2),
+        .jd-slider.slider3-3 .slide-area > li:nth-child(2) {
+            display: block;
+        }
+
+        .jd-slider.slider4 .slide-area > li:first-child {
+            background-color: #a66;
+        }
+
+        .jd-slider.slider4 .slide-area > li:first-child + li {
+            background-color: #6a6;
+        }
+
+        .jd-slider.slider4 .slide-area > li:first-child + li + li {
+            background-color: #66a;
+        }
+
+        .jd-slider.slider4 .slide-area > li:first-child + li + li + li {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>슬라이더 예제</h1>
+    <section class="jd-slider slider1">
+        <h2>일반 캐로셀</h2>
+        <div class="slide-inner">
+            <ul class="slide-area">
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+            </ul>
+        </div>
+        <a class="prev" href="#">
+            <i class="fas fa-angle-left fa-2x"></i>
+        </a>
+        <a class="next" href="#">
+            <i class="fas fa-angle-right fa-2x"></i>
+        </a>
+        <div class="controller">
+            <div class="indicate-area"></div>
+        </div>
+    </section>
+    <section class="jd-slider slider2">
+        <h2>무한루프 캐로셀</h2>
+        <div class="slide-inner">
+            <ul class="slide-area">
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+            </ul>
+            <a class="prev" href="#">
+                <i class="fas fa-angle-left fa-2x"></i>
+            </a>
+            <a class="next" href="#">
+                <i class="fas fa-angle-right fa-2x"></i>
+            </a>
+        </div>
+        <div class="controller">
+            <a class="auto" href="#">
+                <i class="fas fa-play fa-xs"></i>
+                <i class="fas fa-pause fa-xs"></i>
+            </a>
+            <div class="indicate-area"></div>
+        </div>
+    </section>
+    <section class="jd-slider slider3">
+        <h2>반응형 캐로셀 (루프X)</h2>
+        <div class="slide-inner">
+            <ul class="slide-area">
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+                <li>
+                    <a href="#">5</a>
+                </li>
+            </ul>
+            <a class="prev" href="#">
+                <i class="fas fa-angle-left fa-2x"></i>
+            </a>
+            <a class="next" href="#">
+                <i class="fas fa-angle-right fa-2x"></i>
+            </a>
+        </div>
+        <div class="controller">
+            <div class="indicate-area"></div>
+        </div>
+    </section>
+    <section class="jd-slider slider3-2">
+        <h2>반응형 캐로셀 (무한루프 + 1칸 슬라이딩) </h2>
+        <div class="slide-inner">
+            <ul class="slide-area">
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+                <li>
+                    <a href="#">5</a>
+                </li>
+            </ul>
+            <a class="prev" href="#">
+                <i class="fas fa-angle-left fa-2x"></i>
+            </a>
+            <a class="next" href="#">
+                <i class="fas fa-angle-right fa-2x"></i>
+            </a>
+        </div>
+        <div class="controller">
+            <a class="auto" href="#">
+                <i class="fas fa-play fa-xs"></i>
+                <i class="fas fa-pause fa-xs"></i>
+            </a>
+            <div class="indicate-area"></div>
+        </div>
+    </section>
+    <section class="jd-slider slider3-3">
+        <h2>반응형 캐로셀 (무한루프 + 2칸 이상 슬라이딩)</h2>
+        <div class="slide-inner">
+            <ul class="slide-area">
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+                <li>
+                    <a href="#">5</a>
+                </li>
+            </ul>
+            <a class="prev" href="#">
+                <i class="fas fa-angle-left fa-2x"></i>
+            </a>
+            <a class="next" href="#">
+                <i class="fas fa-angle-right fa-2x"></i>
+            </a>
+        </div>
+        <div class="controller">
+            <div class="indicate-area"></div>
+        </div>
+    </section>
+    <section class="jd-slider fade slider4">
+        <h2>페이드인</h2>
+        <div class="slide-inner">
+            <ul class="slide-area">
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+            </ul>
+            <a class="prev" href="#">
+                <i class="fas fa-angle-left fa-2x"></i>
+            </a>
+            <a class="next" href="#">
+                <i class="fas fa-angle-right fa-2x"></i>
+            </a>
+        </div>
+        <div class="controller">
+            <a class="auto" href="#">
+                <i class="fas fa-play fa-xs"></i>
+                <i class="fas fa-pause fa-xs"></i>
+            </a>
+            <div class="indicate-area"></div>
+        </div>
+    </section>
+
+    <!-- build:jquery -->
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <!-- endbuild -->
+    <!-- build:slider -->
+    <script src="./js/jquery.jdSlider-latest.js"></script>
+    <!-- endbuild -->
+
+    <script>
+        window.onload = function () {
+            $('.slider1').jdSlider();
+            $('.slider2').jdSlider({
+                wrap: '.slide-inner',
+                isAuto: true,
+                isLoop: true
+            });
+            $('.slider3').jdSlider({
+                wrap: '.slide-inner',
+                slideShow: 2,
+                slideToScroll: 2,
+                isLoop: false,
+                responsive: [{
+                    viewSize: 768,
+                    settings: {
+                        slideShow: 1,
+                        slideToScroll: 1
+                    }
+                }]
+            });
+            $('.slider3-2').jdSlider({
+                wrap: '.slide-inner',
+                slideShow: 2,
+                slideToScroll: 1,
+                isLoop: true,
+                responsive: [{
+                    viewSize: 768,
+                    settings: {
+                        slideShow: 1
+                    }
+                }]
+            });
+            $('.slider3-3').jdSlider({
+                wrap: '.slide-inner',
+                slideShow: 2,
+                slideToScroll: 2,
+                isLoop: true,
+                responsive: [{
+                    viewSize: 768,
+                    settings: {
+                        slideShow: 1,
+                        slideToScroll: 1
+                    }
+                }]
+            });
+            $('.slider4').jdSlider({
+                wrap: '.slide-inner',
+                isSliding: false,
+                isAuto: true,
+                isLoop: true,
+                isDrag: false
+            });
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+.jd-slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+
+  .slide-inner {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .slide-area {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    &:after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+
+    li {
+      display: none;
+      float: left;
+      width: 100%;
+
+      &:first-child {
+        display: block;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  %arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .prev {
+    @extend %arrow-btn;
+    left: 0;
+  }
+
+  .next {
+    @extend %arrow-btn;
+    right: 0;
+  }
+
+  .controller {
+    width: 100%;
+    text-align: center;
+
+    .auto {
+      display: inline-block;
+      vertical-align: middle;
+
+      i {
+        display: none;
+        color: #333;
+      }
+
+      &.pause {
+        .fa-pause {
+          display: block;
+        }
+      }
+
+      &.play {
+        .fa-play {
+          display: block;
+        }
+      }
+    }
+
+    .indicate-area {
+      display: inline-block;
+
+      a {
+        display: inline-block;
+        position: relative;
+        width: 16px;
+        height: 16px;
+        margin: 0 5px;
+        font-size: 0;
+        color: transparent;
+        vertical-align: middle;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: inherit;
+          height: inherit;
+          box-sizing: border-box;
+          border: 2px solid #333;
+          border-radius: 50%;
+        }
+
+        &.on:after {
+          background-color: #333;
+        }
+      }
+    }
+  }
+
+  a {
+    font-size: 1.5rem;
+  }
+
+  &.fade {
+    .slide-area {
+      li {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transform: translateZ(0);
+
+        &:first-child {
+          position: static;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.slider--none {
+    .prev, .next, .controller {
+      display: none;
+    }
+  }
+}

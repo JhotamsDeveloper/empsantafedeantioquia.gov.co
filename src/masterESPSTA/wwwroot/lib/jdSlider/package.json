@@ -1,0 +1,46 @@
+{
+  "name": "jd-slider",
+  "version": "0.1.3",
+  "description": "Easy-to-custrate jquery slider plugin",
+  "main": "./public/src/js/jquery.jdSlider-latest.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KimYeonho",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.24.7",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "node-sass": "^4.9.3"
+  },
+  "dependencies": {
+    "jquery": "^1.12.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadenspace/jdSlider.git"
+  },
+  "keywords": [
+    "slide",
+    "slider",
+    "jaden",
+    "jd",
+    "jdslider",
+    "jd-slider",
+    "jdSlider"
+  ],
+  "bugs": {
+    "url": "https://github.com/jadenspace/jdSlider/issues",
+    "email": "yeonhokr@gmail.com"
+  },
+  "homepage": "https://github.com/jadenspace/jdSlider#readme"
+}
