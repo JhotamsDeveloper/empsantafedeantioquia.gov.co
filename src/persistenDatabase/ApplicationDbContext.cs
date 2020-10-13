@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using model;
+using persistenDatabase.Config;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,7 @@ namespace persistenDatabase
         {
             base.OnModelCreating(builder);
 
+            new CategoryConfig(builder.Entity<Category>());
         }
     }
 }

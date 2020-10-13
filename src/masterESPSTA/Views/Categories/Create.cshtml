@@ -1,0 +1,101 @@
+﻿@model modelDTOs.CategoryCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="slider-area ">
+    <div class="slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap hero-cap2 text-center">
+                        <h2>Categorias</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ contact section start ================= -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="contact-title">Creación de una categoria</h2>
+            </div>
+            <div class="col-lg-8">
+
+                <form enctype="multipart/form-data" class="form-contact contact_form" asp-action="Create" method="post" id="contactForm" novalidate="novalidate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="NameCategory" class="control-label"></label>
+                                <input asp-for="NameCategory" class="form-control" />
+                                <span asp-validation-for="NameCategory" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control w-100" rows="20" placeholder=" Enter Message"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label asp-for="CoverPage" class="control-label"></label>
+                                <div class="custom-file">
+                                    <input asp-for="CoverPage" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Elija la imagen</label>
+                                </div>
+                                <span asp-validation-for="CoverPage" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="Statud" /> @Html.DisplayNameFor(model => model.Statud)
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="button button-contactForm boxed-btn btn-block" />
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <partial name="_OptInformationPartial" />
+        </div>
+    </div>
+</section>
+<!-- ================ contact section end ================= -->
+
+@section Scripts {
+
+    <script type="text/javascript">
+        // Agregue el siguiente código si desea que aparezca el nombre del archivo en select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

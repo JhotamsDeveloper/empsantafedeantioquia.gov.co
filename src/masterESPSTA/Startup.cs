@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using persistenDatabase;
+using services;
+using services.Commons;
 
 namespace masterESPSTA
 {
@@ -37,11 +39,11 @@ namespace masterESPSTA
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
-            //Cambiar todas las duraciones del token de protección de datos
+            //Cambiar todas las duraciones del token de protecciï¿½n de datos
             services.Configure<DataProtectionTokenProviderOptions>(o =>
                 o.TokenLifespan = TimeSpan.FromDays(7));
 
-            //Para más información visite https://docs.microsoft.com/es-es/dotnet/api/microsoft.aspnetcore.identity.identityoptions?view=aspnetcore-3.1
+            //Para mï¿½s informaciï¿½n visite https://docs.microsoft.com/es-es/dotnet/api/microsoft.aspnetcore.identity.identityoptions?view=aspnetcore-3.1
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -75,6 +77,11 @@ namespace masterESPSTA
             });
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddTransient<ICategoryService, CategoryService>();
+            
+            services.AddTransient<IUploadedFileIIS, UploadedFileIIS>();
+            services.AddTransient<IFormatStringUrl, FormatStringUrl>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
