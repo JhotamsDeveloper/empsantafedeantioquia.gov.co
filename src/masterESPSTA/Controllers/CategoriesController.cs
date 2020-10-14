@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using masterESPSTA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +29,16 @@ namespace masterESPSTA.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _categoryService.GetAll());
+            var _jQuery = from a in await _categoryService.GetAll()
+                         select new ModelViewCategory
+                         {
+                            Id = a.Id,
+                            NameCategory = a.NameCategory,
+                            DateCreate = a.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                            Statud = a.Statud
+                         };
+
+            return View(_jQuery);
         }
 
         // GET: Categories/Details/5
@@ -37,15 +48,58 @@ namespace masterESPSTA.Controllers
             {
                 return NotFound();
             }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            var _category = await _categoryService.GetById(id);
+            var _dateCreate = _category.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+            if (_category == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+
+            var _viewCategory = new ModelViewCategory
+            {
+                Id = _category.Id,
+                NameCategory = _category.NameCategory,
+                Description = _category.Description,
+                CoverPage = _category.CoverPage,
+                DateCreate = _dateCreate,
+                Statud = _category.Statud
+            };
+
+            ViewData["detail"] = true;
+
+            return View(_viewCategory);
+        }
+
+        // GET: Categories/Details/5
+        [Route("servicios/{nameCategory}")]
+        public async Task<IActionResult> Details(string nameCategory)
+        {
+            if (nameCategory == null)
+            {
+                return NotFound();
+            }
+            var _category = await _categoryService.GetById(nameCategory);
+            var _dateCreate = _category.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+            if (_category == null)
+            {
+                return NotFound();
+            }
+
+
+            var _viewCategory = new ModelViewCategory
+            {
+                Id = _category.Id,
+                NameCategory = _category.NameCategory,
+                Description = _category.Description,
+                CoverPage = _category.CoverPage,
+                DateCreate = _dateCreate,
+                Statud = _category.Statud
+            };
+
+            ViewData["detail"] = false;
+
+            return View(_viewCategory);
         }
 
         // GET: Categories/Create
@@ -61,6 +115,14 @@ namespace masterESPSTA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryCreateDto model)
         {
+            var _urlName = _categoryService.DuplicaName(model.NameCategory);
+
+            if (_urlName)
+            {
+                ViewData["DuplicaName"] = $"El Nombre {model.NameCategory} ya ha sido utilizado, cambielo";
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 var result = await _categoryService.Create(model);
@@ -78,22 +140,32 @@ namespace masterESPSTA.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var _category = await _categoryService.GetById(id);
+
+            if (_category == null)
             {
                 return NotFound();
             }
-            return View(category);
+
+            var _viewCagory = new CategoryEditDto
+            {
+                Id = _category.Id,
+                NameCategory = _category.NameCategory,
+                Description = _category.Description,
+                Statud = _category.Statud
+            };
+
+            return View(_viewCagory);
         }
 
         // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de superposición, habilite las propiedades específicas a las que desea enlazar, para
+        // más detalles ver http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameCategory,UrlCategory,Description,CoverPage,Statud,DateCreate,DateUpdate")] Category category)
+        public async Task<IActionResult> Edit(int id, CategoryEditDto model)
         {
-            if (id != category.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -102,12 +174,12 @@ namespace masterESPSTA.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    await _categoryService.Edit(id, model);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+
+                    if (!CategoryExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +190,8 @@ namespace masterESPSTA.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+
+            return View(model);
         }
 
         // GET: Categories/Delete/5
@@ -129,14 +202,26 @@ namespace masterESPSTA.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            var _category = await _categoryService.GetById(id);
+            var _dateCreate = _category.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+
+            if (_category == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            var _viewCategory = new ModelViewCategory
+            {
+                Id = _category.Id,
+                NameCategory = _category.NameCategory,
+                Description = _category.Description,
+                CoverPage = _category.CoverPage,
+                DateCreate = _dateCreate,
+                Statud = _category.Statud
+            };
+
+            return View(_viewCategory);
+
         }
 
         // POST: Categories/Delete/5
@@ -144,15 +229,13 @@ namespace masterESPSTA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            await _categoryService.DeleteConfirmed(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _categoryService.CategoryExists(id);
         }
     }
 }

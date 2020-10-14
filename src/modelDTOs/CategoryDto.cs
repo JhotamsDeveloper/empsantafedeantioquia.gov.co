@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using modelDTOs.CustomValidations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,6 +42,8 @@ namespace modelDTOs
         public string Description { get; set; }
         
         [DisplayName("Portada")]
+        [ValidateExtensionImg(ErrorMessage = "Utilice archivos con extensiones JPG JPEG GIF PNG")]
+        [ImageSizes(ErrorMessage = "El tamaño no debe de ser superior a 2mb")]
         public IFormFile CoverPage { get; set; }
 
         [DisplayName("Estado")]
@@ -54,12 +57,20 @@ namespace modelDTOs
     {
         public int Id { get; set; }
         public string NameCategory { get; set; }
-        public string UrlCategory { get; set; }
+
+        [AllowHtml]
+        [DataType(DataType.MultilineText)]
+        [DisplayName("Descripción")]
         public string Description { get; set; }
-        public string CoverPage { get; set; }
+
+        [DisplayName("Portada")]
+        [ValidateExtensionImg(ErrorMessage = "Utilice archivos con extensiones JPG JPEG GIF PNG")]
+        [ImageSizes(ErrorMessage = "El tamaño no debe de ser superior a 2mb")]
+        public IFormFile CoverPage { get; set; }
+
+        [DisplayName("Estado")]
         public bool Statud { get; set; }
 
-        public DateTime DateCreate { get; set; }
         public DateTime DateUpdate { get; set; }
     }
 }

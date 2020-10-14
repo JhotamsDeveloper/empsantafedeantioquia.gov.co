@@ -22,8 +22,10 @@ namespace services
         Task Edit(int id, CategoryEditDto model);
 
         Task<Category> GetById(int? id);
+        Task<Category> GetById(string nameCategory);
         Task DeleteConfirmed(int id);
         bool CategoryExists(int id);
+        bool DuplicaName(string _stringName);
     }
 
     public class CategoryService : ICategoryService
@@ -93,15 +95,26 @@ namespace services
 
         public async Task Edit(int id, CategoryEditDto model)
         {
-            var cate = await _context.Categories.SingleAsync(x => x.Id == id);
-
+            var _coverPage = "";
             var _dateUpdate = DateTime.Now;
 
-            cate.NameCategory = model.NameCategory;
-            cate.Description = model.Description;
-            cate.CoverPage = model.CoverPage;
-            cate.Statud = model.Statud;
-            cate.DateUpdate = _dateUpdate;
+            var _cate = await _context.Categories.SingleAsync(x => x.Id == id);
+
+            var _shearchCoverPage = await _context.Categories.SingleAsync(x => x.Id == id);
+
+            if (model.CoverPage != null)
+            {
+                _coverPage = _uploadedFileIIS.UploadedFileImage(_shearchCoverPage.CoverPage, model.CoverPage, _account);
+            }
+            else
+            {
+                _coverPage = _cate.CoverPage;
+            }
+
+            _cate.Description = model.Description;
+            _cate.CoverPage = _coverPage;
+            _cate.Statud = model.Statud;
+            _cate.DateUpdate = _dateUpdate;
 
             await _context.SaveChangesAsync();
         }
@@ -115,8 +128,22 @@ namespace services
             //);
         }
 
+        public async Task<Category> GetById(string nameCategory)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(x => x.UrlCategory == nameCategory);
+
+            //return _mapper.Map<CategoryDto>(
+            //await _context.Categorys.FindAsync(id)
+            //);
+        }
         public async Task DeleteConfirmed(int id)
         {
+            var _shearchCoverPage = await _context.Categories
+                .AsNoTracking()
+                .SingleAsync(x => x.Id == id);
+
+            _uploadedFileIIS.DeleteConfirmed(_shearchCoverPage.CoverPage, _account);
+
             _context.Remove(new Category
             {
                 Id = id
@@ -129,6 +156,11 @@ namespace services
         public bool CategoryExists(int id)
         {
             return _context.Categories.Any(e => e.Id == id);
+        }
+
+        public bool DuplicaName(string _stringName)
+        {
+            return _context.Categories.Any(e => e.NameCategory == _stringName);
         }
 
     }

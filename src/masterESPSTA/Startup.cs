@@ -124,6 +124,12 @@ namespace masterESPSTA
 
                 //Acerca de nosotros
                 endpoints.MapControllerRoute(
+                name: "Servicios",
+                pattern: "servicios/{nameCategory}",
+                defaults: new { Controller = "Home", action = "Details" });
+
+                //Acerca de nosotros
+                endpoints.MapControllerRoute(
                 name: "funcionarios",
                 pattern: "funcionarios",
                 defaults: new { Controller = "Home", action = "Employes" });

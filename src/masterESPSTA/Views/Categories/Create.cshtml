@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <label asp-for="NameCategory" class="control-label"></label>
                                 <input asp-for="NameCategory" class="form-control" />
-                                <span asp-validation-for="NameCategory" class="text-danger"></span>
+                                <span asp-validation-for="NameCategory" class="text-danger">@ViewBag.DuplicaName</span>
                             </div>
 
                         </div>
@@ -74,7 +74,8 @@
 
                     <div class="form-group mt-3">
                         <div class="form-group">
-                            <input type="submit" value="Create" class="button button-contactForm boxed-btn btn-block" />
+                            <input type="submit" value="Create" class="genric-btn success btn-block" />
+                            <a asp-action="index" class="genric-btn primary-border small btn-block">Cancelar</a>
                         </div>
                     </div>
 
