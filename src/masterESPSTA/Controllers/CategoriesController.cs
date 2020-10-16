@@ -48,8 +48,10 @@ namespace masterESPSTA.Controllers
             {
                 return NotFound();
             }
+            
             var _category = await _categoryService.GetById(id);
             var _dateCreate = _category.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+            
             if (_category == null)
             {
                 return NotFound();

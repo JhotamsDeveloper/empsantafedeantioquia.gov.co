@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using persistenDatabase;
 
 namespace persistenDatabase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201015035246_Version001CreateTableMasterUpdateAtributeCoverPage")]
+    partial class Version001CreateTableMasterUpdateAtributeCoverPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,53 +217,6 @@ namespace persistenDatabase.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("model.BiddingParticipant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cellular")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdentificationOrNit")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MasterId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("NaturalPerson")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Proposals")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MasterId");
-
-                    b.ToTable("BiddingParticipants");
-                });
-
             modelBuilder.Entity("model.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -331,8 +286,8 @@ namespace persistenDatabase.Migrations
                     b.Property<DateTime>("NacionLicitanteEndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("NacionLicitantegFile")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("NacionLicitantegFile")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("NacionLicitantegStartDate")
                         .HasColumnType("datetime2");
@@ -400,13 +355,6 @@ namespace persistenDatabase.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("model.BiddingParticipant", b =>
-                {
-                    b.HasOne("model.Master", "Master")
-                        .WithMany("BiddingParticipants")
-                        .HasForeignKey("MasterId");
                 });
 #pragma warning restore 612, 618
         }

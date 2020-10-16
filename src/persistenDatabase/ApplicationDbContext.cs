@@ -18,7 +18,8 @@ namespace persistenDatabase
         }
 
         public DbSet<Category> Categories { get; set; }
-
+        public DbSet<Master> Masters { get; set; }
+        public DbSet<BiddingParticipant> BiddingParticipants { get; set; }
         //Validaciones
         protected override void OnModelCreating(ModelBuilder builder)
         {

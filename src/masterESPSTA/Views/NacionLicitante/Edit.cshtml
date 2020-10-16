@@ -1,0 +1,108 @@
+﻿@model modelDTOs.NacionLicitanteEditDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="slider-area ">
+    <div class="slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap hero-cap2 text-center">
+                        <h2>Convocatorias</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ contact section start ================= -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="contact-title">Creación de una categoria</h2>
+            </div>
+            <div class="col-lg-8">
+
+                <form enctype="multipart/form-data" class="form-contact contact_form" asp-action="Edit" method="post" id="contactForm" novalidate="novalidate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NameMaster" class="control-label"></label>
+                        <input asp-for="NameMaster" class="form-control" />
+                        <span asp-validation-for="NameMaster" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CoverPage" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="CoverPage" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Elija la imagen</label>
+                        </div>
+                        <span asp-validation-for="CoverPage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Statud" /> @Html.DisplayNameFor(model => model.Statud)
+                        </label>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="NacionLicitante" /> @Html.DisplayNameFor(model => model.NacionLicitante)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NacionLicitantegStartDate" class="control-label"></label>
+                        <input type="date" asp-for="NacionLicitantegStartDate" class="form-control" />
+                        <span asp-validation-for="NacionLicitantegStartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NacionLicitanteEndDate" class="control-label"></label>
+                        <input type="datetime-local" asp-for="NacionLicitanteEndDate" class="form-control" />
+                        <span asp-validation-for="NacionLicitanteEndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NacionLicitantegFile" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="NacionLicitantegFile" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">El archivo debe de ser .pdf</label>
+                        </div>
+                        <span asp-validation-for="NacionLicitantegFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateUpdate" class="control-label"></label>
+                        <input type="date" asp-for="DateUpdate" class="form-control" />
+                        <span asp-validation-for="DateUpdate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+
+            </div>
+            <partial name="_OptInformationPartial" />
+        </div>
+    </div>
+</section>
+<!-- ================ contact section end ================= -->
+
+@section Scripts {
+
+    <script type="text/javascript">
+        // Agregue el siguiente código si desea que aparezca el nombre del archivo en select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

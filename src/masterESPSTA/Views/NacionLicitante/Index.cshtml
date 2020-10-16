@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ModelViewNacionLicitante>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="slider-area ">
+    <div class="slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap hero-cap2 text-center">
+                        <h2>Categorias</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="contact-section">
+    <div class="container">
+        <p>
+            <a class="genric-btn success btn-block" asp-action="Create">Crear nueva licitación</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NameMaster)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Statud)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.NacionLicitantegStartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NacionLicitanteEndDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateUpdate)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameMaster)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Statud)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NacionLicitantegStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NacionLicitanteEndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateUpdate)
+                    </td>
+                    <td>
+                        <a class="genric-btn primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a class="genric-btn info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="genric-btn danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

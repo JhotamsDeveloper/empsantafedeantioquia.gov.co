@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using persistenDatabase;
 
 namespace persistenDatabase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201016060945_Version001TableBiddingsParticipants")]
+    partial class Version001TableBiddingsParticipants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,9 +242,6 @@ namespace persistenDatabase.Migrations
                     b.Property<string>("IdentificationOrNit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MasterId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -256,8 +255,6 @@ namespace persistenDatabase.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MasterId");
 
                     b.ToTable("BiddingParticipants");
                 });
@@ -400,13 +397,6 @@ namespace persistenDatabase.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("model.BiddingParticipant", b =>
-                {
-                    b.HasOne("model.Master", "Master")
-                        .WithMany("BiddingParticipants")
-                        .HasForeignKey("MasterId");
                 });
 #pragma warning restore 612, 618
         }

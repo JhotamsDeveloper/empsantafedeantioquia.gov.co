@@ -13,6 +13,8 @@ namespace masterESPSTA.Config
         public AutoMapperConfig()
         {
             CreateMap<Category, CategoryDto>();
+            CreateMap<Master, NacionLicitanteDto>();
+            CreateMap<BiddingParticipant, BiddingParticipantDTO>();
         }
     }
 }

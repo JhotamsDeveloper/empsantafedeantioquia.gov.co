@@ -15,6 +15,7 @@ using AutoMapper;
 using persistenDatabase;
 using services;
 using services.Commons;
+using model;
 
 namespace masterESPSTA
 {
@@ -79,7 +80,9 @@ namespace masterESPSTA
             services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<ICategoryService, CategoryService>();
-            
+            services.AddTransient<INacionLicitanteService, NacionLicitanteService>();
+            services.AddTransient<IBiddingParticipantService, BiddingParticipantService>();
+
             services.AddTransient<IUploadedFileIIS, UploadedFileIIS>();
             services.AddTransient<IFormatStringUrl, FormatStringUrl>();
 
@@ -122,13 +125,19 @@ namespace masterESPSTA
                 pattern: "acerca-de-nosotros",
                 defaults: new { Controller = "Home", action = "About" });
 
-                //Acerca de nosotros
+                //Categorias
                 endpoints.MapControllerRoute(
                 name: "Servicios",
                 pattern: "servicios/{nameCategory}",
                 defaults: new { Controller = "Home", action = "Details" });
 
-                //Acerca de nosotros
+                //Licitaciones
+                endpoints.MapControllerRoute(
+                name: "Licitaciones",
+                pattern: "convocatorias/{nameNacionLicitante}",
+                defaults: new { Controller = "NacionLicitante", action = "Details" });
+
+                //Funcionarios
                 endpoints.MapControllerRoute(
                 name: "funcionarios",
                 pattern: "funcionarios",
