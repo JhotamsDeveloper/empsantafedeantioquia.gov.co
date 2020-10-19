@@ -84,6 +84,7 @@ namespace prjESPSantaFeAnt
 
             services.AddTransient<IUploadedFileIIS, UploadedFileIIS>();
             services.AddTransient<IFormatStringUrl, FormatStringUrl>();
+            services.AddTransient<IEmailSendGrid, EmailSendGrid>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

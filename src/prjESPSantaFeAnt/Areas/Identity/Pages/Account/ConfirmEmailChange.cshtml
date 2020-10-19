@@ -1,0 +1,13 @@
+﻿@page
+@model ConfirmEmailChangeModel
+@{
+    ViewData["Title"] = "Confirmar cambio de correo electrónico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+    </div>
+</div>

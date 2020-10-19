@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ModelViewRoles>
+
+@{
+    ViewData["Title"] = "Listado";
+}
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Roles</li>
+            </ol>
+        </nav>
+        <p>
+            <a class="btn btn-secondary" asp-action="Create">Crear Rol</a>
+        </p>
+    </div>
+
+    <div class="container bg-primary-light">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoleName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
