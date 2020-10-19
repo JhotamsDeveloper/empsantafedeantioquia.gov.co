@@ -143,6 +143,12 @@ namespace prjESPSantaFeAnt
                 pattern: "convocatorias",
                 defaults: new { Controller = "NacionLicitante", action = "ListGetAll" });
 
+                //Participante
+                endpoints.MapControllerRoute(
+                name: "participante",
+                pattern: "convocatorias/participacion/{idConvocatoria}",
+                defaults: new { Controller = "BiddingParticipants", action = "Create"});
+
                 //Funcionarios
                 endpoints.MapControllerRoute(
                 name: "funcionarios",

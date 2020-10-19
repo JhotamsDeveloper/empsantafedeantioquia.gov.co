@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using prjESPSantaFeAnt.Models;
 
 namespace prjESPSantaFeAnt.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

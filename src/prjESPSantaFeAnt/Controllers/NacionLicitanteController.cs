@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using modelDTOs;
 using persistenDatabase;
@@ -25,6 +26,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Index()
         {
             var _model = from a in await _nacionLicitante.GetAll()
@@ -44,6 +46,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -83,6 +86,8 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/Details/5
+        [Authorize(Roles = "UserApp")]
+        [AllowAnonymous]
         [Route("convocatorias/{nameNacionLicitante}")]
         public async Task<IActionResult> Details(string nameNacionLicitante)
         {
@@ -124,6 +129,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/Create
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult Create()
         {
             return View();
@@ -132,6 +138,7 @@ namespace prjESPSantaFeAnt.Controllers
         // POST: NacionLicitante/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(NacionLicitanteCreateDto model)
@@ -154,6 +161,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -186,6 +194,7 @@ namespace prjESPSantaFeAnt.Controllers
         // POST: NacionLicitante/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, NacionLicitanteEditDto model)
@@ -220,6 +229,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -261,6 +271,7 @@ namespace prjESPSantaFeAnt.Controllers
 
 
         // POST: NacionLicitante/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -274,6 +285,8 @@ namespace prjESPSantaFeAnt.Controllers
             return _nacionLicitante.NacionLicitantegExists(id);
         }
 
+        [Authorize(Roles = "UserApp")]
+        [AllowAnonymous]
         [ActionName("Documento-Oficial-de-la-convocatoria")]
         public FileResult OfficialLicitante(string nameFile, string routeFile)
         {
@@ -281,6 +294,8 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/grid/5
+        [Authorize(Roles = "UserApp")]
+        [AllowAnonymous]
         [Route("convocatorias")]
         public async Task<IActionResult> ListGetAll()
         {

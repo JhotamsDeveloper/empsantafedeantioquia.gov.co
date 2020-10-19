@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using modelDTOs;
 using persistenDatabase;
@@ -12,6 +13,7 @@ using services;
 
 namespace prjESPSantaFeAnt.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;

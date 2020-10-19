@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using modelDTOs;
 using persistenDatabase;
@@ -11,6 +12,7 @@ using services;
 
 namespace prjESPSantaFeAnt.Controllers
 {
+
     public class BiddingParticipantsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,9 +29,8 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: BiddingParticipants
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Index()
-
-
         {
 
             var _biddingParticipantGetAll = await _biddingParticipantService.GetAll();
@@ -56,6 +57,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: BiddingParticipants/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -93,6 +95,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: BiddingParticipants/Create
+        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
         public async Task<IActionResult> Create(int idConvocatoria)
         {
             var _nameLicitante = await _nacionLicitante.GetById(idConvocatoria);
@@ -105,6 +108,7 @@ namespace prjESPSantaFeAnt.Controllers
         // POST: BiddingParticipants/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BiddingParticipantCreateDTO model)
@@ -125,7 +129,7 @@ namespace prjESPSantaFeAnt.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "SuperAdmin,Admin")]
         // GET: BiddingParticipants/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -165,6 +169,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // POST: BiddingParticipants/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -179,6 +184,7 @@ namespace prjESPSantaFeAnt.Controllers
             return _biddingParticipantService.DuplicaIdentificationOrNit(identificationOrNit);
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [ActionName("Documento-participante")]
         public FileResult OfficialLicitante(string nameFile, string routeFile)
         {

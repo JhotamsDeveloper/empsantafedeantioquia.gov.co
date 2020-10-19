@@ -81,7 +81,8 @@
                             {
                                 if (_currentDate <= _nacionLicitanteEndDate)
                                 {
-                                    <a asp-controller="BiddingParticipants" asp-action="create" asp-route-idConvocatoria="@ViewBag.idConvocatoria"><strong>Participar de la convocatoria</strong></a>
+                                    <a href="~/convocatorias/participacion/@ViewBag.idConvocatoria"><strong>Participar de la convocatoria</strong></a>
+                                    @*<a asp-controller="BiddingParticipants" asp-action="create" asp-route-idConvocatoria="@ViewBag.idConvocatoria"><strong>Participar de la convocatoria</strong></a>*@
                                 }
                             }
                         }
