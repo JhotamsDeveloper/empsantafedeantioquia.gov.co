@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ModelViewNacionLicitante>
+
+@{
+    ViewData["Title"] = "Convocatorias";
+    var _currentDate = DateTime.Now;
+}
+
+<div class="site-section">
+    <div class="container">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Convocatorias</li>
+            </ol>
+        </nav>
+
+        <div class="row mb-5">
+            <div class="col-lg-7 mx-auto text-center">
+                <h2 class="mb-4 section-heading">Convocatorias</h2>
+                <p>Para ser más transparentes en el sector público, hemos creado esta sección donde encontraras todas las convocatorias en las cuales podrás participar.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-6 col-lg-4 mb-5">
+                    <div class="post-entry">
+                        <a href="~/convocatorias/@item.UrlMaster" class="thumb">
+                            <span class="date">@item.DateCreate</span>
+                            <img src="~/images/nacionLicitante/@item.CoverPage" alt="@item.NameMaster" class="img-fluid">
+                        </a>
+                        <div class="post-meta text-center">
+
+                            @{
+                                var _nacionLicitantegStartDate = Convert.ToDateTime(item.NacionLicitantegStartDate);
+                                var _nacionLicitanteEndDate = Convert.ToDateTime(item.NacionLicitanteEndDate);
+
+                                if (_currentDate >= _nacionLicitantegStartDate)
+                                {
+                                    if (_currentDate <= _nacionLicitanteEndDate)
+                                    {
+                                        <span>ACTIVA hasta @item.NacionLicitanteEndDate</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span>INACTIVA</span>
+                                    }
+                                }
+                            }
+
+                        </div>
+                        <h3><a href="~/convocatorias/@item.UrlMaster">@item.NameMaster</a></h3>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        @*<div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="custom-pagination">
+                    <a href="#">1</a>
+                    <a href="#" class="active">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                </div>
+            </div>
+        </div>*@
+
+    </div>
+</div>
+
+

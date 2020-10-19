@@ -1,0 +1,102 @@
+﻿@model modelDTOs.BiddingParticipantCreateDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item"><a asp-controller="BiddingParticipants" asp-action="index">Listado General</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear</li>
+            </ol>
+        </nav>
+        <p class="text-center">
+            Convocatoria : <strong>@ViewBag.nameLicitante</strong>
+        </p>
+    </div>
+
+    <div class="container bg-primary-light">
+
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10 m-3">
+
+                <form enctype="multipart/form-data" asp-action="Create">
+                    <input asp-for="MasterId" value="@ViewBag.idConvocatoria" hidden>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="NaturalPerson" /> @Html.DisplayNameFor(model => model.NaturalPerson)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdentificationOrNit" class="control-label"></label>
+                        <input asp-for="IdentificationOrNit" class="form-control" />
+                        <span asp-validation-for="IdentificationOrNit" class="text-danger">@ViewBag.DuplicaIdentificationOrNit</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cellular" class="control-label"></label>
+                        <input asp-for="Cellular" class="form-control" />
+                        <span asp-validation-for="Cellular" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City" class="control-label"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Proposals" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Proposals" class="custom-file-input" id="customFile" accept=".pdf">
+                            <label class="custom-file-label" for="customFile">El archivo debe de ser .pdf</label>
+                        </div>
+                        <span asp-validation-for="Proposals" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        // Agregue el siguiente código si desea que aparezca el nombre del archivo en select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+

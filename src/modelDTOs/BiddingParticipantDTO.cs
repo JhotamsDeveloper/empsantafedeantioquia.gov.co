@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using model;
 using modelDTOs.CustomValidations;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace modelDTOs
 {
-    public class BiddingParticipantDTOs
+    public class BiddingParticipantDTO
     {
         public int Id { get; set; }
         public Boolean NaturalPerson { get; set; }
@@ -21,7 +22,7 @@ namespace modelDTOs
         public string Proposals { get; set; }
     }
 
-    public class BiddingParticipantCreateDTOs
+    public class BiddingParticipantCreateDTO
     {
         public int Id { get; set; }
         public Boolean NaturalPerson { get; set; }
@@ -37,5 +38,7 @@ namespace modelDTOs
         [ImageSizes(ErrorMessage = "El tamaño no debe de ser superior a 2mb")]
         [ValidateExtensionPDF(new string[] { ".pdf" })]
         public IFormFile Proposals { get; set; }
+        public int? MasterId { get; set; }
+        public Master Master { get; set; }
     }
 }

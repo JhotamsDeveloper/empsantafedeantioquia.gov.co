@@ -30,7 +30,7 @@ namespace model
         public DateTime DateCreate { get; set; }
         public DateTime DateUpdate { get; set; }
 
-        public ICollection<BiddingParticipant> BiddingParticipants { get; set; }
+        public IList<BiddingParticipant> BiddingParticipants { get; set; }
 
     }
 }

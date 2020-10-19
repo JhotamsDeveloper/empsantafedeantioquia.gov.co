@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ModelViewBiddingParticipant>
+
+@{
+    ViewData["Title"] = "Listado";
+}
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Participantes de convocatorias</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container bg-primary-light">
+
+
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NaturalPerson)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdentificationOrNit)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NaturalPerson)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdentificationOrNit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+
+                        <td>
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><span><img src="~/images/iconos/view.svg" width="30" /></span></a> |
+                            <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id"><span><img src="~/images/iconos/delete.svg" width="30" /></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+

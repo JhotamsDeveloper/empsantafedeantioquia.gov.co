@@ -48,7 +48,9 @@ namespace services
 
         public async Task<IEnumerable<Master>> GetAll()
         {
-            return (await _context.Masters.ToListAsync());
+            return (await _context.Masters
+                         .Where(x=>x.NacionLicitante == true)
+                         .ToListAsync());
         }
 
         public async Task<NacionLicitanteDto> Details(int? id)

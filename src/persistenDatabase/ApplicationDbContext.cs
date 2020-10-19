@@ -26,6 +26,9 @@ namespace persistenDatabase
             base.OnModelCreating(builder);
 
             new CategoryConfig(builder.Entity<Category>());
+            new BiddingParticipantConfig(builder.Entity<BiddingParticipant>());
+            new MasterConfig(builder.Entity<Master>());
+
         }
     }
 }

@@ -136,6 +136,7 @@ namespace services
             //await _context.Categorys.FindAsync(id)
             //);
         }
+
         public async Task DeleteConfirmed(int id)
         {
             var _shearchCoverPage = await _context.Categories

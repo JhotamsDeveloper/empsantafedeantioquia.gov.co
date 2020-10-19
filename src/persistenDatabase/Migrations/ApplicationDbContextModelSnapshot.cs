@@ -244,6 +244,7 @@ namespace persistenDatabase.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("NaturalPerson")
@@ -323,6 +324,7 @@ namespace persistenDatabase.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("NacionLicitante")
@@ -338,6 +340,7 @@ namespace persistenDatabase.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NameMaster")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Statud")
