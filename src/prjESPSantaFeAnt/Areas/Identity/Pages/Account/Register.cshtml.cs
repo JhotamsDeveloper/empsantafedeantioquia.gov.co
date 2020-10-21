@@ -81,7 +81,7 @@ namespace prjESPSantaFeAnt.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //Dos alternativas para asignar roles, para ambos se necesita que los roles esten creado en la base de datos
-                    //IEnumerable<string> list = new List<string> { "UserApp", "Admin", "SuperAdmin"};
+                    //IEnumerable<string> list = new List<string> { "UserApp", "Admin", "SuperAdmin" };
                     //await _userManager.AddToRolesAsync(user, list);
 
                     await _userManager.AddToRoleAsync(user, "UserApp");

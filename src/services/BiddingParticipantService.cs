@@ -19,7 +19,7 @@ namespace services
         Task<BiddingParticipantDTO> Create(BiddingParticipantCreateDTO model);
         Task<BiddingParticipant> GetById(int? id);
         Task DeleteConfirmed(int id);
-        Boolean DuplicaIdentificationOrNit(string identificationOrNit);
+        Boolean DuplicaIdentificationOrNit(string identificationOrNit, int masterId);
     }
 
     public class BiddingParticipantService : IBiddingParticipantService
@@ -110,10 +110,14 @@ namespace services
 
         }
 
-        public Boolean DuplicaIdentificationOrNit(string identificationOrNit)
+        public Boolean DuplicaIdentificationOrNit(string identificationOrNit, int masterId)
         {
-            return _context.BiddingParticipants.Any(x => x.IdentificationOrNit == identificationOrNit);
-
+            var _any = false ;
+            if (_context.BiddingParticipants.Any(x=>x.MasterId == masterId))
+            {
+                _any = _context.BiddingParticipants.Any(x => x.IdentificationOrNit == identificationOrNit);
+            }
+                return _any;
         }
 
     }

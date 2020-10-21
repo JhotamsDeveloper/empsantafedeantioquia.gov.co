@@ -6,7 +6,7 @@ using System.Text;
 
 namespace modelDTOs.CustomValidations
 {
-    public class ImageSizes : ValidationAttribute
+    public class PdfSizes : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
@@ -14,7 +14,7 @@ namespace modelDTOs.CustomValidations
                 return false;
 
             var file = (IFormFile)value;
-            var size = 1048576 * 3;
+            var size = 1048576 * 10;
 
             if (size < file.Length)
             {

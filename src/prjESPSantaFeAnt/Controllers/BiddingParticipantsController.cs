@@ -19,6 +19,9 @@ namespace prjESPSantaFeAnt.Controllers
         private readonly IBiddingParticipantService _biddingParticipantService;
         private readonly INacionLicitanteService _nacionLicitante;
 
+        [TempData]
+        public Boolean _StatusMessaje { get; set; }
+
         public BiddingParticipantsController(ApplicationDbContext context,
                                                 IBiddingParticipantService biddingParticipantService,
                                                 INacionLicitanteService nacionLicitante)
@@ -57,7 +60,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: BiddingParticipants/Details/5
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -91,6 +94,11 @@ namespace prjESPSantaFeAnt.Controllers
                 NameNocionLicitante = _nacionLicitanteGellGetById.NameMaster
             };
 
+            if (_StatusMessaje == true)
+            {
+                ViewData["successful"] = _StatusMessaje;
+            }
+
             return View(_model);
         }
 
@@ -113,7 +121,8 @@ namespace prjESPSantaFeAnt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BiddingParticipantCreateDTO model)
         {
-            var _identificationOrNit = _biddingParticipantService.DuplicaIdentificationOrNit(model.IdentificationOrNit);
+            int _masterId = Convert.ToInt16(model.MasterId);
+            var _identificationOrNit = _biddingParticipantService.DuplicaIdentificationOrNit(model.IdentificationOrNit, _masterId);
 
             if (_identificationOrNit)
             {
@@ -124,11 +133,14 @@ namespace prjESPSantaFeAnt.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _biddingParticipantService.Create(model);
-                return RedirectToAction(nameof(Index));
-            }
+                _StatusMessaje = true;
+                return RedirectToAction("Details", new {@id = result.Id});
 
+            }
             return View(model);
         }
+
+
         [Authorize(Roles = "SuperAdmin,Admin")]
         // GET: BiddingParticipants/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -179,9 +191,9 @@ namespace prjESPSantaFeAnt.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DuplicaIdentificationOrNit(string identificationOrNit)
+        private bool DuplicaIdentificationOrNit(string identificationOrNit, int masterId)
         {
-            return _biddingParticipantService.DuplicaIdentificationOrNit(identificationOrNit);
+            return _biddingParticipantService.DuplicaIdentificationOrNit(identificationOrNit, masterId);
         }
 
         [Authorize(Roles = "SuperAdmin,Admin")]

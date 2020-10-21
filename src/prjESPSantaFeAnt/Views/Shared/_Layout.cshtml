@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no" />
     <title>@ViewData["Title"] - Empresa de servicios públicos de Santa Fe de Antioquia</title>
 
+    <link rel="icon" href="~/images/iconos/favicon/ms-icon-150x150.png" type="image/png" />
+
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/fonts/icomoon/style.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -17,8 +19,12 @@
     <link rel="stylesheet" href="~/fonts/flaticon-espSantaFeDeAnt/font/flaticon.css" />
     <link href="~/css/aos.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+    <meta name="description" content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
+    <meta name="keywords" content="Santa Fe de Antioquia, Empresa, Servicios Públicos, Brigada de siembre, Alumbrado Público, Reciclaje, Residuos Solidos" />
 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -60,8 +66,8 @@
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                                 <li class="active"><a asp-controller="home" asp-action="index" style="font-weight: bold;" class="nav-link"><strong>Inicio</strong></a></li>
                                 <li><a href="~/acerca-de-nosotros" style="font-weight: bold;" class="nav-link"><strong>Acerca de nosotros</strong></a></li>
-                                <li class="has-children">
-                                    <a href="prevention.html" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a>
+                                @*<li class="has-children">
+                                    <a href="" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a>
                                     <ul class="dropdown">
                                         <li><a href="~/mantenimientos-de-acequias" class="nav-link">Mantenimientos de Acequias</a></li>
                                         <li><a href="~/alumbrado-publico" class="nav-link">Alumbrado Público</a></li>
@@ -70,9 +76,11 @@
                                         <li><a href="~/jornada-de-siembra" class="nav-link">Jornada de Siembra</a></li>
                                         <li><a href="~/recoleccion-de-llantas" class="nav-link">Recolección de Llantas</a></li>
                                     </ul>
-                                </li>
+                                </li>*@
 
-                                <li><a href="~/blog" style="font-weight: bold;" class="nav-link"><strong>Blog</strong></a></li>
+                                <li><a data-toggle="modal" data-target="#building" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a></li>
+
+                                <li><a data-toggle="modal" data-target="#building" style="font-weight: bold;" class="nav-link"><strong>Blog</strong></a></li>
 
 
                                 <partial name="_LoginPartial" />
@@ -89,26 +97,44 @@
         </header>
 
 
-        <div class="hero-v1">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 mr-auto text-center text-lg-left">
-                        <br>
-                        <br>
-                        <span class="d-block subheading">Nuestro compromiso es</span>
-                        <h1 class="heading mb-3">Mejorar calidad de vida</h1>
-                        <p class="mb-5 subheading-parrafo">Somos una empresa pública comprometida con mejorar la calidad de vida que contribuye al desarrollo cultural y ambiental en la región.</p>
-                        <!-- <p class="mb-4"><a href="#" class="btn btn-primary">Conózcanos</a></p>-->
-
+        <div class="slide-wrapper devices-large">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="fill">
+                            <img src="~/images/Coverpague-01.jpg" class="img-fluid" />
+                        </div>
                     </div>
+                    <div class="carousel-item">
+                        <div class="fill">
+                            <img src="~/images/Coverpague-02.jpg" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- <div class="col-lg-6">
-                      <figure class="illustration">
-                        <img src="images/illustration-02.png" alt="Image" class="img-fluid">
-                      </figure>
-                    </div> -->
-
-                    <div class="col-lg-6"></div>
+        <div class="slide-wrapper devices-small">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="fill">
+                            <img src="~/images/post_1.jpg" class="img-fluid" />
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="fill">
+                            <img src="~/images/post_2.jpg" class="img-fluid" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,7 +208,33 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Modal -->
+    <div class="modal fade" id="building" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">Página en construcción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="~/images/gracias-por-visitarnos.jpg" class="img-fluid" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
