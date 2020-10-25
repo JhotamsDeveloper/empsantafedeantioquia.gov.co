@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "modelDTOs", "src\modelDTOs\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "persistenDatabase", "src\persistenDatabase\persistenDatabase.csproj", "{155E2061-E0A2-4F5B-8E27-E1FBB4117F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prjESPSantaFeAnt", "src\prjESPSantaFeAnt\prjESPSantaFeAnt.csproj", "{371C9B57-5E8C-4466-AD3F-D41C67D7BFF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prjESPSantaFeAnt", "src\prjESPSantaFeAnt\prjESPSantaFeAnt.csproj", "{371C9B57-5E8C-4466-AD3F-D41C67D7BFF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

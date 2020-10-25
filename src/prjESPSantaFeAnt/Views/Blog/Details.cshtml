@@ -1,9 +1,7 @@
-﻿@model ModelViewNacionLicitante
+﻿@model ModelViewBlog
 
 @{
-    ViewData["Title"] = Model.NameMaster;
-    var _nacionLicitantegStartDate = Convert.ToDateTime(Model.NacionLicitantegStartDate);
-    var _nacionLicitanteEndDate = Convert.ToDateTime(Model.NacionLicitanteEndDate);
+    ViewData["Title"] = Model.NameBlog;
     var _currentDate = DateTime.Now;
 }
 
@@ -13,12 +11,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="~/convocatorias">Convocatorias</a></li>
+                <li class="breadcrumb-item"><a href="~/noticias">Noticias</a></li>
                 @if (ViewBag.detail)
                 {
-                    <li class="breadcrumb-item"><a asp-controller="nacionlicitante" asp-action="index">Listado General</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="blog" asp-action="index">Listado General</a></li>
                 }
-                <li class="breadcrumb-item active" aria-current="page">@Model.NameMaster</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.NameBlog</li>
             </ol>
         </nav>
 
@@ -28,13 +26,14 @@
 
                     <div class="col-lg-12">
                         <figure>
-                            <img src="~/images/nacionLicitante/@Model.CoverPage" alt="@Model.NameMaster" class="img-fluid">
-                            <figcaption>@Model.NameMaster</figcaption>
+                            <img src="~/images/blog/@Model.CoverPage" alt="@Model.NameBlog" class="img-fluid">
+                            <figcaption>@Model.NameBlog</figcaption>
                         </figure>
                     </div>
                     <div class="col-lg-12">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
+                                <li class="breadcrumb-item">Autor @Model.Author</li>
                                 @if (Convert.ToDateTime(Model.DateUpdate) >= Convert.ToDateTime(Model.DateCreate))
                                 {
                                     <li class="breadcrumb-item"><span>Publicación actualizada: @Model.DateUpdate</span></li>
@@ -43,57 +42,29 @@
                                 {
                                     <li class="breadcrumb-item"><span>Publicación: @Model.DateCreate</span></li>
                                 }
-                                @{
-                                    if (_currentDate >= _nacionLicitantegStartDate)
-                                    {
-                                        if (_currentDate <= _nacionLicitanteEndDate)
-                                        {
-                                            <li class="breadcrumb-item"><span>Estado de la concovatoria : <strong>Activa</strong></span></li>
-
-                                        }
-                                        else
-                                        {
-                                            <li class="breadcrumb-item"><span>Estado de la concovatoria : <strong>Inactiva</strong></span></li>
-                                        }
-                                    }
-                                }
-                                <li class="breadcrumb-item">Convocatoria de @Model.NacionLicitantegStartDate hasta @Model.NacionLicitanteEndDate</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-sm-12">
                         <h1>
-                            @Html.DisplayFor(model => model.NameMaster)
+                            @Html.DisplayFor(model => model.NameBlog)
                         </h1>
                     </div>
                     <div class="col-sm-12">
                         @Html.Raw(Model.Description)
 
-                        <a asp-action="Documento-Oficial-de-la-convocatoria"
-                           asp-route-nameFile="@Model.NameMaster"
-                           asp-route-routeFile="@Model.NacionLicitantegFile"
-                           target="_blank">
-                            <strong>Descargar terminos de la convocatoria</strong>
-                        </a>
-                        <br />
-                        @{
-                            if (_currentDate >= _nacionLicitantegStartDate)
-                            {
-                                if (_currentDate <= _nacionLicitanteEndDate)
-                                {
-                                    <a asp-controller="BiddingParticipants" asp-action="create"><strong>Participar de la convocatoria</strong></a>
-                                }
-                            }
-                        }
                     </div>
                 </div>
 
-                <div class="container">
-                    <form asp-action="Delete">
-                        <input type="hidden" asp-for="Id" />
-                        <input type="submit" value="Delete" class="btn btn-danger btn-block" />
-                    </form>
-                </div>
+
+                @if (ViewBag.detail)
+                {
+                    <div class="container">
+                        <div>
+                            <a class="btn btn-warning btn-block" asp-action="Edit" asp-route-id="@Model.Id"><span><img src="~/images/iconos/edit.svg" width="30" /></span></a>
+                        </div>
+                    </div>
+                }
 
             </div>
             @*<div class="col-md-4 sidebar">
@@ -130,3 +101,6 @@
         </div>
     </div>
 </div>
+
+
+

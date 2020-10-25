@@ -21,6 +21,7 @@ namespace model
         public DateTime DateBrigade { get; set; }
 
         public Boolean Blog { get; set; }
+        public string Author { get; set; }
 
         public Boolean NacionLicitante { get; set; }
         public DateTime NacionLicitantegStartDate { get; set; }
