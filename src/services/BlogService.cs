@@ -49,6 +49,7 @@ namespace services
         public async Task<IEnumerable<Master>> GetAll()
         {
             var _blog = await _context.Masters
+                .AsNoTracking()
                 .Where(x => x.Blog == true)
                 .ToListAsync();
             return (_blog);

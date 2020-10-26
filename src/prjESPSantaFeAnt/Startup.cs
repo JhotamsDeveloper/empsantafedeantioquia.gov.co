@@ -125,7 +125,7 @@ namespace prjESPSantaFeAnt
                 endpoints.MapControllerRoute(
                 name: "Acerca-de-nosostros",
                 pattern: "acerca-de-nosotros",
-                defaults: new { Controller = "Home", action = "About" });
+                defaults: new { Controller = "Home", action = "About"   });
 
                 //Categorias
                 endpoints.MapControllerRoute(
@@ -151,10 +151,15 @@ namespace prjESPSantaFeAnt
                 defaults: new { Controller = "BiddingParticipants", action = "Create"});
 
 
-                //Participante
+                //Noticias
                 endpoints.MapControllerRoute(
-                name: "blog",
-                pattern: "blog/{urlBlog}",
+                name: "noticia",
+                pattern: "noticias",
+                defaults: new { Controller = "Blog", action = "notice" });
+
+                endpoints.MapControllerRoute(
+                name: "detalleNoticia",
+                pattern: "noticias/{urlBlog}",
                 defaults: new { Controller = "Blog", action = "Details" });
 
                 //Funcionarios

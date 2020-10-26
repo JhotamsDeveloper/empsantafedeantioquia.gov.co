@@ -1,0 +1,73 @@
+﻿@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
+@using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
+@using X.PagedList.Mvc.Core.Fluent
+@using X.PagedList.Web.Common
+
+@model IEnumerable<ModelViewBlog>
+
+@{
+    ViewData["Title"] = "Noticias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Noticias</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center">
+                <h2 class="mb-4 section-heading">Noticias</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4">
+                    <div class="post-entry bg-primary-light p-4 m-3">
+                        <a href="~/noticias/@item.UrlMaster" class="thumb">
+                            <span class="date">@item.DateCreate</span>
+                            <img src="~/images/blog/@item.CoverPage" alt="@item.NameBlog" class="img-fluid">
+                        </a>
+                        <div class="post-meta text-center">
+                        </div>
+                        <h3><a href="~/noticias/@item.UrlMaster">@item.NameBlog</a></h3>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="custom-pagination">
+                    @Html.PagedListPager((IPagedList)Model, page => Href($"noticias?page={page}"),
+                        new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                        {
+                            DisplayItemSliceAndTotal = false,
+                            ContainerDivClasses = new[] { "navigation" },
+                            LiElementClasses = new[] { "page-item" },
+                            PageClasses = new[] { "page-link" },
+                        })
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        // Workaround to fix style of text for showing items .. through ..
+        // Problem related to Boostrap 4 according to issue in link below
+        // https://github.com/dncuug/X.PagedList/issues/127
+        $(document).ready(function () {
+            $('ul.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}
