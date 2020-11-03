@@ -4,22 +4,30 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
+    var _fullName = User.Identity.Name;
+    char[] _split = { '@' };
+    var _userName = _fullName.Split(_split);
+    ViewData["name"] = _userName[0];
+
+    <li class="has-children">
+        <a class="nav-link" style="color:#007bff"><strong>@ViewBag.name</strong></a>
+        <ul class="dropdown">
+            <li><a class="nav-link btn-logout" href="~/perfil" title="Manage"> Perfil</a></li>
+            <li>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn-logout">Salir</button>
+                </form>
+            </li>
+
+        </ul>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="bton-lr" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="bton-lr" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
-

@@ -30,10 +30,10 @@ namespace services.Commons
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("jhotams.developer@gmail.com", subject),
+                From = new EmailAddress("admin@espsantafedeantioquia.co", subject),
                 Subject = subject,
                 PlainTextContent = message,
-                HtmlContent = message
+                HtmlContent = message,
             };
             msg.AddTo(new EmailAddress(email));
 

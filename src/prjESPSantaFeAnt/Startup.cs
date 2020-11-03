@@ -69,7 +69,7 @@ namespace prjESPSantaFeAnt
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(180);
 
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
@@ -95,7 +95,7 @@ namespace prjESPSantaFeAnt
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -150,6 +150,10 @@ namespace prjESPSantaFeAnt
                 pattern: "convocatorias/participacion/{idConvocatoria}",
                 defaults: new { Controller = "BiddingParticipants", action = "Create"});
 
+                endpoints.MapControllerRoute(
+                name: "participante",
+                pattern: "convocatorias/reference/{reference}",
+                defaults: new { Controller = "BiddingParticipants", action = "Details" });
 
                 //Noticias
                 endpoints.MapControllerRoute(
@@ -167,6 +171,14 @@ namespace prjESPSantaFeAnt
                 name: "funcionarios",
                 pattern: "funcionarios",
                 defaults: new { Controller = "Home", action = "Employes" });
+
+                endpoints.MapRazorPages();
+
+                //Funcionarios
+                endpoints.MapControllerRoute(
+                name: "perfil",
+                pattern: "perfil",
+                defaults: new { Controller = "Admin", action = "Profile" });
 
                 endpoints.MapRazorPages();
             });

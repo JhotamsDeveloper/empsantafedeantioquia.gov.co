@@ -11,6 +11,7 @@ namespace prjESPSantaFeAnt.Models
 
         [DisplayName("Código")]
         public int Id { get; set; }
+        public string Ref { get; set; }
 
         [DisplayName("Persona Natural")]
         public Boolean NaturalPerson { get; set; }

@@ -94,13 +94,36 @@ body:after {
   padding: 10px 30px;
 }
 
-.btn:hover,
-.btn:active,
-.btn:focus {
-  outline: none;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
+.bton-lr {
+    background: #007bff;
+    border-radius: 30px;
+    padding: 5px !important;
+    margin: 8px;
+    width: 101px;
+    text-align: center;
+    font-weight: 700;
+    color: white !important;
 }
+
+.btn-logout {
+    border-style: none;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 10px 48px;
+    margin: 3px;
+    width: 100%;
+    font-weight: 900;
+    color: #00698a;
+}
+
+    .btn:hover,
+    .btn:active,
+    .btn:focus {
+        outline: none;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
 
 .btn.btn-primary {
   background: #0083AD;
@@ -855,9 +878,6 @@ body:after {
   color: #000;
 }
 
-.sticky-wrapper .site-navbar .site-menu>li>a {
-  color: rgba(0, 0, 0, 0.7) !important;
-}
 
 .sticky-wrapper .site-navbar .site-menu>li>a:hover,
 .sticky-wrapper .site-navbar .site-menu>li>a.active {
@@ -879,9 +899,6 @@ body:after {
   color: #000;
 }
 
-.sticky-wrapper.is-sticky .site-navbar .site-menu>li>a {
-  color: #000 !important;
-}
 
 .sticky-wrapper.is-sticky .site-navbar .site-menu>li>a:hover,
 .sticky-wrapper.is-sticky .site-navbar .site-menu>li>a.active {

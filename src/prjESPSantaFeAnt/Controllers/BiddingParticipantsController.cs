@@ -45,6 +45,7 @@ namespace prjESPSantaFeAnt.Controllers
                          select new ModelViewBiddingParticipant
                          {
                              Id = a.Id,
+                             Ref = a.Ref.ToString(),
                              NaturalPerson = a.NaturalPerson,
                              Name = a.Name,
                              IdentificationOrNit = a.IdentificationOrNit,
@@ -57,6 +58,50 @@ namespace prjESPSantaFeAnt.Controllers
 
             return View(_model);
 
+        }
+
+        // GET: BiddingParticipants/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
+        [Route("convocatorias/reference/{reference}")]
+        public async Task<IActionResult> Details(string reference)
+        {
+            if (reference == "")
+            {
+                return NotFound();
+            }
+
+            var _getById = await _biddingParticipantService.GetByRef(reference);
+            var _nacionLicitanteGellGetById = await _nacionLicitante.GetById(_getById.MasterId);
+
+            if (_getById == null)
+            {
+                return NotFound();
+            }
+
+            var _dateCreate = _getById.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+
+            var _model = new ModelViewBiddingParticipant
+            {
+                Id = _getById.Id,
+                NaturalPerson = _getById.NaturalPerson,
+                Name = _getById.Name,
+                IdentificationOrNit = _getById.IdentificationOrNit,
+                Phone = _getById.Phone,
+                Cellular = _getById.Cellular,
+                Address = _getById.Address,
+                City = _getById.City,
+                Email = _getById.Email,
+                DateCreate = _dateCreate,
+                Proposals = _getById.Proposals,
+                NameNocionLicitante = _nacionLicitanteGellGetById.NameMaster
+            };
+
+            if (_StatusMessaje == true)
+            {
+                ViewData["successful"] = _StatusMessaje;
+            }
+
+            return View(_model);
         }
 
         // GET: BiddingParticipants/Details/5

@@ -12,6 +12,7 @@ namespace modelDTOs
     public class BiddingParticipantDTO
     {
         public int Id { get; set; }
+        public string Ref { get; set; }
         public Boolean NaturalPerson { get; set; }
         public string Name { get; set; }
         public string IdentificationOrNit { get; set; }
@@ -30,6 +31,7 @@ namespace modelDTOs
 
         [DisplayName("¿Es persona natural?")]
         public Boolean NaturalPerson { get; set; }
+        public string Ref { get; set; }
 
         [DisplayName("Nombre Completo *")]
         [Required(ErrorMessage = "El Nombre es requerido."), MaxLength(150)]

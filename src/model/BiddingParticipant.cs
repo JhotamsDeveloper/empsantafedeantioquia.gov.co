@@ -7,6 +7,7 @@ namespace model
     public class BiddingParticipant
     {
         public int Id { get; set; }
+        public Guid Ref { get; set; }
         public Boolean NaturalPerson { get; set; }
         public string Name { get; set; }
         public string IdentificationOrNit { get; set; }

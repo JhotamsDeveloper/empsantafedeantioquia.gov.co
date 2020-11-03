@@ -9,7 +9,7 @@ using prjESPSantaFeAnt.Models;
 
 namespace prjESPSantaFeAnt.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -19,6 +19,7 @@ namespace prjESPSantaFeAnt.Controllers
             _roleManager = roleManager;
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Index()
         {
             var _rol = from a in _roleManager.Roles
@@ -31,12 +32,14 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Create(ModelViewRoles model)
         {
             if (ModelState.IsValid)
@@ -62,6 +65,13 @@ namespace prjESPSantaFeAnt.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
+        public IActionResult Profile()
+        {
+            return View();
         }
     }
 }

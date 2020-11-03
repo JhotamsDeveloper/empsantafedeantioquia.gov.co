@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    ViewData["Title"] = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+        </nav>
+        <br />
+
+        @if (SignInManager.IsSignedIn(User) 
+        && User.IsInRole("Admin")
+        && User.IsInRole("SuperAdmin"))
+        {
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <a asp-controller="nacionlicitante" asp-action="index">
+                    <div class="symptom d-flex">
+                        <div class="img">
+                            <img src="~/images/iconos/convocatorias.svg" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="text">
+                            <h3>Admin de Convocatorias</h3>
+                            <p> Para ser más transparentes en el sector público, hemos creado esta sección donde encontraras todas las convocatorias en las cuales podrás participar. </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <a asp-controller="" asp-action="">
+                    <div class="symptom d-flex">
+                        <div class="img">
+                            <img src="~/images/iconos/pqsrd.svg" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="text">
+                            <h3>Admin PQRSD</h3>
+                            <p> Esta sección está diseñada para que a través de nuestro sistema de información puedas realizar tus peticiones, quejas, reclamos, solicitudes y denuncias.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <a asp-controller="" asp-action="">
+                    <div class="symptom d-flex">
+                        <div class="img">
+                            <img src="~/images/iconos/brigadas.svg" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="text">
+                            <h3>Admin Brigadas</h3>
+                            <p> Para llegar a muchas más personas hemos creado esta sección de convocatorias para que encuentre en esta todas las actividades públicas.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <a asp-controller="blog" asp-action="index">
+                    <div class="symptom d-flex">
+                        <div class="img">
+                            <img src="~/images/iconos/cantactenos.svg" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="text">
+                            <h3>Admin Noticias</h3>
+                            <p> Contáctenos a través de los diferentes canales de comunicación que hemos creado para la ciudadanía en general.</p>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+            }
+        <br />
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10">
+                <div class="note row">
+                    <partial name="_BusinessObjective" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
