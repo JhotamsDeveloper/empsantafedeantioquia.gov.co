@@ -82,6 +82,7 @@ namespace prjESPSantaFeAnt
             services.AddTransient<INacionLicitanteService, NacionLicitanteService>();
             services.AddTransient<IBiddingParticipantService, BiddingParticipantService>();
             services.AddTransient<IBlogService, BlogService>();
+            services.AddTransient<IPQRSDService, PQRSDService>();
 
             services.AddTransient<IUploadedFileIIS, UploadedFileIIS>();
             services.AddTransient<IFormatStringUrl, FormatStringUrl>();
