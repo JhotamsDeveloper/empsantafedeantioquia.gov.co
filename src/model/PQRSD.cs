@@ -8,11 +8,6 @@ namespace model
 {
     public class PQRSD
     {
-        public PQRSD()
-        {
-            PQRSDID = Guid.NewGuid();
-        }
-
         public Guid PQRSDID { get; set; }
         public string NamePerson { get; set; }
         public string Email { get; set; }

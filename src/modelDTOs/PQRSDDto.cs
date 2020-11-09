@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using modelDTOs.CustomValidations;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Web.Mvc;
 
 namespace modelDTOs
@@ -29,42 +26,43 @@ namespace modelDTOs
     public class PQRSDCreateDto
     {
         public Guid PQRSDID { get; set; }
+
+        [DisplayName("Nombre *")]
+        [Required(ErrorMessage = "El Nombre es requerido."), MaxLength(150)]
         public string NamePerson { get; set; }
+
+        [DisplayName("Email *")]
+        [Required(ErrorMessage = "El email es requerido."), MaxLength(150)]
+        [EmailAddress]
         public string Email { get; set; }
 
+        [DisplayName("Asunto *")]
+        [Required(ErrorMessage = "El Asunto es requerido."), MaxLength(150)]
         public string PQRSDName { get; set; }
+
         [AllowHtml]
+        [DisplayName("Descripción *")]
+        [Required(ErrorMessage = "La descripción es requerido.")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        [DisplayName("Tipo de PQRSD *")]
+        [Required(ErrorMessage = "El tipo de PQRSD es requerido.")]
         public string NameSotypeOfRequest { get; set; }
         public DateTime DateCreate { get; set; }
 
-        [DisplayName("Subir el PQRSD en .pdf *")]
-        [PdfSizes(ErrorMessage = "El tamaño no debe de ser superior a 10mb")]
-        [ValidateExtensionPDF(new string[] { ".pdf" })]
         public IFormFile File { get; set; }
 
     }
 
-    public class PQRSDEditDto
+    public class ReviewCreateDto
     {
-        public int ID { get; set; }
-        public string NamePerson { get; set; }
-        public string Email { get; set; }
+        public Guid ID { get; set; }
 
-        public string PQRSDName { get; set; }
-
-        [AllowHtml]
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
-        public string NameSotypeOfRequest { get; set; }
-        public DateTime DateCreate { get; set; }
-
-        [DisplayName("Subir el PQRSD en .pdf *")]
-        [PdfSizes(ErrorMessage = "El tamaño no debe de ser superior a 10mb")]
-        [ValidateExtensionPDF(new string[] { ".pdf" })]
-        public IFormFile File { get; set; }
-
-
+        [DisplayName("Respuesta")]
+        public string Reply { get; set; }
+        public Boolean IsAnswered { get; set; }
+        [DisplayName("Fecha de respuesta")]
+        public string AnswerDate { get; set; }
     }
 }

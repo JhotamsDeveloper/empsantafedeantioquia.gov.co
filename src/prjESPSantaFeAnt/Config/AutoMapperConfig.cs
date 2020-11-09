@@ -16,6 +16,7 @@ namespace prjESPSantaFeAnt.Config
             CreateMap<Master, NacionLicitanteDto>();
             CreateMap<BiddingParticipant, BiddingParticipantDTO>();
             CreateMap<Master, BlogDto>();
+            CreateMap<PQRSD, PQRSDDto>();
         }
     }
 }

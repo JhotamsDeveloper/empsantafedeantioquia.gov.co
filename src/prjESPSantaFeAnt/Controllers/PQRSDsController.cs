@@ -17,40 +17,48 @@ namespace prjESPSantaFeAnt.Controllers
     public class PQRSDsController : Controller
     {
         private readonly IPQRSDService _iPQSDService;
+        private readonly ApplicationDbContext _context;
 
-        public PQRSDsController(IPQRSDService iPQSDService)
+        [TempData]
+        public Guid _StatusMessaje { get; set; }
+
+
+        public PQRSDsController(IPQRSDService iPQSDService,
+            ApplicationDbContext context)
         {
             _iPQSDService = iPQSDService;
+            _context = context;
         }
 
         // GET: PQRSDs
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var _pqrsd = from a in await _iPQSDService.GetAll()
+            var _getAll = _iPQSDService.GetAll();
+
+            var _pqrsd = from a in _getAll
                         select new ModelViewPQRSD
                         {
                             PQRSDID = a.PQRSDID,
                             NamePerson = a.NamePerson,
                             Email = a.Email,
                             PQRSDName = a.PQRSDName,
-                            Description = a.Description,
                             NameSotypeOfRequest = a.NameSotypeOfRequest,
+                            IsAnsweredPQRSD = a.IsAnswered,
                             DateCreate = a.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
-                            File = a.File
                         };
 
             return View(_pqrsd);
         }
 
         // GET: PQRSDs/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public IActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var _pqrsd = await _iPQSDService.GetById(id);
+            var _pqrsd = _iPQSDService.GetById(id);
 
             if (_pqrsd == null)
             {
@@ -65,30 +73,52 @@ namespace prjESPSantaFeAnt.Controllers
                              PQRSDName = _pqrsd.PQRSDName,
                              Description = _pqrsd.Description,
                              NameSotypeOfRequest = _pqrsd.NameSotypeOfRequest,
-                             DateCreate = _pqrsd.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
-                             File = _pqrsd.File
+                             IsAnsweredPQRSD = _pqrsd.IsAnswered,
+                             ReviewPQRSD = _pqrsd.Reply,
+                             AnswerDate = _pqrsd.AnswerDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                             DateCreate = _pqrsd.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
                          };
 
             return View(_model);
         }
 
         // GET: PQRSDs/Create
+        [Route("formular-pqrsd")]
         public IActionResult Create()
         {
+            ViewData["CodigoPqrsd"] = "";
             return View();
         }
 
         // POST: PQRSDs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("formular-pqrsd")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PQRSDCreateDto model)
         {
             if (ModelState.IsValid)
             {
-                await _iPQSDService.Create(model);
-                return RedirectToAction(nameof(Index));
+                var _create = await _iPQSDService.Create(model);
+
+                _StatusMessaje = _create.PQRSDID;
+                return RedirectToAction("TypePQRSD");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Review(ReviewCreateDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = model.ID;
+
+                var _stated = _iPQSDService.Review(id, model);
+
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -101,13 +131,13 @@ namespace prjESPSantaFeAnt.Controllers
                 return NotFound();
             }
 
-            var _pqrsd = await _iPQSDService.DeleteConfirmed(id);
-            if (pQRSD == null)
+            var _pqrsd = _iPQSDService.GetById(id);
+            if (_pqrsd == null)
             {
                 return NotFound();
             }
 
-            return View(pQRSD);
+            return View(_pqrsd);
         }
 
         // POST: PQRSDs/Delete/5
@@ -115,15 +145,20 @@ namespace prjESPSantaFeAnt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var pQRSD = await _context.PQRSDs.FindAsync(id);
-            _context.PQRSDs.Remove(pQRSD);
-            await _context.SaveChangesAsync();
+            await _iPQSDService.DeleteConfirmed(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PQRSDExists(Guid id)
+        [Route("pqrsd")]
+        public IActionResult TypePQRSD()
         {
-            return _context.PQRSDs.Any(e => e.PQRSDID == id);
+            var _stated = Guid.Parse("00000000-0000-0000-0000-000000000000");
+
+            if ( _StatusMessaje != Guid.Empty || _StatusMessaje != _stated)
+            {
+                ViewData["CodigoPqrsd"] = _StatusMessaje;
+            }
+            return View();
         }
     }
 }

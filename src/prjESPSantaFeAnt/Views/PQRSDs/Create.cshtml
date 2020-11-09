@@ -1,76 +1,80 @@
-﻿@model model.PQRSD
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@model modelDTOs.PQRSDCreateDto
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="~/pqrsd">PQRSD</a></li>
 
-<h4>PQRSD</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NamePerson" class="control-label"></label>
-                <input asp-for="NamePerson" class="form-control" />
-                <span asp-validation-for="NamePerson" class="text-danger"></span>
+                @if (SignInManager.IsSignedIn(User)
+              && User.IsInRole("Admin")
+              && User.IsInRole("SuperAdmin"))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="PQRSDs" asp-action="index">Listado General</a></li>
+                }
+                <li class="breadcrumb-item active" aria-current="page">Crear</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container bg-primary-light">
+
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10 m-3">
+                <form enctype="multipart/form-data" asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NamePerson" class="control-label"></label>
+                        <input asp-for="NamePerson" class="form-control" />
+                        <span asp-validation-for="NamePerson" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PQRSDName" class="control-label"></label>
+                        <input asp-for="PQRSDName" class="form-control" />
+                        <span asp-validation-for="PQRSDName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="20"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NameSotypeOfRequest" class="control-label"></label>
+
+                        <select asp-for="NameSotypeOfRequest" class="custom-select custom-select-lg mb-3" size="5">
+                            <option value="Petición">Petición</option>
+                            <option value="Queja">Queja</option>
+                            <option value="Reclamo">Reclamo</option>
+                            <option value="Sugerencia">Sugerencia </option>
+                            <option value="Denuncia">Denuncia </option>
+                        </select>
+                        <span asp-validation-for="NameSotypeOfRequest" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="ENVIAR PQRSD" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PQRSDName" class="control-label"></label>
-                <input asp-for="PQRSDName" class="form-control" />
-                <span asp-validation-for="PQRSDName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NameSotypeOfRequest" class="control-label"></label>
-                <input asp-for="NameSotypeOfRequest" class="form-control" />
-                <span asp-validation-for="NameSotypeOfRequest" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreate" class="control-label"></label>
-                <input asp-for="DateCreate" class="form-control" />
-                <span asp-validation-for="DateCreate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="File" class="control-label"></label>
-                <input asp-for="File" class="form-control" />
-                <span asp-validation-for="File" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reply" class="control-label"></label>
-                <input asp-for="Reply" class="form-control" />
-                <span asp-validation-for="Reply" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsAnswered" /> @Html.DisplayNameFor(model => model.IsAnswered)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnswerDate" class="control-label"></label>
-                <input asp-for="AnswerDate" class="form-control" />
-                <span asp-validation-for="AnswerDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+@section Scripts {
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+}
