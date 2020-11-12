@@ -81,6 +81,7 @@ namespace prjESPSantaFeAnt
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<INacionLicitanteService, NacionLicitanteService>();
             services.AddTransient<IBiddingParticipantService, BiddingParticipantService>();
+            services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<IPQRSDService, PQRSDService>();
 
@@ -184,9 +185,15 @@ namespace prjESPSantaFeAnt
                 pattern: "funcionarios",
                 defaults: new { Controller = "Home", action = "Employes" });
 
+                //Documentos
+                endpoints.MapControllerRoute(
+                name: "documentos-legales-detail",
+                pattern: "documentos-legales/{urlName}",
+                defaults: new { Controller = "Documents", action = "Details" });
+
                 endpoints.MapRazorPages();
 
-                //Funcionarios
+                //Perfil
                 endpoints.MapControllerRoute(
                 name: "perfil",
                 pattern: "perfil",

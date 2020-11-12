@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: PQRSDs
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult Index()
         {
             var _getAll = _iPQSDService.GetAll();
@@ -51,6 +53,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: PQRSDs/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult Details(Guid? id)
         {
             if (id == null)
@@ -124,14 +127,15 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: PQRSDs/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public IActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var _pqrsd = _iPQSDService.GetById(id);
+            var _pqrsd =  _iPQSDService.GetById(id);
             if (_pqrsd == null)
             {
                 return NotFound();
@@ -141,6 +145,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // POST: PQRSDs/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

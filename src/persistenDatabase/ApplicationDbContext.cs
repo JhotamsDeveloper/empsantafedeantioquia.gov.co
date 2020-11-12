@@ -21,6 +21,9 @@ namespace persistenDatabase
         public DbSet<Master> Masters { get; set; }
         public DbSet<BiddingParticipant> BiddingParticipants { get; set; }
         public DbSet<PQRSD> PQRSDs { get; set; }
+        public DbSet<FileDocument> FileDocuments { get; set; }
+        public DbSet<Document> Documents { get; set; }
+
 
         //Validaciones
         protected override void OnModelCreating(ModelBuilder builder)
@@ -30,6 +33,9 @@ namespace persistenDatabase
             new CategoryConfig(builder.Entity<Category>());
             new BiddingParticipantConfig(builder.Entity<BiddingParticipant>());
             new MasterConfig(builder.Entity<Master>());
+            new DocumentConfig(builder.Entity<Document>());
+            new FileDocumentConfig(builder.Entity<FileDocument>());
+            new PQRSDConfig(builder.Entity<PQRSD>());
 
         }
     }

@@ -51,6 +51,7 @@ namespace services
             var _blog = await _context.Masters
                 .AsNoTracking()
                 .Where(x => x.Blog == true)
+                .OrderByDescending(x=>x.DateCreate)
                 .ToListAsync();
             return (_blog);
         }
