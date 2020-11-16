@@ -84,6 +84,7 @@ namespace prjESPSantaFeAnt
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<IPQRSDService, PQRSDService>();
+            services.AddTransient<IBrigadeService, BrigadeService>();
 
             services.AddTransient<IUploadedFileIIS, UploadedFileIIS>();
             services.AddTransient<IFormatStringUrl, FormatStringUrl>();
@@ -97,7 +98,7 @@ namespace prjESPSantaFeAnt
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -162,6 +163,12 @@ namespace prjESPSantaFeAnt
                 name: "participante",
                 pattern: "convocatorias/participacion/{idConvocatoria}",
                 defaults: new { Controller = "BiddingParticipants", action = "Create"});
+
+                //Participante
+                endpoints.MapControllerRoute(
+                name: "brigade",
+                pattern: "brigadas/{nameBrigade}",
+                defaults: new { Controller = "brigades", action = "detail" });
 
                 endpoints.MapControllerRoute(
                 name: "participante",

@@ -12,10 +12,11 @@ namespace prjESPSantaFeAnt.Config
     {
         public AutoMapperConfig()
         {
-            CreateMap<Category, CategoryDto>();
             CreateMap<Master, NacionLicitanteDto>();
-            CreateMap<BiddingParticipant, BiddingParticipantDTO>();
             CreateMap<Master, BlogDto>();
+            CreateMap<Master, BrigadeDto>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<BiddingParticipant, BiddingParticipantDTO>();
             CreateMap<PQRSD, PQRSDDto>();
             CreateMap<Document, DocumentDTO>();
         }
