@@ -12,30 +12,28 @@ using System.Threading.Tasks;
 
 namespace services
 {
-    public interface IBlogService
+    public interface IBrigadeService
     {
         Task<IEnumerable<Master>> GetAll();
-        Task<BlogDto> Details(int? id);
-        Task<BlogDto> Create(BlogCreateDto model);
-        Task<BlogDto> Edit(int? id);
-        Task Edit(int id, BlogEditDto model);
+        Task<BrigadeDto> Details(int? id);
+        Task<BrigadeDto> Create(BrigadeCreateDto model);
         Task<Master> GetById(int? id);
-        Task<Master> GetById(string urBlog);
+        Task<Master> GetById(string urBrigade);
         Task DeleteConfirmed(int id);
-        bool BlogExists(int id);
+        bool BrigadeExists(int id);
         bool DuplicaName(string _stringName);
     }
 
-    public class BlogService : IBlogService
+    public class BrigadeService : IBrigadeService
     {
         //Variables
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IFormatStringUrl _formatStringUrl;
         private readonly IUploadedFileIIS _uploadedFileIIS;
-        private readonly string _account = "blog";
+        private readonly string _account = "brigade";
 
-        public BlogService(ApplicationDbContext context,
+        public BrigadeService(ApplicationDbContext context,
                                 IMapper mapper,
                                 IFormatStringUrl formatStringUrl,
                                 IUploadedFileIIS uploadedFileIIS)
@@ -48,78 +46,48 @@ namespace services
 
         public async Task<IEnumerable<Master>> GetAll()
         {
-            var _blog = await _context.Masters
+            var _brigade = await _context.Masters
                 .AsNoTracking()
-                .Where(x => x.Blog == true)
-                .OrderByDescending(x=>x.DateCreate)
+                .Where(x => x.Brigade == true)
+                .OrderByDescending(x => x.DateCreate)
                 .ToListAsync();
-            return (_blog);
+            return (_brigade);
         }
 
-        public async Task<BlogDto> Details(int? id)
+        public async Task<BrigadeDto> Details(int? id)
         {
-            var _blog = _mapper.Map<BlogDto>(
+            var _bragade = _mapper.Map<BrigadeDto>(
                     await _context.Masters
                     .FirstOrDefaultAsync(m => m.Id == id)
                 );
 
-            return _mapper.Map<BlogDto>(_blog);
+            return _mapper.Map<BrigadeDto>(_bragade);
         }
 
-        public async Task<BlogDto> Create(BlogCreateDto model)
+        public async Task<BrigadeDto> Create(BrigadeCreateDto model)
         {
             var _dateCreate = DateTime.Now;
-            var _urlCategory = _formatStringUrl.FormatString(model.NameBlog);
+            var _urlCategory = _formatStringUrl.FormatString(model.NameMaster);
             var _coverPage = _uploadedFileIIS.UploadedFileImage(model.CoverPage, _account);
 
-            var _blog = new Master
+            var _brigade = new Master
             {
                 Id = model.Id,
-                NameMaster = model.NameBlog.Trim(),
+                NameMaster = model.NameMaster.Trim(),
                 UrlMaster = _urlCategory,
                 Description = model.Description.Trim(),
                 CoverPage = _coverPage,
-                Statud = model.Statud,
-                Blog = true,
+                Statud = true,
+                Brigade = true,
                 Author = model.Author,
-                DateCreate = _dateCreate
+                DateBrigade = model.DateBrigade,
+                DateCreate = _dateCreate,
             };
 
-            await _context.AddAsync(_blog);
+            await _context.AddAsync(_brigade);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<BlogDto>(_blog);
-        }
-
-        public async Task<BlogDto> Edit(int? id)
-        {
-            return _mapper.Map<BlogDto>(
-                await _context.Masters.FindAsync(id));
-        }
-
-        public async Task Edit(int id, BlogEditDto model)
-        {
-            var _coverPage = "";
-            var _dateUpdate = DateTime.Now;
-
-            var _blog = await _context.Masters.SingleAsync(x => x.Id == id);
-
-            if (model.CoverPage != null)
-            {
-                _coverPage = _uploadedFileIIS.UploadedFileImage(_blog.CoverPage, model.CoverPage, _account);
-            }
-            else
-            {
-                _coverPage = _blog.CoverPage;
-            }
-
-            _blog.Description = model.Description;
-            _blog.CoverPage = _coverPage;
-            _blog.Statud = model.Statud;
-            _blog.Author = model.Author;
-            _blog.DateUpdate = _dateUpdate;
-
-            await _context.SaveChangesAsync();
+            return _mapper.Map<BrigadeDto>(_brigade);
         }
 
         public async Task<Master> GetById(int? id)
@@ -131,9 +99,9 @@ namespace services
             //);
         }
 
-        public async Task<Master> GetById(string urBlog)
+        public async Task<Master> GetById(string urBrigade)
         {
-            return await _context.Masters.FirstOrDefaultAsync(x => x.UrlMaster == urBlog);
+            return await _context.Masters.FirstOrDefaultAsync(x => x.UrlMaster == urBrigade);
 
             //return _mapper.Map<CategoryDto>(
             //await _context.Categorys.FindAsync(id)
@@ -157,7 +125,7 @@ namespace services
 
         }
 
-        public bool BlogExists(int id)
+        public bool BrigadeExists(int id)
         {
             return _context.Masters.Any(e => e.Id == id);
         }
@@ -166,6 +134,5 @@ namespace services
         {
             return _context.Masters.Any(e => e.NameMaster == _stringName);
         }
-
     }
 }

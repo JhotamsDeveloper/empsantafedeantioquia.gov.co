@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using modelDTOs;
+using prjESPSantaFeAnt.Models;
+using services;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using model;
-using modelDTOs;
-using persistenDatabase;
-using prjESPSantaFeAnt.Models;
-using services;
 
 namespace prjESPSantaFeAnt.Controllers
 {
@@ -75,7 +69,7 @@ namespace prjESPSantaFeAnt.Controllers
         [Route("brigadas/{nameBrigade}")]
         public async Task<IActionResult> Details(string nameBrigade)
         {
-            if (nameBrigade != "")
+            if (nameBrigade == string.Empty)
             {
                 return NotFound();
             }
@@ -87,9 +81,22 @@ namespace prjESPSantaFeAnt.Controllers
                 return NotFound();
             }
 
+            var _model = new ModelViewBrigade
+            {
+                Id = _brigade.Id,
+                NameMaster = _brigade.NameMaster,
+                UrlMaster = _brigade.UrlMaster,
+                Description = _brigade.Description,
+                CoverPage = _brigade.CoverPage,
+                Statud = _brigade.Statud,
+                Author = _brigade.Author,
+                DateBrigade = _brigade.DateBrigade.ToString("MMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+
+            };
+
             ViewData["detail"] = false;
 
-            return View(_brigade);
+            return View(_model);
         }
         // GET: Brigades/Create
         public IActionResult Create()
@@ -149,6 +156,25 @@ namespace prjESPSantaFeAnt.Controllers
         private bool MasterExists(int id)
         {
             return _brigadeService.BrigadeExists(id);
+        }
+
+        // GET: Brigades
+        [Route("brigadas")]
+        public async Task<IActionResult> BrigadesGetAll()
+        {
+            var _brigada = from a in await _brigadeService.GetAll()
+                           select new ModelViewBrigade
+                           {
+                               Id = a.Id,
+                               NameMaster = a.NameMaster,
+                               UrlMaster = a.UrlMaster,
+                               Description = a.Description,
+                               CoverPage = a.CoverPage,
+                               DateBrigade = a.DateBrigade.ToString("MMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                               DateCreate = a.DateCreate.ToString("MMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+                           };
+
+            return View(_brigada);
         }
     }
 }

@@ -164,7 +164,12 @@ namespace prjESPSantaFeAnt
                 pattern: "convocatorias/participacion/{idConvocatoria}",
                 defaults: new { Controller = "BiddingParticipants", action = "Create"});
 
-                //Participante
+                //Brigadas
+                endpoints.MapControllerRoute(
+                name: "brigades",
+                pattern: "brigadas",
+                defaults: new { Controller = "brigades", action = "brigadesGetAll" });
+
                 endpoints.MapControllerRoute(
                 name: "brigade",
                 pattern: "brigadas/{nameBrigade}",

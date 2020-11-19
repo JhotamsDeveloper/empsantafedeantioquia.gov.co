@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ModelViewBrigade>
+
+@{
+    ViewData["Title"] = "Brigadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Brigadas</li>
+            </ol>
+        </nav>
+
+        <div id="macy-container">
+
+            @foreach (var item in Model)
+            {
+                <a href="brigadas/@item.UrlMaster">
+
+                    <div class="card symptom">
+                        <img class="card-img-top" src="~/images/brigade/@item.CoverPage">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.NameMaster</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">brigada @item.DateCreate</h6>
+                            <p class="card-text" style="color:black !important">@Html.Raw(@item.Description.Substring(0, 200))...</p>
+
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        //  04  Macy
+        var masonry = new Macy({
+            container: "#macy-container",
+            trueOrder: false,
+            waitForImages: false,
+            useOwnImageLoader: false,
+            debug: true,
+            mobileFirst: true,
+            columns: 1,
+            margin: {
+                y: 16,
+                x: "2%",
+            },
+            breakAt: {
+                1200: 3,
+                940: 2,
+                520: 1,
+                350: 1
+            }
+        });    
+    </script>
+
+}

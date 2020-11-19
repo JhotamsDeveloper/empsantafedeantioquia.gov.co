@@ -9,7 +9,6 @@
 //  03  myCarousel
 
 
-
 //  O1  Datatable
 $(document).ready(function () {
     $('#myTable').dataTable({
