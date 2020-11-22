@@ -26,12 +26,12 @@ namespace model
         public Boolean NacionLicitante { get; set; }
         public DateTime NacionLicitantegStartDate { get; set; }
         public DateTime NacionLicitanteEndDate { get; set; }
-        public string NacionLicitantegFile { get; set; }
 
         public DateTime DateCreate { get; set; }
         public DateTime DateUpdate { get; set; }
 
         public IList<BiddingParticipant> BiddingParticipants { get; set; }
-
+        public ICollection<FileDocument> FileDocument { get; set; }
+        public ICollection<Document> Documents { get; set; }
     }
 }

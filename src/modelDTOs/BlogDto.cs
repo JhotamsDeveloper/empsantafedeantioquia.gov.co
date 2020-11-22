@@ -30,10 +30,14 @@ namespace modelDTOs
     public class BlogCreateDto
     {
         public int Id { get; set; }
+
+        [DisplayName("Título")]
         public string NameBlog { get; set; }
         public string UrlMaster { get; set; }
+
         [AllowHtml]
         [DataType(DataType.MultilineText)]
+        [DisplayName("Descripción")]
         public string Description { get; set; }
 
         [DisplayName("Portada")]
@@ -43,6 +47,8 @@ namespace modelDTOs
         public Boolean Statud { get; set; }
 
         public Boolean Blog { get; set; }
+
+        [DisplayName("Autor")]
         public string Author { get; set; }
         public DateTime DateCreate { get; set; }
 
@@ -51,6 +57,8 @@ namespace modelDTOs
     public class BlogEditDto
     {
         public int Id { get; set; }
+
+        [DisplayName("Título")]
         public string NameBlog { get; set; }
         public string UrlMaster { get; set; }
         [AllowHtml]
@@ -64,6 +72,8 @@ namespace modelDTOs
         public Boolean Statud { get; set; }
 
         public Boolean Blog { get; set; }
+
+        [DisplayName("Autor")]
         public string Author { get; set; }
         public DateTime DateUpdate { get; set; }
 

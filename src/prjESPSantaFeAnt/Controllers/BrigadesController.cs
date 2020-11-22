@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using modelDTOs;
 using prjESPSantaFeAnt.Models;
 using services;
@@ -18,6 +19,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Brigades
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Index()
         {
             var _brigada = from a in await _brigadeService.GetAll()
@@ -33,6 +35,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Brigades/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -98,7 +101,9 @@ namespace prjESPSantaFeAnt.Controllers
 
             return View(_model);
         }
+
         // GET: Brigades/Create
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult Create()
         {
 
@@ -108,6 +113,7 @@ namespace prjESPSantaFeAnt.Controllers
         // POST: Brigades/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BrigadeCreateDto model)
@@ -127,6 +133,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Brigades/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,6 +152,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // POST: Brigades/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -13,5 +13,7 @@ namespace model
         public int? DocumentoId { get; set; }
         public Document Document { get; set; }
 
+        public int? MasterId { get; set; }
+        public Master Masters { get; set; }
     }
 }

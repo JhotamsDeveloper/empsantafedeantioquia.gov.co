@@ -34,34 +34,28 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CreateDate)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DateUpdate)
-                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UrlName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreateDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateUpdate)
-                    </td>
-                    <td>
-                        @*<a class="btn btn-warning p-2" asp-action="Edit" asp-route-id="@item.ID"><span><img src="~/images/iconos/edit.svg" width="25" /></span></a> |*@
-                        <a class="btn btn-info p-2" asp-action="Details" asp-route-id="@item.ID"><span><img src="~/images/iconos/view.svg" width="25" /></span></a> |
-                        <a class="btn btn-dark p-2" asp-action="Delete" asp-route-id="@item.ID"><span><img src="~/images/iconos/delete.svg" width="25" /></span></a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UrlName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @*<a class="btn btn-warning p-2" asp-action="Edit" asp-route-id="@item.ID"><span><img src="~/images/iconos/edit.svg" width="25" /></span></a> |*@
+                            <a class="btn btn-info p-2" asp-action="Details" asp-route-id="@item.ID"><span><img src="~/images/iconos/view.svg" width="25" /></span></a> |
+                            <a class="btn btn-dark p-2" asp-action="Delete" asp-route-id="@item.ID"><span><img src="~/images/iconos/delete.svg" width="25" /></span></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

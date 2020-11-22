@@ -34,11 +34,11 @@ namespace prjESPSantaFeAnt.Controllers
                          {
                              Id = a.Id,
                              NameMaster = a.NameMaster,
+                             UrlMaster = a.UrlMaster,
                              NacionLicitantegStartDate = a.NacionLicitantegStartDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
                              NacionLicitanteEndDate = a.NacionLicitanteEndDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
                              DateCreate = a.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
-                             DateUpdate = a.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
-                             Statud = a.Statud
+                             DateUpdate = a.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
                          };
 
             return View(_model);
@@ -46,48 +46,6 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: NacionLicitante/Details/5
-        [Authorize(Roles = "SuperAdmin,Admin")]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var _master = await _nacionLicitante.GetById(id);
-
-            var _nacionLicitantegStartDate = _master.NacionLicitantegStartDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
-            var _nacionLicitanteEndDate = _master.NacionLicitanteEndDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
-            var _dateCreate = _master.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
-            var _dateUpdate = _master.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
-
-            if (_master == null)
-            {
-                return NotFound();
-            }
-
-            var _model = new ModelViewNacionLicitante
-            {
-                Id = _master.Id,
-                NameMaster = _master.NameMaster,
-                UrlMaster = _master.UrlMaster,
-                Description = _master.Description,
-                CoverPage = _master.CoverPage,
-                Statud = _master.Statud,
-                NacionLicitantegStartDate = _nacionLicitantegStartDate,
-                NacionLicitanteEndDate = _nacionLicitanteEndDate,
-                NacionLicitantegFile = _master.NacionLicitantegFile,
-                DateCreate = _dateCreate,
-                DateUpdate = _dateUpdate
-            };
-
-            ViewData["detail"] = true;
-            return View(_model);
-        }
-
-        // GET: NacionLicitante/Details/5
-        [Authorize(Roles = "UserApp")]
-        [AllowAnonymous]
         [Route("convocatorias/{nameNacionLicitante}")]
         public async Task<IActionResult> Details(string nameNacionLicitante)
         {
@@ -97,12 +55,18 @@ namespace prjESPSantaFeAnt.Controllers
             }
 
             var _master = await _nacionLicitante.GetById(nameNacionLicitante);
+            var _filesDocuments = from a in await _nacionLicitante.FilesDocuments()
+                                  where a.MasterId == _master.Id
+                                  select a;
 
             var _nacionLicitantegStartDate = _master.NacionLicitantegStartDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
             var _nacionLicitanteEndDate = _master.NacionLicitanteEndDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
 
+            var _delatedDocuments = await _nacionLicitante.DelatedDocuments(_master.Id);
+
             var _dateCreate = _master.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
             var _dateUpdate = _master.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+
             if (_master == null)
             {
                 return NotFound();
@@ -115,10 +79,10 @@ namespace prjESPSantaFeAnt.Controllers
                 UrlMaster = _master.UrlMaster,
                 Description = _master.Description,
                 CoverPage = _master.CoverPage,
-                Statud = _master.Statud,
                 NacionLicitantegStartDate = _nacionLicitantegStartDate,
                 NacionLicitanteEndDate = _nacionLicitanteEndDate,
-                NacionLicitantegFile = _master.NacionLicitantegFile,
+                FilesDocuments = _filesDocuments,
+                DelatedDocuments = _delatedDocuments,
                 DateCreate = _dateCreate,
                 DateUpdate = _dateUpdate
             };
@@ -153,75 +117,7 @@ namespace prjESPSantaFeAnt.Controllers
 
             if (ModelState.IsValid)
             {
-                var result = await _nacionLicitante.Create(model);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(model);
-        }
-
-        // GET: NacionLicitante/Edit/5
-        [Authorize(Roles = "SuperAdmin,Admin")]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var _master = await _nacionLicitante.GetById(id);
-
-            if (_master == null)
-            {
-                return NotFound();
-            }
-
-            var _model = new NacionLicitanteEditDto
-            {
-                Id = _master.Id,
-                NameMaster = _master.NameMaster,
-                UrlMaster = _master.UrlMaster,
-                Description = _master.Description,
-                Statud = _master.Statud,
-                NacionLicitantegStartDate = _master.NacionLicitantegStartDate,
-                NacionLicitanteEndDate = _master.NacionLicitanteEndDate,
-                DateUpdate = _master.DateUpdate
-            };
-
-            return View(_model);
-        }
-
-        // POST: NacionLicitante/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "SuperAdmin,Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, NacionLicitanteEditDto model)
-        {
-            if (id != model.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _nacionLicitante.Edit(id, model);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-
-                    if (!MasterExists(model.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _nacionLicitante.Create(model);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -238,12 +134,17 @@ namespace prjESPSantaFeAnt.Controllers
             }
 
             var _master = await _nacionLicitante.GetById(id);
+            var _filesDocuments = from a in await _nacionLicitante.FilesDocuments()
+                                  where a.MasterId == _master.Id
+                                  select a;
 
             var _nacionLicitantegStartDate = _master.NacionLicitantegStartDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
             var _nacionLicitanteEndDate = _master.NacionLicitanteEndDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
+
+            var _delatedDocuments = await _nacionLicitante.DelatedDocuments(_master.Id);
+
             var _dateCreate = _master.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
             var _dateUpdate = _master.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
-
 
             if (_master == null)
             {
@@ -257,14 +158,16 @@ namespace prjESPSantaFeAnt.Controllers
                 UrlMaster = _master.UrlMaster,
                 Description = _master.Description,
                 CoverPage = _master.CoverPage,
-                Statud = _master.Statud,
                 NacionLicitantegStartDate = _nacionLicitantegStartDate,
                 NacionLicitanteEndDate = _nacionLicitanteEndDate,
-                NacionLicitantegFile = _master.NacionLicitantegFile,
+                FilesDocuments = _filesDocuments,
+                DelatedDocuments = _delatedDocuments,
                 DateCreate = _dateCreate,
                 DateUpdate = _dateUpdate
             };
-            ViewData["detail"] = true;
+
+            ViewData["detail"] = false;
+            ViewData["idConvocatoria"] = _master.Id;
             return View(_model);
 
         }
@@ -288,14 +191,12 @@ namespace prjESPSantaFeAnt.Controllers
         [Authorize(Roles = "UserApp")]
         [AllowAnonymous]
         [ActionName("Documento-Oficial-de-la-convocatoria")]
-        public FileResult OfficialLicitante(string nameFile, string routeFile)
+        public FileResult OfficialLicitante(string routeFile)
         {
-            return File($"/images/nacionLicitante/{routeFile}", "application/pdf", $"{nameFile}.pdf");
+            return File($"/images/filesDocuments/{routeFile}", "application/pdf", $"{routeFile}.pdf");
         }
 
         // GET: NacionLicitante/grid/5
-        [Authorize(Roles = "UserApp")]
-        [AllowAnonymous]
         [Route("convocatorias")]
         public async Task<IActionResult> ListGetAll()
         {
@@ -308,11 +209,12 @@ namespace prjESPSantaFeAnt.Controllers
                              NameMaster = a.NameMaster,
                              UrlMaster = a.UrlMaster,
                              CoverPage = a.CoverPage,
+                             Description = a.Description,
                              NacionLicitantegStartDate = a.NacionLicitantegStartDate.ToString(),
                              NacionLicitanteEndDate = a.NacionLicitanteEndDate.ToString(),
                              DateCreate = a.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
                              DateUpdate = a.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
-        };
+                         };
 
             return View(_model);
         }

@@ -29,9 +29,9 @@
                     <div class="row mb-5">
                         <div class="col-lg-12">
 
-                            <h1 class="text-center">
+                            <h3 class="text-center">
                                 @Html.DisplayFor(model => model.Name)
-                            </h1>
+                            </h3>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
                                     @if (Convert.ToDateTime(Model.DateUpdate) >= Convert.ToDateTime(Model.CreateDate))
@@ -56,25 +56,33 @@
                             <div class="row justify-content-md-center">
                                 <div class="col-md-6">
                                     <br />
+
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb justify-content-center">
-                                            @foreach (var item in Model.FileDocument)
-                                            {
-                                                <li class="m-3">
-                                                    <a asp-action="documentos-publicos"
-                                                       asp-route-nameFile="@Model.NameProyect"
-                                                       asp-route-routeFile="@item.RouteFile"
-                                                       target="_blank">
-                                                        <img src="~/images/iconos/i-pdf.png" width="50" />
-                                                    </a>
-                                                </li>
-                                            }
+                                            <li class="breadcrumb-item">
+                                                Archivos adjuntos
+                                            </li>
                                         </ol>
                                     </nav>
+
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var item in Model.FileDocument)
+                                        {
+                                            <li class="list-group-item">
+                                                <a asp-action="documentos-publicos"
+                                                   asp-route-routeFile="@item.RouteFile"
+                                                   target="_blank">
+                                                    <img src="~/images/iconos/i-pdf.png" width="20" />
+                                                    <small>@item.RouteFile</small>
+                                                </a>
+                                            </li>
+                                        }
+
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
 

@@ -51,11 +51,8 @@ $(document).ready(function () {
 tinymce.init({
     selector: 'textarea',
     language_url: '/lib/tini_cloud/tinymce_languages/langs/es.js',  // site absolute URL
-    plugins: 'image code link',
-    toolbar: 'undo redo | link | image | code',
-    image_class_list: [
-        { title: 'Responsive', value: 'img-fluid' }
-    ],
+    plugins: 'code link',
+    toolbar: 'undo redo | link | code',
 
     default_link_target: '_blank',
 

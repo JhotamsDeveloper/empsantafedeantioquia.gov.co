@@ -16,14 +16,14 @@ namespace services
     {
         Task<IEnumerable<Master>> GetAll();
         Task<NacionLicitanteDto> Details(int? id);
-        Task<NacionLicitanteDto> Create(NacionLicitanteCreateDto model);
-        Task<NacionLicitanteDto> Edit(int? id);
-        Task Edit(int id, NacionLicitanteEditDto model);
+        Task Create(NacionLicitanteCreateDto model);
         Task<Master> GetById(int? id);
         Task<Master> GetById(string nacionLicitante);
         Task DeleteConfirmed(int id);
         bool NacionLicitantegExists(int id);
         bool DuplicaName(string _stringName);
+        Task<IEnumerable<FileDocument>> FilesDocuments();
+        Task<IEnumerable<Document>> DelatedDocuments(int id);
     }
 
     public class NacionLicitanteService: INacionLicitanteService
@@ -34,6 +34,7 @@ namespace services
         private readonly IFormatStringUrl _formatStringUrl;
         private readonly IUploadedFileIIS _uploadedFileIIS;
         private readonly string _account = "nacionLicitante";
+        private readonly string _filesDocuments = "filesDocuments";
 
         public NacionLicitanteService(ApplicationDbContext context,
                                 IMapper mapper,
@@ -49,6 +50,7 @@ namespace services
         public async Task<IEnumerable<Master>> GetAll()
         {
             return (await _context.Masters
+                          .AsNoTracking()
                          .Where(x=>x.NacionLicitante == true)
                          .ToListAsync());
         }
@@ -64,81 +66,70 @@ namespace services
             return _mapper.Map<NacionLicitanteDto>(_nacionLicitante);
         }
 
-        public async Task<NacionLicitanteDto> Create(NacionLicitanteCreateDto model)
+        public async Task Create(NacionLicitanteCreateDto model)
         {
-            var _dateCreate = DateTime.Now;
-            var _urlCategory = _formatStringUrl.FormatString(model.NameMaster);
-            var _coverPage = _uploadedFileIIS.UploadedFileImage(model.CoverPage, _account);
-            var _file = _uploadedFileIIS.UploadedFileImage(model.NacionLicitantegFile, _account);
-
-            var _master = new Master
+            using var transaction = _context.Database.BeginTransaction();
+            try
             {
-                Id = model.Id,
-                NameMaster = model.NameMaster.Trim(),
-                UrlMaster = _urlCategory,
-                Description = model.Description.Trim(),
-                CoverPage = _coverPage,
-                Statud = model.Statud,
-                NacionLicitante = true,
-                NacionLicitantegStartDate = model.NacionLicitantegStartDate,
-                NacionLicitanteEndDate = model.NacionLicitanteEndDate,
-                NacionLicitantegFile = _file,
-                DateCreate = _dateCreate
-            };
+                var _dateCreate = DateTime.Now;
+                var _urlCategory = _formatStringUrl.FormatString(model.NameMaster);
+                var _coverPage = _uploadedFileIIS.UploadedFileImage(model.CoverPage, _account);
 
-            await _context.AddAsync(_master);
-            await _context.SaveChangesAsync();
+                var _master = new Master
+                {
+                    Id = model.Id,
+                    NameMaster = model.NameMaster.Trim(),
+                    UrlMaster = _urlCategory,
+                    Description = model.Description.Trim(),
+                    CoverPage = _coverPage,
+                    Statud = true,
+                    NacionLicitante = true,
+                    NacionLicitantegStartDate = model.NacionLicitantegStartDate,
+                    NacionLicitanteEndDate = model.NacionLicitanteEndDate,
+                    DateCreate = _dateCreate
+                };
 
-            return _mapper.Map<NacionLicitanteDto>(_master);
-        }
+                await _context.AddAsync(_master);
+                await _context.SaveChangesAsync();
 
-        public async Task<NacionLicitanteDto> Edit(int? id)
-        {
-            return _mapper.Map<NacionLicitanteDto>(
-                await _context.Masters.FindAsync(id));
-        }
+                _mapper.Map<NacionLicitanteDto>(_master);
 
-        public async Task Edit(int id, NacionLicitanteEditDto model)
-        {
-            var _coverPage = "";
-            var _nacionLicitantegFile = "";
-            var _dateUpdate = DateTime.Now;
+                if (model.NacionLicitantegFile != null)
+                {
+                    foreach (var item in model.NacionLicitantegFile)
+                    {
+                        string _nameFile = System.IO.Path.GetFileNameWithoutExtension(item.FileName);
+                        string _nameFileFormat = _formatStringUrl.FormatString(_nameFile);
 
-            var _master = await _context.Masters.SingleAsync(x => x.Id == id);
+                        var _urlNameFile = _formatStringUrl.FormatString(_nameFileFormat);
+                        var _file = _uploadedFileIIS.UploadedFileImage(item, _urlNameFile, _filesDocuments);
 
-            if (model.CoverPage != null)
+                        var _fileDocuments = new FileDocument
+                        {
+                            NameFile = model.NameMaster,
+                            RouteFile = _file,
+                            MasterId = _master.Id
+                        };
+
+                        await _context.AddAsync(_fileDocuments);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+            transaction.Commit();
+
+            }catch (Exception ex)
             {
-                _coverPage = _uploadedFileIIS.UploadedFileImage(_master.CoverPage, model.CoverPage, _account);
-            }
-            else
-            {
-                _coverPage = _master.CoverPage;
-            }
-
-            if (model.NacionLicitantegFile != null)
-            {
-                _nacionLicitantegFile = _uploadedFileIIS.UploadedFileImage(_master.NacionLicitantegFile, model.NacionLicitantegFile, _account);
-            }
-            else
-            {
-                _nacionLicitantegFile = _master.NacionLicitantegFile;
+                transaction.Rollback();
             }
 
-            _master.Description = model.Description;
-            _master.CoverPage = _coverPage;
-            _master.Statud = model.Statud;
-            _master.NacionLicitante = true;
-            _master.NacionLicitantegStartDate = model.NacionLicitantegStartDate;
-            _master.NacionLicitanteEndDate = model.NacionLicitanteEndDate;
-            _master.NacionLicitantegFile = _nacionLicitantegFile;
-            _master.DateUpdate = _dateUpdate;
-
-            await _context.SaveChangesAsync();
         }
 
         public async Task<Master> GetById(int? id)
         {
-            return await _context.Masters.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Masters
+                .Include(x=>x.FileDocument)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             //return _mapper.Map<CategoryDto>(
             //await _context.Categorys.FindAsync(id)
@@ -156,20 +147,87 @@ namespace services
 
         public async Task DeleteConfirmed(int id)
         {
-            var _shearch = await _context.Masters
-                .AsNoTracking()
-                .SingleAsync(x => x.Id == id);
-
-            _uploadedFileIIS.DeleteConfirmed(_shearch.CoverPage, _account);
-            _uploadedFileIIS.DeleteConfirmed(_shearch.NacionLicitantegFile, _account);
-
-            _context.Remove(new Master
+            using var transaction = _context.Database.BeginTransaction();
+            try
             {
-                Id = id
-            });
 
-            await _context.SaveChangesAsync();
+                var _shearch = await _context.Masters
+                .Include(a=>a.Documents)
+                .Include(b=>b.FileDocument)
+                .AsNoTracking()
+                .SingleAsync(c => c.Id == id);
 
+                var _deleteDocumet = await _context.Documents
+                    .AsNoTracking()
+                    .Where(x => x.MasterId == _shearch.Id)
+                    .ToListAsync();
+
+                var _fileDocument = await _context.FileDocuments
+                    .AsNoTracking()
+                    .Where(x=>x.MasterId == _shearch.Id)
+                    .ToListAsync();
+
+                if (_shearch.CoverPage != null)
+                {
+                    _uploadedFileIIS.DeleteConfirmed(_shearch.CoverPage, _account);
+                }
+
+                if (_deleteDocumet != null)
+                {
+                    foreach (var item in _deleteDocumet)
+                    {
+                        var _deleteFileDocument = await _context.FileDocuments
+                            .AsNoTracking()
+                            .Where(x => x.DocumentoId == item.ID)
+                            .ToListAsync();
+
+                        foreach (var _deleteFiles in _deleteFileDocument)
+                        {
+                            _uploadedFileIIS.DeleteConfirmed(_deleteFiles.RouteFile, _filesDocuments);
+
+                            _context.Remove(new FileDocument
+                            {
+                                ID = _deleteFiles.ID
+                            });
+                            await _context.SaveChangesAsync();
+                        }
+
+                        _context.Remove(new Document
+                        {
+                            ID = item.ID
+                        });
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                if (_fileDocument != null)
+                {
+                    foreach (var item in _fileDocument)
+                    {
+                        _uploadedFileIIS.DeleteConfirmed(item.RouteFile, _filesDocuments);
+
+                        _context.Remove(new FileDocument
+                        {
+                            ID = item.ID
+                        });
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                _context.Remove(new Master
+                {
+                    Id = id
+                });
+                await _context.SaveChangesAsync();
+
+
+                transaction.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
         }
 
         public bool NacionLicitantegExists(int id)
@@ -180,6 +238,21 @@ namespace services
         public bool DuplicaName(string _stringName)
         {
             return _context.Masters.Any(e => e.NameMaster == _stringName);
+        }
+
+        public async Task<IEnumerable<FileDocument>> FilesDocuments()
+        {
+            return (await _context.FileDocuments
+                          .AsNoTracking()
+                          .ToListAsync());
+        }
+
+        public async Task<IEnumerable<Document>> DelatedDocuments(int id)
+        {
+            return (await _context.Documents
+                          .AsNoTracking()
+                          .Where(x=>x.MasterId == id)
+                          .ToListAsync());
         }
     }
 }

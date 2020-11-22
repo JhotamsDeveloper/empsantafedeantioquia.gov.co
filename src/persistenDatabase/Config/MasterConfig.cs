@@ -17,6 +17,7 @@ namespace persistenDatabase.Config
 
             entityBuilder.Property(x => x.Description)
                 .IsRequired();
+
         }
     }
 }

@@ -16,7 +16,9 @@ namespace persistenDatabase.Config
             entityBuilder.Property(x => x.Name)
             .IsRequired();
 
-
+            entityBuilder.HasOne(x => x.Masters)
+            .WithMany(x => x.Documents)
+            .HasForeignKey(x => x.MasterId);
         }
 
     }

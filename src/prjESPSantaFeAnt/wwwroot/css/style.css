@@ -1696,6 +1696,17 @@ figure figcaption {
 }
 
 .card-title {
-  font-size: 1.4rem;
+  font-size: 1rem;
   color: #000;
+}
+
+.card-footer {
+    border-radius: 50px !important;
+    border-style: none;
+    text-align: center;
+}
+
+.text-card-footer {
+    font-weight: bold;
+   color:white;
 }

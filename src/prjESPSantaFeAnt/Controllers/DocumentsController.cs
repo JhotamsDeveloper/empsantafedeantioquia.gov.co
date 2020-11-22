@@ -18,10 +18,13 @@ namespace prjESPSantaFeAnt.Controllers
     public class DocumentsController : Controller
     {
         private readonly IDocumentService _documentService;
+        private readonly ApplicationDbContext _context; 
 
-        public DocumentsController(IDocumentService documentService)
+        public DocumentsController(IDocumentService documentService,
+            ApplicationDbContext context)
         {
             _documentService = documentService;
+            _context = context;
         }
 
         // GET: Documents
@@ -115,6 +118,9 @@ namespace prjESPSantaFeAnt.Controllers
         [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult Create()
         {
+            ViewData["NameLicitante"] = new SelectList(_context.Masters
+                .Where(x=>x.NacionLicitante == true), "Id", "NameMaster");
+
             return View();
         }
 
@@ -135,59 +141,6 @@ namespace prjESPSantaFeAnt.Controllers
             if (ModelState.IsValid)
             {
                 await _documentService.Create(model);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(model);
-        }
-
-        // GET: Documents/Edit/5
-        [Authorize(Roles = "SuperAdmin,Admin")]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var document = await _documentService.GetById(id);
-
-            if (document == null)
-            {
-                return NotFound();
-            }
-            return View(document);
-        }
-
-        // POST: Documents/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "SuperAdmin,Admin")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, DocumentEditDTO model)
-        {
-            if (model != null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _documentService.Edit(id, model);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DocumentExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -250,9 +203,9 @@ namespace prjESPSantaFeAnt.Controllers
 
         [AllowAnonymous]
         [ActionName("documentos-publicos")]
-        public FileResult PublicDocuments(string nameFile, string routeFile)
+        public FileResult PublicDocuments(string routeFile)
         {
-            return File($"/images/filesDocuments/{routeFile}", "application/pdf", $"{nameFile + DateTime.Now.ToString()}.pdf");
+            return File($"/images/filesDocuments/{routeFile}", "application/pdf", $"{routeFile}.pdf");
         }
     }
 }

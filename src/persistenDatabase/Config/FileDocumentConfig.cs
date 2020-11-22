@@ -21,8 +21,13 @@ namespace persistenDatabase.Config
             //One to many -> Uno a muchos
             entityBuilder.HasOne(x => x.Document)
                 .WithMany(x => x.FileDocument)
-                .HasForeignKey(x => x.DocumentoId);
+                .HasForeignKey(x => x.DocumentoId)
+                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
 
+            entityBuilder.HasOne(x => x.Masters)
+                .WithMany(x => x.FileDocument)
+                .HasForeignKey(x => x.MasterId)
+                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
         }
     }
 }

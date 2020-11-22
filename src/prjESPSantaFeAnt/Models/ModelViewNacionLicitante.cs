@@ -1,4 +1,5 @@
-﻿using System;
+﻿using model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -27,9 +28,6 @@ namespace prjESPSantaFeAnt.Models
         [DisplayName("Imagen")]
         public string CoverPage { get; set; }
 
-        [DisplayName("Estado")]
-        public Boolean Statud { get; set; }
-
         [DisplayName("F. de inicio")]
         public string NacionLicitantegStartDate { get; set; }
 
@@ -37,9 +35,11 @@ namespace prjESPSantaFeAnt.Models
         public string NacionLicitanteEndDate { get; set; }
 
         [DisplayName("Archivo Legales")]
-        public string NacionLicitantegFile { get; set; }
+        public IEnumerable<FileDocument> FilesDocuments { get; set; }
 
-        [DisplayName("F. de creación")]
+        public IEnumerable<Document> DelatedDocuments { get; set; }
+
+        [DisplayName("Fecha de creación")]
         public string DateCreate { get; set; }
 
         [DisplayName("F. de actualización")]

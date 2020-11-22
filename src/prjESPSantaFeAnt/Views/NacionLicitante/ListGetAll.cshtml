@@ -2,8 +2,10 @@
 
 @{
     ViewData["Title"] = "Convocatorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var _currentDate = DateTime.Now;
 }
+
 
 <div class="site-section">
     <div class="container">
@@ -15,23 +17,18 @@
             </ol>
         </nav>
 
-        <div class="row mb-5">
-            <div class="col-lg-7 mx-auto text-center">
-                <h2 class="mb-4 section-heading">Convocatorias</h2>
-                <p>Para ser más transparentes en el sector público, hemos creado esta sección donde encontraras todas las convocatorias en las cuales podrás participar.</p>
-            </div>
-        </div>
+        <div id="macy-licitante">
 
-        <div class="row">
             @foreach (var item in Model)
             {
-                <div class="col-sm-6 col-md-6 col-lg-4 mb-5">
-                    <div class="post-entry">
-                        <a href="~/convocatorias/@item.UrlMaster" class="thumb">
-                            <span class="date">@item.DateCreate</span>
-                            <img src="~/images/nacionLicitante/@item.CoverPage" alt="@item.NameMaster" class="img-fluid">
-                        </a>
-                        <div class="post-meta text-center">
+                <a href="~/convocatorias/@item.UrlMaster">
+                    <div class="card-deck">
+                        <div class="card symptom d-flex">
+                        <img class="card-img-top" src="~/images/nacionLicitante/@item.CoverPage" alt="@item.NameMaster">
+                            <div class="text">
+                                <h3>@item.NameMaster </h3>
+                                <p class="text-center mt-2">Publicado: @item.DateCreate</p>
+                            </div>
 
                             @{
                                 var _nacionLicitantegStartDate = Convert.ToDateTime(item.NacionLicitantegStartDate);
@@ -41,36 +38,54 @@
                                 {
                                     if (_currentDate <= _nacionLicitanteEndDate)
                                     {
-                                        <span>ACTIVA hasta @item.NacionLicitanteEndDate</span>
+                                        <div class="card-footer" style="background-color:#00b451">
+                                            <small class="text-card-footer text-center">ACTIVO</small>
+                                        </div>
 
                                     }
                                     else
                                     {
-                                        <span>INACTIVA</span>
+                                        <div class="card-footer" style="background-color:#ffda00">
+                                            <small class="text-card-footer text-center">INACTIVA</small>
+                                        </div>
                                     }
                                 }
                             }
 
                         </div>
-                        <h3><a href="~/convocatorias/@item.UrlMaster">@item.NameMaster</a></h3>
+
                     </div>
-                </div>
+                </a>
             }
 
         </div>
-
-        @*<div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="custom-pagination">
-                    <a href="#">1</a>
-                    <a href="#" class="active">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                </div>
-            </div>
-        </div>*@
 
     </div>
 </div>
 
 
+@section Scripts {
+
+    <script type="text/javascript">
+
+        var licitante = new Macy({
+            container: "#macy-licitante",
+            trueOrder: false,
+            waitForImages: false,
+            useOwnImageLoader: false,
+            debug: true,
+            mobileFirst: true,
+            columns: 1,
+            margin: {
+                y: 16,
+                x: "2%",
+            },
+            breakAt: {
+                1200: 3,
+                940: 2,
+                520: 1,
+                350: 1
+            }
+        });
+    </script>
+}

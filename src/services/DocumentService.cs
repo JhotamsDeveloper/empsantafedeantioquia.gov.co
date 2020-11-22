@@ -21,7 +21,6 @@ namespace services
         Task Create(DocumentCreateDTO model);
         Task<Document> GetById(int? id);
         Task<Document> GetById(string _urlName);
-        Task Edit(int id, DocumentEditDTO model);
         Task DeleteConfirmed(int _id);
         bool DocumentExists(int id);
         bool DuplicaName(string _stringName);
@@ -73,35 +72,65 @@ namespace services
             using var transaction = _context.Database.BeginTransaction();
             try
             {
+                int _id;
                 var _dateCreate = DateTime.Now;
                 var _urlName = _formatStringUrl.FormatString(model.Name);
 
-                var _model = new Document
+                var _nameProyect = await _context.Masters
+                    .FirstOrDefaultAsync(x => x.Id == model.MasterId);
+
+                if (_nameProyect != null)
                 {
-                    Name = model.Name.Trim(),
-                    UrlName = _urlName,
-                    NameProyect = model.NameProyect,
-                    Description = model.Description,
-                    CreateDate = _dateCreate,
-                };
+                    var _model = new Document
+                    {
+                        Name = model.Name.Trim(),
+                        UrlName = _urlName,
+                        NameProyect = _nameProyect.NameMaster,
+                        Description = model.Description,
+                        CreateDate = _dateCreate,
+                        MasterId = model.MasterId
+                    };
 
 
-                await _context.AddAsync(_model);
-                await _context.SaveChangesAsync();
+                    await _context.AddAsync(_model);
+                    await _context.SaveChangesAsync();
 
-                _mapper.Map<DocumentDTO>(_model);
+                    _mapper.Map<DocumentDTO>(_model);
+                    _id = _model.ID;
+                }
+                else
+                {
+                    var _model = new Document
+                    {
+                        Name = model.Name.Trim(),
+                        UrlName = _urlName,
+                        NameProyect = "others",
+                        Description = model.Description,
+                        CreateDate = _dateCreate
+                    };
+
+                    await _context.AddAsync(_model);
+                    await _context.SaveChangesAsync();
+
+                    _mapper.Map<DocumentDTO>(_model);
+                    _id = _model.ID;
+                }
 
                 if (model.RouteFile != null)
                 {
-                    ICollection<string> _documents = _uploadedFileIIS.UploadedMultipleFileImage(model.RouteFile, _account);
 
-                    foreach (var item in _documents)
+                    foreach (var item in model.RouteFile)
                     {
+                        string _nameFile = System.IO.Path.GetFileNameWithoutExtension(item.FileName);
+                        string _nameFileFormat = _formatStringUrl.FormatString(_nameFile);
+
+                        var _routeFile = _uploadedFileIIS.UploadedFileImage(item, _nameFileFormat, _account);
+
                         var _fileDocuments = new FileDocument
                         {
-                            NameFile = model.Name + DateTime.Now.ToString(),
-                            RouteFile = item,
-                            DocumentoId = _model.ID
+                            NameFile = model.Name,
+                            RouteFile = _routeFile,
+                            DocumentoId = _id
                         };
 
                         await _context.AddAsync(_fileDocuments);
@@ -133,84 +162,6 @@ namespace services
                 .Include(x => x.FileDocument)
                 .FirstOrDefaultAsync(x => x.UrlName == _urlName);
         }
-        public async Task Edit(int id, DocumentEditDTO model)
-        {
-
-            using var transaction = _context.Database.BeginTransaction();
-            try
-            {
-                var _dateUpdate = DateTime.Now;
-                var _urlName = _formatStringUrl.FormatString(model.Name);
-                var _id = id;
-
-                //Eliminar los documentos existentes
-                var _fileDocuments = _context.Documents
-                                    .Include(x => x.FileDocument)
-                                    .Where(x => x.ID == _id)
-                                    .ToListAsync();
-
-                if (_fileDocuments != null)
-                {
-                    foreach (var files in await _fileDocuments)
-                    {
-
-                        if (files.FileDocument !=  null)
-                        {
-                            foreach (var item in files.FileDocument)
-                            {
-                                _uploadedFileIIS.DeleteConfirmed(item.RouteFile, _account);
-
-                                _context.Remove(new FileDocument
-                                {
-                                    ID = item.ID
-                                });
-
-                                await _context.SaveChangesAsync();
-                            }
-                        }
-
-                    }
-                }
-
-                //Cargar los documentos
-                if (model.FileDocument != null)
-                {
-                    ICollection<string> _documents = _uploadedFileIIS.UploadedMultipleFileImage(model.RouteFile, _account);
-
-                    foreach (var item in _documents)
-                    {
-                        var _fileDoc = new FileDocument
-                        {
-                            NameFile = model.Name + DateTime.Now.ToString(),
-                            RouteFile = item,
-                            DocumentoId = model.ID
-                        };
-
-                        await _context.AddAsync(_fileDoc);
-                        await _context.SaveChangesAsync();
-                    }
-
-                }
-
-                //Actualizar Datos
-                var _save = await _context.Documents.SingleAsync(x => x.ID == _id);
-
-                _save.Name = model.Name;
-                _save.NameProyect = model.NameProyect;
-                _save.Description = model.Description;
-                _save.DateUpdate = _dateUpdate;
-
-                await _context.SaveChangesAsync();
-
-                transaction.Commit();
-
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-
-        }
 
         public async Task DeleteConfirmed(int _id)
         {
@@ -220,13 +171,14 @@ namespace services
             {
                 //Eliminar los documentos existentes
 
-                var _fileDocuments = _context.FileDocuments
+                var _document = await _context.Documents
                     .AsNoTracking()
-                    .Where(x => x.ID == _id).ToListAsync();
+                    .Include(x=>x.FileDocument)
+                    .FirstOrDefaultAsync(x => x.ID == _id);
 
-                if (await _fileDocuments != null)
+                if (_document.FileDocument != null)
                 {
-                    foreach (var files in await _fileDocuments)
+                    foreach (var files in _document.FileDocument)
                     {
 
                         _uploadedFileIIS.DeleteConfirmed(files.RouteFile, _account);

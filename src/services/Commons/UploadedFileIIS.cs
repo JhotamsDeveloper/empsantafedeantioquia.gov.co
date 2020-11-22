@@ -15,6 +15,7 @@ namespace services.Commons
         List<string> UploadedMultipleFileImage(IEnumerable<IFormFile> files, List<string> value, string account);
         bool UploadedMultipleFileImage(List<string> value, string account);
         Boolean DeleteConfirmed(string imgModel, string account);
+        string UploadedFileImage(IFormFile value, string namefile, string account);
     }
     public class UploadedFileIIS : IUploadedFileIIS
     {
@@ -74,10 +75,8 @@ namespace services.Commons
                 string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images\\" + account);
                 uniqueFileName.Add("images-" + Guid.NewGuid().ToString() + "." + Path.GetExtension(file.FileName).Substring(1));
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName[_contador - 1]);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                file.CopyTo(fileStream);
             }
 
             return uniqueFileName;
@@ -168,6 +167,21 @@ namespace services.Commons
             }
 
             return _status;
+        }
+
+        public string UploadedFileImage(IFormFile file, string namefile, string account)
+        {
+            string uniqueFileName;
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images\\" + account);
+            uniqueFileName = namefile + "." + Path.GetExtension(file.FileName).Substring(1);
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            return uniqueFileName;
         }
     }
 }

@@ -20,6 +20,8 @@ namespace model
         public DateTime CreateDate { get; set; }
         public DateTime DateUpdate { get; set; }
 
+        public int? MasterId { get; set; }
+        public Master Masters { get; set; }
         public ICollection<FileDocument> FileDocument { get; set; }
 
     }
