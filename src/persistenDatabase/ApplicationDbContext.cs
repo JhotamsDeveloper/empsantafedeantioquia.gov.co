@@ -23,6 +23,7 @@ namespace persistenDatabase
         public DbSet<PQRSD> PQRSDs { get; set; }
         public DbSet<FileDocument> FileDocuments { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
         //Validaciones
@@ -36,6 +37,7 @@ namespace persistenDatabase
             new DocumentConfig(builder.Entity<Document>());
             new FileDocumentConfig(builder.Entity<FileDocument>());
             new PQRSDConfig(builder.Entity<PQRSD>());
+            new ProductConfig(builder.Entity<Product>());
 
         }
     }

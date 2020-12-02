@@ -19,6 +19,7 @@ namespace prjESPSantaFeAnt.Config
             CreateMap<BiddingParticipant, BiddingParticipantDTO>();
             CreateMap<PQRSD, PQRSDDto>();
             CreateMap<Document, DocumentDTO>();
+            CreateMap<Product, ProductDto>();
         }
     }
 }

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ModelViewBlog>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="~/noticias">Noticias</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Listado General</li>
+            </ol>
+        </nav>
+        <p>
+            <a class="btn btn-secondary btn-block" asp-action="Create">Crear un nuevo registro</a>
+        </p>
+    </div>
+
+    <div class="container bg-primary-light">
+
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th width="20%">
+                        @Html.DisplayNameFor(model => model.NameBlog)
+                    </th>
+                    <th width="20%">
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Statud)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateUpdate)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameBlog)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Statud)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateUpdate)
+                        </td>
+                        <td>
+                            <a class="btn btn-warning p-2" asp-action="Edit" asp-route-id="@item.Id"><span><img src="~/images/iconos/edit.svg" width="25" /></span></a> |
+                            <a class="btn btn-info p-2" asp-action="Details" asp-route-id="@item.Id"><span><img src="~/images/iconos/view.svg" width="25" /></span></a> |
+                            <a class="btn btn-dark p-2" asp-action="Delete" asp-route-id="@item.Id"><span><img src="~/images/iconos/delete.svg" width="25" /></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
