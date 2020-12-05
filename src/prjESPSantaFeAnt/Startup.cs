@@ -99,7 +99,7 @@ namespace prjESPSantaFeAnt
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsProduction())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -171,11 +171,24 @@ namespace prjESPSantaFeAnt
                 pattern: "brigadas",
                 defaults: new { Controller = "brigades", action = "brigadesGetAll" });
 
+                //Servicios
+                endpoints.MapControllerRoute(
+                name: "Servicios",
+                pattern: "servicios",
+                defaults: new { Controller = "products", action = "listproducts" });
+
+                endpoints.MapControllerRoute(
+                name: "servicios-details",
+                pattern: "servicios/{UrlProduct}",
+                defaults: new { Controller = "products", action = "details" });
+
+                //Brigadas
                 endpoints.MapControllerRoute(
                 name: "brigade",
                 pattern: "brigadas/{nameBrigade}",
                 defaults: new { Controller = "brigades", action = "detail" });
 
+                //Participantes
                 endpoints.MapControllerRoute(
                 name: "participante",
                 pattern: "convocatorias/reference/{reference}",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using model;
 using modelDTOs;
 using persistenDatabase;
+using prjESPSantaFeAnt.Models;
 using services;
 
 namespace prjESPSantaFeAnt.Controllers
@@ -24,7 +26,16 @@ namespace prjESPSantaFeAnt.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _productService.GetAll());
+            var _product = from a in await _productService.GetAll()
+                           select new ModelViewProduct
+                           {
+                               ProductId = a.ProductId,
+                               Icono = a.Icono,
+                               Name = a.Name,
+                               UrlProduct = a.UrlProduct
+                           };
+
+            return View(_product);
         }
 
         // GET: Products/Details/5
@@ -42,7 +53,18 @@ namespace prjESPSantaFeAnt.Controllers
                 return NotFound();
             }
 
-            return View(_product);
+            var _model = new ModelViewProduct
+            {
+                ProductId = _product.ProductId,
+                Icono = _product.Icono,
+                Name = _product.Name,
+                Description = _product.Description,
+                UrlProduct = _product.UrlProduct,
+                DateCreate = _product.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+            };
+
+            ViewData["admin"] = true;
+            return View(_model);
         }
 
         // GET: Products/Create
@@ -103,6 +125,23 @@ namespace prjESPSantaFeAnt.Controllers
         private bool ProductExists(int id)
         {
             return _productService.ProductExists(id);
+        }
+
+        // GET: Products
+        [Route("servicios")]
+        public async Task<IActionResult> ListProducts()
+        {
+            var _product = from a in await _productService.GetAll()
+                           select new ModelViewProduct
+                           {
+                               ProductId = a.ProductId,
+                               Icono = a.Icono,
+                               Name = a.Name,
+                               Description = a.Description,
+                               UrlProduct = a.UrlProduct
+                           };
+
+            return View(_product);
         }
     }
 }

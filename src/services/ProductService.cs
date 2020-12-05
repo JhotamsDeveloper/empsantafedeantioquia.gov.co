@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using model;
 using modelDTOs;
 using persistenDatabase;
 using services.Commons;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +41,10 @@ namespace services
 
         public async Task<IEnumerable<Product>> GetAll()
         {
-            return (await _context.Products.ToListAsync());
+            return (await _context
+                .Products
+                .OrderByDescending(x=>x.DateCreate)
+                .ToListAsync());
         }
 
         public async Task<ProductDto> Details(int? id)
@@ -71,14 +74,12 @@ namespace services
             var _dateCreate = DateTime.Now;
             var _urlProduct = _formatStringUrl.FormatString(model.Name);
 
-            var _icono = string.Empty;
-
             var _product = new Product
             {
                 ProductId = model.ProductId,
                 Name = model.Name,
                 UrlProduct = _urlProduct.Trim(),
-                Icono = _icono,
+                Icono = model.Icono + ".svg",
                 Description = model.Description,
                 DateCreate = _dateCreate
             };

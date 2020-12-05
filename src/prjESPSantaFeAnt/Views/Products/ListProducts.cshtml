@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ModelViewProduct>
+
+@{
+    ViewData["Title"] = "Servicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Nuestros servicios</li>
+            </ol>
+        </nav>
+        <div class="row mt-3" id="macy-licitante">
+
+            @foreach (var item in Model)
+            {
+
+                <div class="symptom">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <img src="~/images/iconos/@item.Icono" width="100" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <h3 class="text-capitalize text-center">@item.Name</h3>
+
+                        <p>@Html.Raw(@item.Description)</p>
+                        <br />
+                        <p><span>Fecha de publicación: 15 de diciembre de 2020</span></p>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+        <br />
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10">
+                <div class="note row">
+                    <partial name="_BusinessObjective" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        var licitante = new Macy({
+            container: "#macy-licitante",
+            trueOrder: false,
+            waitForImages: false,
+            useOwnImageLoader: false,
+            debug: true,
+            mobileFirst: true,
+            columns: 1,
+            margin: {
+                y: 16,
+                x: "2%",
+            },
+            breakAt: {
+                1200: 3,
+                940: 2,
+                520: 1,
+                350: 1
+            }
+        });
+    </script>
+}

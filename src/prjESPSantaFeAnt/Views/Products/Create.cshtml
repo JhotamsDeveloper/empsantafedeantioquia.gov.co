@@ -1,51 +1,75 @@
-﻿@model model.Product
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@model modelDTOs.ProductCreateDto
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="~/products">Products</a></li>
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                @if (SignInManager.IsSignedIn(User)
+                && User.IsInRole("Admin")
+                && User.IsInRole("SuperAdmin"))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="products" asp-action="index">Listado General</a></li>
+                }
+                <li class="breadcrumb-item active" aria-current="page">Crear</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container bg-primary-light">
+
+        <div class="row justify-content-md-center">
+            <div class="col-lg-10 m-3">
+                <form enctype="multipart/form-data" asp-action="Create">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger">@ViewBag.DuplicaName</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icono" class="control-label"></label>
+
+                        <select asp-for="Icono" class="custom-select custom-select-lg mb-3" size="7">
+                            <option value="administrativo">Administrativo</option>
+                            <option value="medio-ambiente">Medio Ambiente</option>
+                            <option value="energia">Energía</option>
+                            <option value="siembra">Siembra</option>
+                            <option value="reciclaje">Reciclaje</option>
+                            <option value="agua">Agua</option>
+                            <option value="coronavirus">Covid-19</option>
+                            <option value="gestion-social">Gestión Social</option>
+                        </select>
+                        <span asp-validation-for="Icono" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="20"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" value="ENVIAR" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="UrlProduct" class="control-label"></label>
-                <input asp-for="UrlProduct" class="form-control" />
-                <span asp-validation-for="UrlProduct" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Icono" class="control-label"></label>
-                <input asp-for="Icono" class="form-control" />
-                <span asp-validation-for="Icono" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreate" class="control-label"></label>
-                <input asp-for="DateCreate" class="form-control" />
-                <span asp-validation-for="DateCreate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+@section Scripts {
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+}

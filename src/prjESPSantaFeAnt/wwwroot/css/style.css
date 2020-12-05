@@ -217,46 +217,8 @@ body:after {
   }
 }
 
-.site-footer {
-  padding: 4em 0;
-}
-
-@media (min-width: 768px) {
-  .site-footer {
-    padding: 8em 0;
-  }
-}
-
-.site-footer .border-top {
+.border-top {
   border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.site-footer p {
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.site-footer h2,
-.site-footer h3,
-.site-footer h4,
-.site-footer h5 {
-  color: #000;
-}
-
-.site-footer a {
-  font-weight: 700;
-}
-
-.site-footer a:hover {
-  color: black;
-}
-
-.site-footer ul li {
-  margin-bottom: 10px;
-}
-
-.site-footer .footer-heading {
-  font-size: 16px;
-  color: #000;
 }
 
 .bg-text-line {
@@ -861,7 +823,7 @@ body:after {
   position: absolute;
   z-index: 100;
   width: 100%;
-  background: #ffffffe1;
+  background: rgba(255, 255, 255, 0.918);
 }
 
 .sticky-wrapper .site-navbar {
@@ -905,59 +867,10 @@ body:after {
   color: #0083AD !important;
 }
 
-/* Blocks */
-
-.carousel-inner,
-.carousel,
-.carousel-item,
-.container,
-.fill {
-  height: 100%;
-  width: 100%;
-  background-position: center center;
-  background-size: cover;
+.parallax-window {
+  min-height: 500px;
+  background: transparent;
 }
-
-.slide-wrapper {
-  display: inline;
-}
-
-.slide-wrapper .container {
-  padding: 0;
-}
-
-
-
-/*------------------------------- vertical carousel indicators ------------------------------*/
-.carousel-indicators {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  height: 20px;
-  right: 10px;
-  left: auto;
-  width: auto;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.carousel-indicators li {
-  display: block;
-  margin-bottom: 5px;
-  border: 1px solid #00a199;
-}
-
-.carousel-indicators li.active {
-  margin-bottom: 5px;
-  background: #00a199;
-}
-
-
-
 
 
 
@@ -1698,15 +1611,4 @@ figure figcaption {
 .card-title {
   font-size: 1rem;
   color: #000;
-}
-
-.card-footer {
-    border-radius: 50px !important;
-    border-style: none;
-    text-align: center;
-}
-
-.text-card-footer {
-    font-weight: bold;
-   color:white;
 }

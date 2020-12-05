@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="es-co">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no" />
-    <title>@ViewData["Title"] - Empresa de servicios públicos de Santa Fe de Antioquia</title>
+    <title>@ViewData["Title"] Empresa de servicios públicos de Santa Fe de Antioquia</title>
 
     <link rel="icon" href="~/images/iconos/favicon/ms-icon-150x150.png" type="image/png" />
 
@@ -11,23 +12,26 @@
     <link rel="stylesheet" href="~/fonts/icomoon/style.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/jquery-ui.css" />
-    <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
-    <link href="~/css/owl.theme.default.min.css" rel="stylesheet" />
-    <link href="~/css/owl.theme.default.min.css" rel="stylesheet" />
     <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/fonts/flaticon/font/flaticon.css" />
     <link rel="stylesheet" href="~/fonts/flaticon-espSantaFeDeAnt/font/flaticon.css" />
     <link href="~/css/aos.css" rel="stylesheet" />
+    <link href="~/css/footer.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/responsive.css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
-    <meta name="description" content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
-    <meta name="keywords" content="Santa Fe de Antioquia, Empresa, Servicios Públicos, Brigada de siembre, Alumbrado Público, Reciclaje, Residuos Solidos" />
+    <meta name="description"
+        content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
+    <meta name="keywords"
+        content="Santa Fe de Antioquia, Empresa, Servicios Públicos, Brigada de siembre, Alumbrado Público, Reciclaje, Residuos Solidos" />
 
 </head>
+
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <div id="overlayer"></div>
@@ -56,32 +60,36 @@
                     <div class="col-6 col-xl-2">
                         <div class="mb-0 site-logo">
                             <a asp-controller="home" asp-action="index" class="mb-0">
-                                <span class="text-primary"><img class="m-2" src="~/images/logo/logo-default.svg" alt="Empresa de Servicios Públicos de Santa de Antioquia" width="210"></span>
+                                <span class="text-primary"><img class="m-2" src="~/images/logo/logo-default.svg"
+                                        alt="Empresa de Servicios Públicos de Santa de Antioquia" width="180"></span>
                             </a>
                         </div>
                     </div>
 
                     <div class="col-12 col-md-10 d-none d-xl-block">
-                        <nav class="site-navigation position-relative text-right" role="navigation">
+                        <nav class="site-navigation position-relative text-center" role="navigation">
 
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                                <li class="active"><a asp-controller="home" asp-action="index" style="font-weight: bold;" class="nav-link"><strong>Inicio</strong></a></li>
-                                <li><a href="~/acerca-de-nosotros" style="font-weight: bold;" class="nav-link"><strong>Acerca de nosotros</strong></a></li>
+                                <li><a asp-controller="home" asp-action="index"
+                                        class="nav-link">Inicio</a></li>
+                                <li><a href="~/acerca-de-nosotros" class="nav-link">Acerca de
+                                        nosotros</a></li>
                                 @*<li class="has-children">
-                                        <a href="" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a>
-                                        <ul class="dropdown">
-                                            <li><a href="~/mantenimientos-de-acequias" class="nav-link">Mantenimientos de Acequias</a></li>
-                                            <li><a href="~/alumbrado-publico" class="nav-link">Alumbrado Público</a></li>
-                                            <li><a href="~/ruta-selectiva" class="nav-link">Ruta Selectiva </a></li>
-                                            <li><a href="~/plantasde-tratamientos" class="nav-link">Plantas de Tratamientos</a></li>
-                                            <li><a href="~/jornada-de-siembra" class="nav-link">Jornada de Siembra</a></li>
-                                            <li><a href="~/recoleccion-de-llantas" class="nav-link">Recolección de Llantas</a></li>
-                                        </ul>
+                                    <a href="" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a>
+                                    <ul class="dropdown">
+                                    <li><a href="~/mantenimientos-de-acequias" class="nav-link">Mantenimientos de
+                                    Acequias</a></li>
+                                    <li><a href="~/alumbrado-publico" class="nav-link">Alumbrado Público</a></li>
+                                    <li><a href="~/ruta-selectiva" class="nav-link">Ruta Selectiva </a></li>
+                                    <li><a href="~/plantasde-tratamientos" class="nav-link">Plantas de Tratamientos</a></li>
+                                    <li><a href="~/jornada-de-siembra" class="nav-link">Jornada de Siembra</a></li>
+                                    <li><a href="~/recoleccion-de-llantas" class="nav-link">Recolección de Llantas</a></li>
+                                    </ul>
                                     </li>*@
 
-                                <li><a data-toggle="modal" data-target="#building" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a></li>
+                                <li><a href="~/servicios" class="nav-link">Servicios</a></li>
 
-                                <li><a href="~/noticias" style="font-weight: bold;" class="nav-link"><strong>Noticias</strong></a></li>
+                                <li><a href="~/noticias" class="nav-link">Noticias</a></li>
 
 
                                 <partial name="_LoginPartial" />
@@ -90,152 +98,28 @@
                     </div>
 
 
-                    <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle float-right"><span class="icon-menu h3 text-black"></span></a></div>
+                    <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a
+                            href="#" class="site-menu-toggle js-menu-toggle float-right"><span
+                                class="icon-menu h3 text-black"></span></a></div>
 
                 </div>
             </div>
 
         </header>
 
-
-        <div class="slide-wrapper devices-large">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="fill">
-                            <img src="~/images/Coverpague-01.jpg" class="img-fluid" />
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="fill">
-                            <img src="~/images/Coverpague-02.jpg" class="img-fluid" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide-wrapper devices-small">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="fill">
-                            <img src="~/images/post_1.jpg" class="img-fluid" />
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="fill">
-                            <img src="~/images/post_2.jpg" class="img-fluid" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <main role="main">
             @RenderBody()
         </main>
-
-        <div class="site-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h2 class="footer-heading mb-4 text-center"></h2>
-                        <div class="my-5 text-center">
-                            <a href="https://www.facebook.com/espsantafe" class="pl-0 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-                            <a href="https://twitter.com/alcaldiasfda" class="pl-3 pr-3" target="_blank"><span class="icon-twitter"></span></a>
-                            <a href="https://www.instagram.com/alcaldiasantafedeantioquia/?hl=es-la" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-                            <a href="https://www.youtube.com/user/COMUNICADORANTIOQUIA" class="pl-3 pr-3" target="_blank"><span class="icon-youtube"></span></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-lg-4">
-
-                                <ul class="list-unstyled">
-                                    <li><a href="~/acerca-de-nosotros">Acerca de nosotros</a></li>
-                                    <li><a href="#">Contáctenos</a></li>
-
-                                </ul>
-                            </div>
-                            <div class="col-lg-4">
-
-                                <ul class="list-unstyled">
-                                    <li><a href="~/convocatorias">Concovatorias</a></li>
-                                    <li><a href="#">Brigadas</a></li>
-
-                                </ul>
-                            </div>
-                            <div class="col-lg-4">
-
-                                <ul class="list-unstyled">
-                                    <li><a href="~/pqrsd">PQRSD</a></li>
-                                    <li><a href="~/noticias">Noticias</a></li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        <div class="border-top pt-5">
-                            <p class="copyright">
-                                <small>
-
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script>
-                                    todos los derechos reservados | Diseño
-                                    <i class="icon-heart text-danger" aria-hidden="true"></i> by
-                                    <a href="https://colorlib.com" target="_blank">Colorlib</a> | Programación
-                                    <i class="icon-heart text-danger" aria-hidden="true"></i> by
-                                    <a href="https://linkedin.com/in/jhotams" target="_blank">Jhonatan Alejandro Muñoz Serna</a>
-
-                                </small>
-                            </p>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="building" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">Página en construcción</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img src="~/images/gracias-por-visitarnos.jpg" class="img-fluid" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <partial name="_footerPartial" />
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/jquery-ui.js"></script>
     <script src="~/js/popper.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/jquery.countdown.min.js"></script>
     <script src="~/js/jquery.easing.1.3.js"></script>
     <script src="~/js/aos.js"></script>
@@ -244,12 +128,16 @@
     <script src="~/js/isotope.pkgd.min.js"></script>
     <script src="~/js/macy.js"></script>
 
-    <script src="https://cdn.tiny.cloud/1/fx3uf5far79v8h24dqwntqiaf5kq03fcderm49440staohhq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script src="~/lib/parallax.js-1.5.0/parallax.js"></script>
+    <script src="https://cdn.tiny.cloud/1/fx3uf5far79v8h24dqwntqiaf5kq03fcderm49440staohhq/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>
