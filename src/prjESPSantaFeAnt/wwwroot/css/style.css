@@ -58,8 +58,12 @@ h5,
   background: #000 !important;
 }
 
+.img-fluid{
+    height: 300px !important;
+}
+
 .color-black-opacity-5 {
-  color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .color-white-opacity-5 {
@@ -827,9 +831,10 @@ body:after {
 }
 
 .sticky-wrapper .site-navbar {
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+    box-shadow: 4px 0 20px -5px rgba(0, 0, 0, 0.1);
 }
 
 .sticky-wrapper .site-navbar .site-menu-toggle {
@@ -876,6 +881,7 @@ body:after {
 
 .site-section {
   padding: 20px 0;
+  padding-top: 130px;
 }
 
 .service {

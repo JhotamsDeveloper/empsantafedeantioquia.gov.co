@@ -24,6 +24,7 @@ namespace services
         Task DeleteConfirmed(int id);
         bool BlogExists(int id);
         bool DuplicaName(string _stringName);
+        Task<IEnumerable<Master>> LimitHome();
     }
 
     public class BlogService : IBlogService
@@ -167,5 +168,15 @@ namespace services
             return _context.Masters.Any(e => e.NameMaster == _stringName);
         }
 
+        public async Task<IEnumerable<Master>> LimitHome()
+        {
+            var _blog = await _context.Masters
+                .AsNoTracking()
+                .Where(x => x.Blog == true)
+                .OrderByDescending(x => x.DateCreate)
+                .Take(3)
+                .ToListAsync();
+            return (_blog);
+        }
     }
 }

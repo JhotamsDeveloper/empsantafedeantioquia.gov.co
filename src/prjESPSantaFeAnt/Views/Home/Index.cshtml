@@ -1,18 +1,20 @@
 ﻿@{
-        ViewData["imagen"] = Url.Content($"~/images/Coverpague-01.jpg");
+    ViewData["imagen"] = Url.Content($"~/images/Coverpague-01.jpg");
 }
 
 <div class="slide-wrapper devices-large">
     <div class="parallax-window" data-parallax="scroll" data-image-src="@ViewData["imagen"]"></div>
 </div>
 
-<div class="site-section">
+<div class="site-section" style="padding-top:20px !important">
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-10 mx-auto text-center">
                 <h2 class="mb-4 section-heading">Cercanía con el ciudadano</h2>
-                <p class="text-justify">Para tener un mejor acercamiento con la ciudadanía, hemos creado diferentes
-                    canales de comunicación donde podrás participar en las convocatorias, brigadas entre otras más</p>
+                <p class="text-justify">
+                    Para tener un mejor acercamiento con la ciudadanía, hemos creado diferentes
+                    canales de comunicación donde podrás participar en las convocatorias, brigadas entre otras más
+                </p>
             </div>
         </div>
         <div class="row">
@@ -24,8 +26,10 @@
                         </div>
                         <div class="text">
                             <h3>Convocatorias</h3>
-                            <p> Para ser más transparentes en el sector público, hemos creado esta sección donde
-                                encontraras todas las convocatorias en las cuales podrás participar. </p>
+                            <p>
+                                Para ser más transparentes en el sector público, hemos creado esta sección donde
+                                encontraras todas las convocatorias en las cuales podrás participar.
+                            </p>
                         </div>
                     </div>
                 </a>
@@ -39,8 +43,10 @@
                         </div>
                         <div class="text">
                             <h3>Documentos</h3>
-                            <p> En esta sección encontraras documentos de contratación de la Empresa de Servicios
-                                Públicos de Santa Fe de Antioquia.</p>
+                            <p>
+                                En esta sección encontraras documentos de contratación de la Empresa de Servicios
+                                Públicos de Santa Fe de Antioquia.
+                            </p>
                         </div>
                     </div>
                 </a>
@@ -54,8 +60,10 @@
                         </div>
                         <div class="text">
                             <h3>Brigadas</h3>
-                            <p> Para llegar a muchas más personas hemos creado esta sección de brigadas para que
-                                encuentre en esta todas las actividades públicas.</p>
+                            <p>
+                                Para llegar a muchas más personas hemos creado esta sección de brigadas para que
+                                encuentre en esta todas las actividades públicas.
+                            </p>
                         </div>
                     </div>
                 </a>
@@ -70,17 +78,37 @@
                         </div>
                         <div class="text">
                             <h3>PQRSD</h3>
-                            <p> Esta sección está diseñada para que a través de nuestro sistema de información puedas
-                                realizar tus peticiones, quejas, reclamos, solicitudes y denuncias.</p>
+                            <p>
+                                Esta sección está diseñada para que a través de nuestro sistema de información puedas
+                                realizar tus peticiones, quejas, reclamos, solicitudes y denuncias.
+                            </p>
                         </div>
                     </div>
                 </a>
             </div>
-
-
-
         </div>
         <br />
+
+        <div id="macy-licitante">
+
+            @foreach (var item in ViewData["Blog"] as IList<model.Master>)
+            {
+                <a href="~/noticias/@item.UrlMaster">
+                    <div class="card-deck">
+                        <div class="card symptom d-flex">
+                            <img class="card-img-top" src="~/images/blog/@item.CoverPage" alt="@item.NameMaster">
+                            <div class="text">
+                                <h3>@item.NameMaster </h3>
+                                <p class="text-center mt-2">Publicado: @item.DateCreate</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </a>
+            }
+        </div>
+
         <div class="row justify-content-md-center">
             <div class="col-lg-10">
                 <div class="note row">
@@ -92,48 +120,29 @@
     </div>
 </div>
 
-@*<div class="site-section bg-primary-light">
-    <div class="container">
-    <div class="row mb-5">
-    <div class="col-lg-7 mx-auto text-center">
-    <h2 class="mb-4 section-heading">Últimas publicaciones</h2>
-    </div>
-    </div>
 
-    <div class="row">
-    <div class="col-lg-4">
-    <div class="post-entry">
-    <a href="#" class="thumb">
-    <span class="date">30 Jul, 2020</span>
-    <img src="~/images/hero_1.jpg" alt="Image" class="img-fluid">
-    </a>
-    <div class="post-meta text-center">
-    </div>
-    <h3><a href="#">How Coronavirus Very Contigous</a></h3>
-    </div>
-    </div>
-    <div class="col-lg-4">
-    <div class="post-entry">
-    <a href="#" class="thumb">
-    <span class="date">30 Jul, 2020</span>
-    <img src="~/images/hero_2.jpg" alt="Image" class="img-fluid">
-    </a>
-    <div class="post-meta text-center">
-    </div>
-    <h3><a href="#">How Coronavirus Very Contigous</a></h3>
-    </div>
-    </div>
-    <div class="col-lg-4">
-    <div class="post-entry">
-    <a href="#" class="thumb">
-    <span class="date">30 Jul, 2020</span>
-    <img src="~/images/hero_1.jpg" alt="Image" class="img-fluid">
-    </a>
-    <div class="post-meta text-center">
-    </div>
-    <h3><a href="#">How Coronavirus Very Contigous</a></h3>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>*@
+@section Scripts{
+    <script type="text/javascript">
+
+        var licitante = new Macy({
+            container: "#macy-licitante",
+            trueOrder: false,
+            waitForImages: false,
+            useOwnImageLoader: false,
+            debug: true,
+            mobileFirst: true,
+            columns: 1,
+            margin: {
+                y: 16,
+                x: "2%",
+            },
+            breakAt: {
+                1200: 3,
+                940: 2,
+                520: 1,
+                350: 1
+            }
+        });
+
+    </script>
+}

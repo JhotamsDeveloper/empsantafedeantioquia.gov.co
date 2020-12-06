@@ -3,72 +3,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="site-section bg-primary-light">
-        @if (ViewBag.CodigoPqrsd != null)
-        {
-            <div class="container">
-                <div class="alert alert-success" role="alert">
-                    El PQRSD se ha generado correctamente con el código @ViewBag.CodigoPqrsd
-                </div>
-            </div>
-        }
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-
-                    <div class="row"></div>
-                    <div class="row">
-                        <div class="col-6 col-lg-6 mt-lg-5">
-                            <div class="media-v1 bg-1">
-                                <div class="icon-wrap">
-                                    <span class="flaticon-stay-at-home"></span>
-                                </div>
-                                <div class="body">
-                                    <h3>Peticiones</h3>
-                                    <p>Es el derecho fundamental que tiene toda persona a presentar solicitudes respetuosas a las autoridades por motivos de interés general o particular y a obtener su pronta resolución.</p>
-                                </div>
-                            </div>
-
-                            <div class="media-v1 bg-1">
-                                <div class="icon-wrap">
-                                    <span class="flaticon-patient"></span>
-                                </div>
-                                <div class="body">
-                                    <h3>Queja</h3>
-                                    <p>Es la manifestación de protesta, censura, descontento o inconformidad que formula una persona en relación con una conducta que considera irregular de uno o varios servidores públicos en desarrollo de sus funciones.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-lg-6">
-                            <div class="media-v1 bg-1">
-                                <div class="icon-wrap">
-                                    <span class="flaticon-social-distancing"></span>
-                                </div>
-                                <div class="body">
-                                    <h3>Reclamo</h3>
-                                    <p>Es el derecho que tiene toda persona de exigir, reivindicar o demandar una solución, ya sea por motivo general o particular, referente a la prestación indebida de un servicio o a la falta de atención a una solicitud.</p>
-                                </div>
-                            </div>
-
-                            <div class="media-v1 bg-1">
-                                <div class="icon-wrap">
-                                    <span class="flaticon-hand-washing"></span>
-                                </div>
-                                <div class="body">
-                                    <h3>Sugerencia</h3>
-                                    <p>Es la manifestación de una idea o propuesta para mejorar el servicio o la gestión de la entidad.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-5 ml-auto">
-                    <h2 class="section-heading mb-4 text-center">PQRSD</h2>
-                    <p class="text-justify"><strong>La Empresa de Servicios Públicos de Santa Fe de Antioquia</strong> a pone disposición el sistema de PQRSD (Peticiones, Quejas, Reclamos, Sugerencias y Denuncias) en cumplimiento de la Ley de transparencia y acceso a la información (1712 de 2014), del Estatuto Anticorrupción (Ley 1474 de 2011) y de la Estrategia de Gobierno En Línea (Decreto 2693 de 2012).</p>
-
-                    <h3><a href="~/formular-pqrsd" class="btn btn-primary btn-block"><strong>Formular PQRSD</strong></a></h3>
-                </div>
-            </div>
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+            </ol>
+        </nav>
+        <div class="row mt-3">
+            <p class="text-justify">La Empresa de Servicios Públicos de Santa Fe de Antioquia a pone disposición el sistema de PQRSD (Peticiones, Quejas, Reclamos, Sugerencias y Denuncias) en cumplimiento de la Ley de transparencia y acceso a la información (1712 de 2014), del Estatuto Anticorrupción (Ley 1474 de 2011) y de la Estrategia de Gobierno En Línea (Decreto 2693 de 2012).</p>
+            <p><a href="~/formular-pqrsd"><strong>Formular PQRSD</strong></a></p>
         </div>
+        <br />
+
+
     </div>
+</div>

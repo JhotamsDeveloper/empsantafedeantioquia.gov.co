@@ -1,13 +1,13 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Confirmación del registro";
 }
 
 <div class="site-section">
 
     <div class="container bg-primary-light p-5">
-        <h1>@ViewData["Title"]</h1>
+        <h2 class="mb-4 section-heading text-center">@ViewData["Title"]</h2>
         @{
             if (@Model.DisplayConfirmAccountLink)
             {
@@ -18,9 +18,9 @@
             }
             else
             {
-    <p>
-        Por favor revise su correo electrónico para confirmar su cuenta.
-    </p>
+                <p>
+                    Por favor revise su correo electrónico para confirmar su cuenta.
+                </p>
             }
         }
 

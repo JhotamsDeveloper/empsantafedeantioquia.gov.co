@@ -281,7 +281,7 @@ namespace prjESPSantaFeAnt.Controllers
 
 
             var pageNumber = page ?? 1; // if no page is specified, default to the first page (1)
-            int pageSize = 9; // Get 25 students for each requested page.
+            int pageSize = 6; // Get 25 students for each requested page.
             var onePageOfStudents = _model.ToPagedList(pageNumber, pageSize);
             return View(onePageOfStudents); // Send 25 students to the page.
 
