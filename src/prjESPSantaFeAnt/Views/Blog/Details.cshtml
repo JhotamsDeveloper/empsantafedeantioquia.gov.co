@@ -1,9 +1,12 @@
 ﻿@model ModelViewBlog
 
 @{
-    ViewData["Title"] = Model.NameBlog;
     var _currentDate = DateTime.Now;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/noticias/" + Model.UrlMaster;
+    ViewData["Title"] = Model.NameBlog;
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/blog/" + Model.CoverPage;
 }
 
 
@@ -23,7 +26,7 @@
             </ol>
         </nav>
 
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-center">
             <div class="col-md-10">
                 <section>
 
@@ -45,6 +48,13 @@
                                 <br />
                                 Fecha de creación: @Model.DateCreate
                             </small>
+                            <br />
+
+                            <!-- Your share button code -->
+                            <div class="fb-share-button"
+                                 data-href="http://www.espsantafedeantioquia.co/noticias/@Model.UrlMaster"
+                                 data-layout="button_count">
+                            </div>
 
                         </div>
 

@@ -34,9 +34,6 @@
                         @Html.DisplayNameFor(model => model.NameSotypeOfRequest)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.IsAnsweredPQRSD)
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.DateCreate)
                     </th>
 
@@ -59,15 +56,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.NameSotypeOfRequest)
                     </td>
-                    <td class="text-center">
-                        @{
-                            if (@item.IsAnsweredPQRSD)
-                            {
-                                <input class="form-check-input text-center" type="checkbox" checked disabled>
-                            }
-                            <input class="form-check-input text-center" type="checkbox" disabled>
-                        }
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.DateCreate)
                     </td>

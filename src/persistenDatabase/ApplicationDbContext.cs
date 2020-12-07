@@ -24,7 +24,7 @@ namespace persistenDatabase
         public DbSet<FileDocument> FileDocuments { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<Employee> Employees { get; set; }
 
         //Validaciones
         protected override void OnModelCreating(ModelBuilder builder)
@@ -38,6 +38,7 @@ namespace persistenDatabase
             new FileDocumentConfig(builder.Entity<FileDocument>());
             new PQRSDConfig(builder.Entity<PQRSD>());
             new ProductConfig(builder.Entity<Product>());
+            new EmployeeConfig(builder.Entity<Employee>());
 
         }
     }

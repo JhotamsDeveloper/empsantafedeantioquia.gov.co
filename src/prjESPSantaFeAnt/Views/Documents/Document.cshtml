@@ -1,8 +1,15 @@
-﻿@model IEnumerable<ModelViewDocument>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model IEnumerable<ModelViewDocument>
 
 @{
-    ViewData["Title"] = "Documentos legales";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/brigadas";
+    ViewData["Title"] = "Documentos legales";
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
 }
 
 
@@ -14,11 +21,18 @@
                 <li class="breadcrumb-item active" aria-current="page">Documentos legales</li>
             </ol>
         </nav>
-        <div class="row">
-            <div class="col-lg-7 mx-auto text-center">
-                <h2 class="mb-4 section-heading">Documentos legales</h2>
-            </div>
-        </div>
+
+        @if (SignInManager.IsSignedIn(User)
+         && User.IsInRole("Admin")
+         && User.IsInRole("SuperAdmin"))
+        {
+            <a asp-controller="products" asp-action="create">
+                <div class="alert item-add" role="alert">
+                    En esta sección puedes agregar una item nuevo
+                </div>
+            </a>
+        }
+
         <div class="row">
 
             @foreach (var item in Model)

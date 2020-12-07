@@ -5,55 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+    <div class="site-section">
+        <div class="container">
 
-<div class="site-section">
-    <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="~/brigadas">Brigadas</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="brigades" asp-action="index">Listado General</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.NameMaster</li>
+                </ol>
+            </nav>
 
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="~/brigadas">Brigadas</a></li>
-                <li class="breadcrumb-item"><a asp-controller="brigades" asp-action="index">Listado General</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@Model.NameMaster</li>
-            </ol>
-        </nav>
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <section>
 
-        <div class="row justify-content-md-center">
-            <div class="col-md-10">
-                <section>
-
-                    <div class="row mb-5">
                         <div class="col-lg-12">
 
-                            <img src="~/images/brigade/@Model.CoverPage" />
+                            <div class="container">
+                                <div class="row justify-content-md-center bg-primary-light" style="width:100%">
+                                    <img src="~/images/brigade/@Model.CoverPage"
+                                         style="height:300px !important"
+                                         class="img-fluid" />
+                                </div>
+                                <br />
+                                <h3 class="text-center">
+                                    @Html.DisplayFor(model => model.NameMaster)
+                                </h3>
 
-                            <h1 class="text-center">
-                                @Html.DisplayFor(model => model.NameMaster)
-                            </h1>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item"><h6 style="color: #0083ad;">Autor: @Model.Author | Publicación el: @Model.DateCreate</h6></li>
-                                </ol>
-                            </nav>
+                                <p class="text-center text-capitalize">@Model.DateBrigade</p>
+                                @Html.Raw(Model.Description)
+                                <br />
+
+                                <small>
+                                    Autor: @Model.Author
+                                    <br />
+                                    Fecha de creación: @Model.DateCreate
+                                </small>
+                                <br />
+
+                                <!-- Your share button code -->
+                                <div class="fb-share-button"
+                                     data-href="http://www.espsantafedeantioquia.co/brigadas/@Model.UrlMaster"
+                                     data-layout="button_count">
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-sm-12">
-                            @Html.Raw(Model.Description)
-                        </div>
+
                         <br />
 
-                    </div>
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete" class="btn btn-danger btn-block" />
 
-                    <div class="container">
-                        <div>
-                            <form asp-action="Delete">
-                                <input type="hidden" asp-for="Id" />
-                                <input type="submit" value="Delete" class="btn btn-warning btn-block" /> |
+                        </form>
 
-                            </form>
-                        </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
-</div>
+

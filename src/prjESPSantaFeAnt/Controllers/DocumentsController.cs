@@ -119,7 +119,8 @@ namespace prjESPSantaFeAnt.Controllers
         public IActionResult Create()
         {
             ViewData["NameLicitante"] = new SelectList(_context.Masters
-                .Where(x=>x.NacionLicitante == true), "Id", "NameMaster");
+                .Where(x=>x.NacionLicitante == true)
+                .OrderByDescending(x=>x.DateCreate),"Id", "NameMaster");
 
             return View();
         }

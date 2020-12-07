@@ -12,10 +12,10 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="~/convocatorias">Convocatorias</a></li>
+                <li class="breadcrumb-item"><a href="~/servicios">Servicios</a></li>
                 @if (ViewBag.Admin)
                 {
-                    <li class="breadcrumb-item"><a asp-controller="brigades" asp-action="index">Listado General</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="products" asp-action="index">Listado General</a></li>
                 }
                 <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
             </ol>
@@ -42,14 +42,6 @@
                         </div>
 
                     </div>
-
-                    @if (ViewBag.Admin)
-                    {
-                        <div>
-                            <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-                            <a asp-action="Index">Back to List</a>
-                        </div>
-                    }
 
                 </section>
             </div>

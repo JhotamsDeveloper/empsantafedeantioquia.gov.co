@@ -2,14 +2,13 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@model IEnumerable<ModelViewProduct>
-
+@model IEnumerable<ModelViewEmployees>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewData["Url"] = "http://www.espsantafedeantioquia.co/servicios";
-    ViewData["Title"] = "Servicios";
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/funcionarios";
+    ViewData["Title"] = "Funcionarios";
     ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
 }
 
@@ -19,13 +18,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Nuestros servicios</li>
+                <li class="breadcrumb-item active" aria-current="page">Funcionarios</li>
             </ol>
         </nav>
 
         @if (SignInManager.IsSignedIn(User)
-      && User.IsInRole("Admin")
-      && User.IsInRole("SuperAdmin"))
+            && User.IsInRole("Admin")
+            && User.IsInRole("SuperAdmin"))
         {
             <a asp-controller="products" asp-action="create">
                 <div class="alert item-add" role="alert">
@@ -34,24 +33,18 @@
             </a>
         }
 
-
         <div class="row mt-3" id="macy-licitante">
 
             @foreach (var item in Model)
             {
 
                 <div class="symptom">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <img src="~/images/iconos/@item.Icono" width="100" class="img-fluid">
-                        </div>
+                    <div class="row justify-content-center">
+                        <img src="~/images/employees/@item.CoverPage" class="img-fluid">
                     </div>
-                    <div class="text">
-                        <h3 class="text-capitalize text-center">@item.Name</h3>
-
-                        <p>@Html.Raw(@item.Description)</p>
-                        <br />
-                        <p><span>Fecha de publicación: 15 de diciembre de 2020</span></p>
+                    <div class="text text-center">
+                        <h3 class="text-capitalize">@item.Name</h3>
+                        <p>@item.Occupation</p>
                     </div>
                 </div>
 

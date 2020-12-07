@@ -1,7 +1,10 @@
 ﻿@model ModelViewDocument
 
 @{
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/documentos-legales/" + Model.UrlName;
     ViewData["Title"] = Model.Name;
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
+
     var _currentDate = DateTime.Now;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -52,6 +55,14 @@
                             @Html.Raw(Model.Description)
                         </div>
                         <br />
+
+                        <!-- Your share button code -->
+                        <div class="fb-share-button"
+                             data-href="http://www.espsantafedeantioquia.co/convocatorias/@Model.UrlName"
+                             data-layout="button_count">
+                        </div>
+
+
                         <div class="container">
                             <div class="row justify-content-md-center">
                                 <div class="col-md-6">

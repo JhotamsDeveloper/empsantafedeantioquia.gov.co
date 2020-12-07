@@ -80,7 +80,7 @@ namespace services
                 UrlMaster = _urlCategory,
                 Description = model.Description.Trim(),
                 CoverPage = _coverPage,
-                Statud = model.Statud,
+                Statud = true,
                 Blog = true,
                 Author = model.Author,
                 DateCreate = _dateCreate
@@ -116,7 +116,7 @@ namespace services
 
             _blog.Description = model.Description;
             _blog.CoverPage = _coverPage;
-            _blog.Statud = model.Statud;
+            _blog.Statud = true;
             _blog.Author = model.Author;
             _blog.DateUpdate = _dateUpdate;
 

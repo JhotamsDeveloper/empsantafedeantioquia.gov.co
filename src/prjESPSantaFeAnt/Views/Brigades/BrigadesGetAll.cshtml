@@ -1,7 +1,14 @@
-﻿@model IEnumerable<ModelViewBrigade>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model IEnumerable<ModelViewBrigade>
 
 @{
+
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/noticias";
     ViewData["Title"] = "Brigadas";
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,6 +22,17 @@
             </ol>
         </nav>
 
+        @if (SignInManager.IsSignedIn(User)
+         && User.IsInRole("Admin")
+         && User.IsInRole("SuperAdmin"))
+        {
+            <a asp-controller="products" asp-action="create">
+                <div class="alert item-add" role="alert">
+                    En esta sección puedes agregar una item nuevo
+                </div>
+            </a>
+        }
+
         <div id="macy-container">
 
             @foreach (var item in Model)
@@ -23,10 +41,14 @@
 
                     <div class="card-deck">
                         <div class="card symptom">
-                            <img class="card-img-top" src="~/images/brigade/@item.CoverPage" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">@item.NameMaster </h5>
-                                <p class="card-text"><small class="text-muted">@item.DateCreate</small></p>
+                            <img class="card-img-top" src="~/images/brigade/@item.CoverPage" alt="@item.NameMaster">
+                            <div class="text text-center">
+                                <h3 class="text-capitalize">@item.NameMaster </h3>
+                                <p class="text-center mt-2">
+                                    Fecha de la brigada: @item.DateBrigade
+                                    <br />
+                                    Fecha de creación: @item.DateCreate
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,14 @@
-﻿@model IEnumerable<ModelViewNacionLicitante>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model IEnumerable<ModelViewNacionLicitante>
 
 @{
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/convocatorias";
     ViewData["Title"] = "Convocatorias";
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
     var _currentDate = DateTime.Now;
 }
@@ -17,6 +24,17 @@
             </ol>
         </nav>
 
+        @if (SignInManager.IsSignedIn(User)
+           && User.IsInRole("Admin")
+           && User.IsInRole("SuperAdmin"))
+        {
+            <a asp-controller="products" asp-action="create">
+                <div class="alert item-add" role="alert">
+                    En esta sección puedes agregar una item nuevo
+                </div>
+            </a>
+        }
+
         <div id="macy-licitante">
 
             @foreach (var item in Model)
@@ -24,7 +42,7 @@
                 <a href="~/convocatorias/@item.UrlMaster">
                     <div class="card-deck">
                         <div class="card symptom d-flex">
-                        <img class="card-img-top" src="~/images/nacionLicitante/@item.CoverPage" alt="@item.NameMaster">
+                            <img class="card-img-top" src="~/images/nacionLicitante/@item.CoverPage" alt="@item.NameMaster">
                             <div class="text">
                                 <h3>@item.NameMaster </h3>
                                 <p class="text-center mt-2">Publicado: @item.DateCreate</p>

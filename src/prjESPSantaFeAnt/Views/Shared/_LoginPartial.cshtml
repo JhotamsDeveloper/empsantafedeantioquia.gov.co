@@ -10,11 +10,11 @@
     ViewData["name"] = _userName[0];
 
     <li class="has-children">
-        <a class="nav-link" style="color:#007bff"><strong>@ViewBag.name</strong></a>
+        <a class="nav-link" style="color:#007bff"><strong class="text-capitalize">@ViewBag.name</strong></a>
         <ul class="dropdown">
             <li><a class="nav-link btn-logout" href="~/perfil" title="Manage"> Perfil</a></li>
             <li>
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button type="submit" class="nav-link btn-logout">Salir</button>
                 </form>
             </li>

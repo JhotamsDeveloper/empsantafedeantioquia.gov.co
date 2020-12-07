@@ -86,6 +86,7 @@ namespace prjESPSantaFeAnt
             services.AddTransient<IPQRSDService, PQRSDService>();
             services.AddTransient<IBrigadeService, BrigadeService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
 
             services.AddTransient<IUploadedFileIIS, UploadedFileIIS>();
             services.AddTransient<IFormatStringUrl, FormatStringUrl>();
@@ -217,7 +218,11 @@ namespace prjESPSantaFeAnt
                 pattern: "documentos-legales/{urlName}",
                 defaults: new { Controller = "Documents", action = "Details" });
 
-                endpoints.MapRazorPages();
+                //Perfil
+                endpoints.MapControllerRoute(
+                name: "funcionarios",
+                pattern: "funcionarios",
+                defaults: new { Controller = "Employees", action = "ListEmployees" });
 
                 //Perfil
                 endpoints.MapControllerRoute(

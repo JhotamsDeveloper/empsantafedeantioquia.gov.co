@@ -1,0 +1,56 @@
+﻿@model ModelViewEmployees
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="site-section">
+    <div class="container">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="~/funcionarios">Funcionarios</a></li>
+                <li class="breadcrumb-item"><a asp-controller="employees" asp-action="index">Listado General</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+            </ol>
+        </nav>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <section>
+
+                    <section>
+
+                        <div class="col-lg-12">
+
+                            <div class="container">
+                                <div class="row justify-content-md-center bg-primary-light" style="width:100%">
+                                    <img class="img-fluid"
+                                         src="~/images/employees/@Model.CoverPage"
+                                         alt="@Model.Name"
+                                         style="height:300px !important" />
+                                </div>
+                                <br />
+                                <h3 class="text-center">
+                                    @Html.DisplayFor(model => model.Name)
+                                </h3>
+                                <p class="text-center">@Model.Occupation</p>
+
+                            </div>
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="EmployeeId" />
+                                <input type="submit" value="Delete" class="btn btn-danger btn-block" />
+                            </form>
+                        </div>
+
+
+                    </section>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,21 +1,22 @@
-﻿@model IEnumerable<ModelViewNacionLicitante>
+﻿@model IEnumerable<ModelViewEmployees>
 
 @{
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="site-section">
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="~/convocatorias">Convocatorias</a></li>
+                <li class="breadcrumb-item"><a href="~/funcionarios">Funcionarios</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Listado General</li>
             </ol>
         </nav>
         <p>
             <a class="btn btn-secondary btn-block" asp-action="Create">Crear un nuevo registro</a>
         </p>
-
     </div>
 
     <div class="container bg-primary-light">
@@ -23,11 +24,14 @@
         <table id="myTable" class="table">
             <thead>
                 <tr>
-                    <th width="60%">
-                        @Html.DisplayNameFor(model => model.NameMaster)
+                    <th width="10%">
+                        @Html.DisplayNameFor(model => model.EmployeeId)
+                    </th>
+                    <th width="50%">
+                        @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DateCreate)
+                        @Html.DisplayNameFor(model => model.Occupation)
                     </th>
                     <th></th>
                 </tr>
@@ -37,14 +41,16 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NameMaster)
+                            @Html.DisplayFor(modelItem => item.EmployeeId)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DateCreate)
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            <a class="btn btn-info" href="~/convocatorias/@item.UrlMaster"><span><img src="~/images/iconos/view.svg" width="20" /></span></a> |
-                            <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id"><span><img src="~/images/iconos/delete.svg" width="20" /></span></a>
+                            @Html.DisplayFor(modelItem => item.Occupation)
+                        </td>
+                        <td>
+                            <a class="btn btn-dark p-2" asp-action="Delete" asp-route-id="@item.EmployeeId"><span><img src="~/images/iconos/delete.svg" width="25" /></span></a>
                         </td>
                     </tr>
                 }

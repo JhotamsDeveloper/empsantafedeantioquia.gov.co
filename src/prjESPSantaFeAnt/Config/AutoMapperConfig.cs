@@ -20,6 +20,7 @@ namespace prjESPSantaFeAnt.Config
             CreateMap<PQRSD, PQRSDDto>();
             CreateMap<Document, DocumentDTO>();
             CreateMap<Product, ProductDto>();
+            CreateMap<Employee, EmployeeDto>();
         }
     }
 }

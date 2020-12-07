@@ -27,7 +27,7 @@ namespace modelDTOs
     {
         public Guid PQRSDID { get; set; }
 
-        [DisplayName("Nombre *")]
+        [DisplayName("Nombre de la persona *")]
         [Required(ErrorMessage = "El Nombre es requerido."), MaxLength(150)]
         public string NamePerson { get; set; }
 

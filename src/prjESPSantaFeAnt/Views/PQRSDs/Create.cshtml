@@ -3,7 +3,11 @@
 @model modelDTOs.PQRSDCreateDto
 
 @{
-    ViewData["Title"] = "Create";
+
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/formular-pqrsd";
+    ViewData["Title"] = "Formular PQRSD";
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -69,6 +73,13 @@
                         <input type="submit" value="ENVIAR PQRSD" class="btn btn-primary btn-block" />
                     </div>
                 </form>
+
+                <!-- Your share button code -->
+                <div class="fb-share-button text-center"
+                     data-href="http://www.espsantafedeantioquia.co/formular-pqrsd"
+                     data-layout="button_count">
+                </div>
+
             </div>
         </div>
     </div>

@@ -1,7 +1,10 @@
 ﻿@model ModelViewBrigade
 
 @{
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/brigadas/" + Model.UrlMaster;
     ViewData["Title"] = Model.NameMaster;
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/brigade/" + Model.CoverPage;
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,12 +32,16 @@
 
                         <div class="container">
                             <div class="row justify-content-md-center bg-primary-light" style="width:100%">
-                                <img src="~/images/brigade/@Model.CoverPage" class="img-fluid" />
+                                <img src="~/images/brigade/@Model.CoverPage"
+                                     style="height:300px !important"
+                                     class="img-fluid" />
                             </div>
                             <br />
                             <h3 class="text-center">
                                 @Html.DisplayFor(model => model.NameMaster)
                             </h3>
+                            
+                            <p class="text-center text-capitalize">@Model.DateBrigade</p>
                             @Html.Raw(Model.Description)
                             <br />
 
@@ -43,7 +50,13 @@
                                 <br />
                                 Fecha de creación: @Model.DateCreate
                             </small>
+                            <br />
 
+                            <!-- Your share button code -->
+                            <div class="fb-share-button"
+                                 data-href="http://www.espsantafedeantioquia.co/brigadas/@Model.UrlMaster"
+                                 data-layout="button_count">
+                            </div>
                         </div>
 
                     </div>

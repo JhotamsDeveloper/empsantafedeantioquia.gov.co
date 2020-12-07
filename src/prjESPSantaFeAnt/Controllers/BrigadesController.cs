@@ -93,7 +93,8 @@ namespace prjESPSantaFeAnt.Controllers
                 CoverPage = _brigade.CoverPage,
                 Statud = _brigade.Statud,
                 Author = _brigade.Author,
-                DateBrigade = _brigade.DateBrigade.ToString("MMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+                DateCreate = _brigade.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                DateBrigade = _brigade.DateBrigade.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
 
             };
 
@@ -148,7 +149,21 @@ namespace prjESPSantaFeAnt.Controllers
                 return NotFound();
             }
 
-            return View(_brigade);
+            var _model = new ModelViewBrigade
+            {
+                Id = _brigade.Id,
+                NameMaster = _brigade.NameMaster,
+                UrlMaster = _brigade.UrlMaster,
+                Description = _brigade.Description,
+                CoverPage = _brigade.CoverPage,
+                Statud = _brigade.Statud,
+                Author = _brigade.Author,
+                DateCreate = _brigade.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                DateBrigade = _brigade.DateBrigade.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+
+            };
+
+            return View(_model);
         }
 
         // POST: Brigades/Delete/5

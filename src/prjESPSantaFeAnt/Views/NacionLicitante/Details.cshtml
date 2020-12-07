@@ -1,11 +1,15 @@
 ﻿@model ModelViewNacionLicitante
 
 @{
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/convocatorias/" + Model.UrlMaster;
     ViewData["Title"] = Model.NameMaster;
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/nacionLicitante/" + Model.CoverPage;
+
     var _nacionLicitantegStartDate = Convert.ToDateTime(Model.NacionLicitantegStartDate);
     var _nacionLicitanteEndDate = Convert.ToDateTime(Model.NacionLicitanteEndDate);
     var _currentDate = DateTime.Now;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
     <div class="site-section">
@@ -43,6 +47,13 @@
                                     </ol>
                                 </nav>
                                 @Html.Raw(Model.Description)
+
+                                <!-- Your share button code -->
+                                <div class="fb-share-button"
+                                     data-href="http://www.espsantafedeantioquia.co/convocatorias/@Model.UrlMaster"
+                                     data-layout="button_count">
+                                </div>
+
                                 <br />
                                 @{
                                     if (_currentDate >= _nacionLicitantegStartDate)
@@ -82,7 +93,7 @@
                                             </ul>
                                         </div>
 
-                                        @if (Model.DelatedDocuments != null)
+                                        @if (Model.DelatedDocuments.Any())
                                         {
                                             <div class="col-md-6">
                                                 <br />

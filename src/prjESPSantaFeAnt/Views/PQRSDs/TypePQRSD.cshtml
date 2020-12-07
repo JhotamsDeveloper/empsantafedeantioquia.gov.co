@@ -1,5 +1,7 @@
 ﻿@{
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/pqrsd";
     ViewData["Title"] = "PQRSD";
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,12 +13,24 @@
                 <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
             </ol>
         </nav>
+
+        @if (ViewBag.CodigoPqrsd != null)
+        {
+            <div class="alert item-add" role="alert">
+                Su solicitud fue radicada
+            </div>
+        }
+
         <div class="row mt-3">
             <p class="text-justify">La Empresa de Servicios Públicos de Santa Fe de Antioquia a pone disposición el sistema de PQRSD (Peticiones, Quejas, Reclamos, Sugerencias y Denuncias) en cumplimiento de la Ley de transparencia y acceso a la información (1712 de 2014), del Estatuto Anticorrupción (Ley 1474 de 2011) y de la Estrategia de Gobierno En Línea (Decreto 2693 de 2012).</p>
-            <p><a href="~/formular-pqrsd"><strong>Formular PQRSD</strong></a></p>
         </div>
         <br />
 
+        <a href="~/formular-pqrsd">
+            <div class="alert item-add" role="alert">
+                Formular PQRSD
+            </div>
+        </a>
 
     </div>
 </div>

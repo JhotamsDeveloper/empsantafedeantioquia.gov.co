@@ -91,6 +91,9 @@ namespace services
                 MasterId = model.MasterId
             };
 
+            await _context.AddAsync(_model);
+            await _context.SaveChangesAsync();
+
             var _body = CreateBody(model.Name, model.IdentificationOrNit, model.Phone,
                 model.Cellular, model.Address, model.City, model.Email,
                 _dateCreateFormat, _ref.ToString().ToUpper());
@@ -98,9 +101,6 @@ namespace services
             await _emailSendGrid.Execute("Registro Satisfactorio", _body, model.Email);
             await _emailSendGrid.Execute("Registro Satisfactorio", _body, "asesoria@espsantafedeantioquia.co");
             await _emailSendGrid.Execute("Registro Satisfactorio", _body, "gerencia@espsantafedeantioquia.co");
-
-            await _context.AddAsync(_model);
-            await _context.SaveChangesAsync();
 
             return _mapper.Map<BiddingParticipantDTO>(_model);
         }
@@ -156,15 +156,16 @@ namespace services
         }
 
         private string CreateBody(string name, string id,
-            string phone, string cellular, string address,
-            string city, string email, string date,
-            string reference)
+        string phone, string cellular, string address,
+        string city, string email, string date,
+        string reference)
         {
             var _body = string.Empty;
 
             //using StreamReader reader = new StreamReader()
 
-            using (var _reader = new StreamReader(Path.Combine(_hostingEnvironment.WebRootPath, "emailTemplete", "ParticipantDataEmail.html"))){
+            using (var _reader = new StreamReader(Path.Combine(_hostingEnvironment.WebRootPath, "emailTemplete", "ParticipantDataEmail.html")))
+            {
                 _body = _reader.ReadToEnd();
             };
 

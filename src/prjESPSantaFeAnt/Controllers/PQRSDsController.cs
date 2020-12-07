@@ -141,7 +141,22 @@ namespace prjESPSantaFeAnt.Controllers
                 return NotFound();
             }
 
-            return View(_pqrsd);
+            var _model = new ModelViewPQRSD
+            {
+                PQRSDID = _pqrsd.PQRSDID,
+                NamePerson = _pqrsd.NamePerson,
+                Email = _pqrsd.Email,
+                PQRSDName = _pqrsd.PQRSDName,
+                Description = _pqrsd.Description,
+                NameSotypeOfRequest = _pqrsd.NameSotypeOfRequest,
+                IsAnsweredPQRSD = _pqrsd.IsAnswered,
+                ReviewPQRSD = _pqrsd.Reply,
+                AnswerDate = _pqrsd.AnswerDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                DateCreate = _pqrsd.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+            };
+
+            return View(_model);
+
         }
 
         // POST: PQRSDs/Delete/5

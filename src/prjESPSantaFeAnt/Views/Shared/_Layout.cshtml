@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no" />
     <title>@ViewData["Title"] Empresa de servicios públicos de Santa Fe de Antioquia</title>
 
+    <meta name="description" nosune-meta-tags="main.seo.description" content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" nosune-meta-tags="main.seo.url" content="@ViewData["Url"]" />
+    <meta property="og:description" nosune-meta-tags="main.seo.description" content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
+    <meta property="og:title" nosune-meta-tags="main.seo.title" content="@ViewData["Title"]" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="418" />
+    <meta property="og:image" nosune-meta-tags="main.seo.image" content="@ViewData["Coverpage"]" />
+
+    <meta name="description"
+          content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
+    <meta name="keywords"
+          content="Santa Fe de Antioquia, Empresa, Servicios Públicos, Brigada de siembre, Alumbrado Público, Reciclaje, Residuos Solidos" />
+
+
     <link rel="icon" href="~/images/iconos/favicon/ms-icon-150x150.png" type="image/png" />
 
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;900&display=swap" rel="stylesheet">
@@ -23,16 +38,25 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
-    <meta name="description"
-        content="Somos una empresa dedicada a la prestación de servicios públicos comprometida con mejorar la calidad de vida del occidente antioqueños." />
-    <meta name="keywords"
-        content="Santa Fe de Antioquia, Empresa, Servicios Públicos, Brigada de siembre, Alumbrado Público, Reciclaje, Residuos Solidos" />
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+
+    <script>
+        (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+    </script>
+
 
     <div id="overlayer"></div>
     <div class="loader">
@@ -60,8 +84,10 @@
                     <div class="col-6 col-xl-2">
                         <div class="mb-0 site-logo">
                             <a asp-controller="home" asp-action="index" class="mb-0">
-                                <span class="text-primary"><img class="m-2" src="~/images/logo/logo-default.svg"
-                                        alt="Empresa de Servicios Públicos de Santa de Antioquia" width="180"></span>
+                                <span class="text-primary">
+                                    <img class="m-2" src="~/images/logo/logo-default.svg"
+                                         alt="Empresa de Servicios Públicos de Santa de Antioquia" width="180">
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -70,24 +96,32 @@
                         <nav class="site-navigation position-relative text-center" role="navigation">
 
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                                <li><a asp-controller="home" asp-action="index"
-                                        class="nav-link">Inicio</a></li>
-                                <li><a href="~/acerca-de-nosotros" class="nav-link">Acerca de
-                                        nosotros</a></li>
+                                <li>
+                                    <a asp-controller="home" asp-action="index"
+                                       class="nav-link">Inicio</a>
+                                </li>
+                                <li>
+                                    <a href="~/acerca-de-nosotros" class="nav-link">
+                                        Acerca de
+                                        nosotros
+                                    </a>
+                                </li>
                                 @*<li class="has-children">
-                                    <a href="" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a>
-                                    <ul class="dropdown">
-                                    <li><a href="~/mantenimientos-de-acequias" class="nav-link">Mantenimientos de
-                                    Acequias</a></li>
-                                    <li><a href="~/alumbrado-publico" class="nav-link">Alumbrado Público</a></li>
-                                    <li><a href="~/ruta-selectiva" class="nav-link">Ruta Selectiva </a></li>
-                                    <li><a href="~/plantasde-tratamientos" class="nav-link">Plantas de Tratamientos</a></li>
-                                    <li><a href="~/jornada-de-siembra" class="nav-link">Jornada de Siembra</a></li>
-                                    <li><a href="~/recoleccion-de-llantas" class="nav-link">Recolección de Llantas</a></li>
-                                    </ul>
-                                    </li>*@
+                                <a href="" style="font-weight: bold;" class="nav-link"><strong>Servicios</strong></a>
+                                <ul class="dropdown">
+                                <li><a href="~/mantenimientos-de-acequias" class="nav-link">Mantenimientos de
+                                Acequias</a></li>
+                                <li><a href="~/alumbrado-publico" class="nav-link">Alumbrado Público</a></li>
+                                <li><a href="~/ruta-selectiva" class="nav-link">Ruta Selectiva </a></li>
+                                <li><a href="~/plantasde-tratamientos" class="nav-link">Plantas de Tratamientos</a></li>
+                                <li><a href="~/jornada-de-siembra" class="nav-link">Jornada de Siembra</a></li>
+                                <li><a href="~/recoleccion-de-llantas" class="nav-link">Recolección de Llantas</a></li>
+                                </ul>
+                                </li>*@
 
                                 <li><a href="~/servicios" class="nav-link">Servicios</a></li>
+
+                                <li><a href="~/funcionarios" class="nav-link">Funcionarios</a></li>
 
                                 <li><a href="~/noticias" class="nav-link">Noticias</a></li>
 
@@ -98,9 +132,11 @@
                     </div>
 
 
-                    <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a
-                            href="#" class="site-menu-toggle js-menu-toggle float-right"><span
-                                class="icon-menu h3 text-black"></span></a></div>
+                    <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;">
+                        <a href="#" class="site-menu-toggle js-menu-toggle float-right">
+                            <span class="icon-menu h3 text-black"></span>
+                        </a>
+                    </div>
 
                 </div>
             </div>
@@ -130,9 +166,9 @@
 
     <script src="~/lib/parallax.js-1.5.0/parallax.js"></script>
     <script src="https://cdn.tiny.cloud/1/fx3uf5far79v8h24dqwntqiaf5kq03fcderm49440staohhq/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+            referrerpolicy="origin"></script>
     <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+            src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>

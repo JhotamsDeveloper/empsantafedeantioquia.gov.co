@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Blog
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Index()
         {
             var _model = from a in await _blogService.GetAll()
@@ -47,6 +49,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Blog/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -83,6 +86,7 @@ namespace prjESPSantaFeAnt.Controllers
 
         // GET: Blog/Details/5
         [Route("noticias/{urlBlog}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string urlBlog)
         {
             if (urlBlog == "")
@@ -118,6 +122,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Blog/Create
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult Create()
         {
             return View();
@@ -128,6 +133,7 @@ namespace prjESPSantaFeAnt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Create(BlogCreateDto model)
         {
             var _urlName = _blogService.DuplicaName(model.NameBlog);
@@ -148,6 +154,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Blog/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -180,6 +187,7 @@ namespace prjESPSantaFeAnt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Edit(int id, BlogEditDto model)
         {
             if (id != model.Id)
@@ -212,6 +220,7 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         // GET: Blog/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -249,6 +258,7 @@ namespace prjESPSantaFeAnt.Controllers
         // POST: Blog/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _blogService.DeleteConfirmed(id);
@@ -262,6 +272,7 @@ namespace prjESPSantaFeAnt.Controllers
 
         // GET: Blog
         [Route("noticias")]
+        [AllowAnonymous]
         public async Task<IActionResult> Notice(int? page)
         {
 

@@ -1,12 +1,19 @@
-﻿@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
 @using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
 
 
 @model IEnumerable<ModelViewBlog>
 
 @{
-    ViewData["Title"] = "Noticias";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["Url"] = "http://www.espsantafedeantioquia.co/noticias";
+    ViewData["Title"] = "Noticias";
+    ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/images/logo-coverpage.jpg";
 }
 
 <div class="site-section">
@@ -18,6 +25,17 @@
                 <li class="breadcrumb-item active" aria-current="page">Noticias</li>
             </ol>
         </nav>
+
+        @if (SignInManager.IsSignedIn(User)
+          && User.IsInRole("Admin")
+          && User.IsInRole("SuperAdmin"))
+        {
+            <a asp-controller="products" asp-action="create">
+                <div class="alert item-add" role="alert">
+                    En esta sección puedes agregar una item nuevo
+                </div>
+            </a>
+        }
 
         <div id="macy-licitante">
 

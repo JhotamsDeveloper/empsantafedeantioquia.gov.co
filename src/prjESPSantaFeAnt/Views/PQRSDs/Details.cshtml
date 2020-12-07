@@ -59,59 +59,11 @@
                         @Html.Raw(Model.Description)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.NameSotypeOfRequest)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.NameSotypeOfRequest)
-                    </dd>
-                    <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.DateCreate)
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.DateCreate)
                     </dd>
-
-                    @if (Model.IsAnsweredPQRSD)
-                    {
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.ReviewPQRSD)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Html.Raw(Model.ReviewPQRSD)
-                        </dd>
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.AnswerDate)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Html.DisplayFor(model => model.AnswerDate)
-                        </dd>
-                    }
-                    else
-                    {
-                        <br />
-                        <div class="container bg-primary-light">
-
-                            <div class="row justify-content-md-center">
-                                <div class="col-lg-10 m-3">
-                                    <form asp-action="Review">
-
-                                        <input asp-for="ID" class="form-control" value="@Model.PQRSDID" hidden />
-
-                                        <div class="form-group">
-                                            <label asp-for="Reply" class="control-label"></label>
-                                            <textarea asp-for="Reply" class="form-control" rows="10"></textarea>
-                                            <span asp-validation-for="Reply" class="text-danger"></span>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="submit" value="Responder" class="btn btn-primary btn-block" />
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    }
 
                 </dl>
 
