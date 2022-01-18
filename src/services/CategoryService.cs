@@ -104,7 +104,7 @@ namespace services
 
             if (model.CoverPage != null)
             {
-                _coverPage = _uploadedFileIIS.UploadedFileImage(_shearchCoverPage.CoverPage, model.CoverPage, _account);
+                _coverPage = _uploadedFileIIS.UploadedFileImage(_shearchCoverPage.CoverPage, model.CoverPage, _account, false);
             }
             else
             {

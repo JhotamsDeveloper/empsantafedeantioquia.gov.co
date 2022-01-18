@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using prjESPSantaFeAnt.Models;
+using services.Commons;
 
 namespace prjESPSantaFeAnt.Controllers
 {
@@ -13,10 +14,12 @@ namespace prjESPSantaFeAnt.Controllers
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUploadedFileIIS _uploadedFileIIS;
 
-        public AdminController(RoleManager<IdentityRole> roleManager)
+        public AdminController(RoleManager<IdentityRole> roleManager, IUploadedFileIIS uploadedFileIIS)
         {
             _roleManager = roleManager;
+            _uploadedFileIIS = uploadedFileIIS;
         }
 
         [Authorize(Roles = "SuperAdmin")]
@@ -75,10 +78,37 @@ namespace prjESPSantaFeAnt.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public IActionResult AddCoverpage()
         {
+            ViewBag.error = string.Empty;
+            ViewBag.success = string.Empty;
+
+            ModelViewCoverage model = new ModelViewCoverage();
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public IActionResult AddCoverpage(ModelViewCoverage model)
+        {
+            string error = string.Empty;
+            string success = string.Empty;
+
+            if (model.File != null)
+            {
+                success = _uploadedFileIIS.UploadedFileImage("Coverpague", model.File, string.Empty, true);
+            }
+            else
+            {
+                error = "Debe de seleccionar una imagen .jpg";
+            }
+
+            ViewBag.error = error;
+            ViewBag.success = success;
+
             return View();
         }
+
     }
 }

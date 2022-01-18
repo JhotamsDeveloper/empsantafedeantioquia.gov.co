@@ -9,7 +9,7 @@ namespace services.Commons
 {
     public interface IUploadedFileIIS
     {
-        string UploadedFileImage(string value, IFormFile file, string account);
+        string UploadedFileImage(string value, IFormFile file, string account, bool isCoverage);
         string UploadedFileImage(IFormFile value, string account);
         List<string> UploadedMultipleFileImage(IEnumerable<IFormFile> files, string account);
         List<string> UploadedMultipleFileImage(IEnumerable<IFormFile> files, List<string> value, string account);
@@ -28,7 +28,6 @@ namespace services.Commons
 
         public string UploadedFileImage(IFormFile file, string account)
         {
-
             string uniqueFileName;
 
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images\\" + account);
@@ -42,7 +41,7 @@ namespace services.Commons
             return uniqueFileName;
         }
 
-        public string UploadedFileImage(string value, IFormFile file, string account)
+        public string UploadedFileImage(string value, IFormFile file, string account, bool isCoverage)
         {
             string uniqueFileName = null;
 
@@ -54,7 +53,16 @@ namespace services.Commons
             if (file != null)
             {
                 string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images\\" + account);
-                uniqueFileName = "images-" + Guid.NewGuid().ToString() + "." + Path.GetExtension(file.FileName).Substring(1);
+
+                if (isCoverage)
+                {
+                    uniqueFileName = "Coverpague" + "." + Path.GetExtension(file.FileName).Substring(1);
+                }
+                else
+                {
+                    uniqueFileName = "images-" + Guid.NewGuid().ToString() + "." + Path.GetExtension(file.FileName).Substring(1);
+                }
+
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using var fileStream = new FileStream(filePath, FileMode.Create);
                 file.CopyTo(fileStream);

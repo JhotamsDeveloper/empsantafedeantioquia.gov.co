@@ -1,7 +1,53 @@
-﻿
+﻿@model ModelViewCoverage
+
 @{
-    ViewData["Title"] = "AddCoverpage";
+    ViewData["Title"] = "Agregar portada";
+    string error = ViewBag.error;
+    string success = ViewBag.success;
 }
+<div class="site-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Inicio</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="index">Configuración</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Modificar portada</li>
+            </ol>
+        </nav>
+    </div>
 
-<h1>AddCoverpage</h1>
+    <div class="container bg-primary-light">
+        <form enctype="multipart/form-data" asp-action="AddCoverpage" class="m-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="File" class="control-label"></label>
+                <input asp-for="File" type="file" accept=".jpeg,.jpg" class="form-control" />
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Modificar" class="btn btn-primary" />
+            </div>
+        </form>
 
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Advertencia</strong> @error
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(success))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Muy bien</strong> La portada a sido modificada.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <br />
+    </div>
+</div>
