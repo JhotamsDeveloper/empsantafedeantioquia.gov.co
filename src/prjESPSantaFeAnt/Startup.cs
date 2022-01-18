@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using persistenDatabase;
-using AutoMapper;
 using services;
 using services.Commons;
+using System;
 
 namespace prjESPSantaFeAnt
 {
@@ -100,6 +95,11 @@ namespace prjESPSantaFeAnt
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //{
+            //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            //});
+
             if (env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
@@ -130,7 +130,7 @@ namespace prjESPSantaFeAnt
                 endpoints.MapControllerRoute(
                 name: "Acerca-de-nosostros",
                 pattern: "acerca-de-nosotros",
-                defaults: new { Controller = "Home", action = "About"   });
+                defaults: new { Controller = "Home", action = "About" });
 
                 //Categorias
                 endpoints.MapControllerRoute(
@@ -164,7 +164,7 @@ namespace prjESPSantaFeAnt
                 endpoints.MapControllerRoute(
                 name: "participante",
                 pattern: "convocatorias/participacion/{idConvocatoria}",
-                defaults: new { Controller = "BiddingParticipants", action = "Create"});
+                defaults: new { Controller = "BiddingParticipants", action = "Create" });
 
                 //Brigadas
                 endpoints.MapControllerRoute(

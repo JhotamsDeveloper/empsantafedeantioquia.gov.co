@@ -16,9 +16,9 @@
         </nav>
         <br />
 
-        @if (SignInManager.IsSignedIn(User) 
-        && User.IsInRole("Admin")
-        && User.IsInRole("SuperAdmin"))
+        @if (SignInManager.IsSignedIn(User)
+       && User.IsInRole("Admin")
+       && User.IsInRole("SuperAdmin"))
         {
     <div class="row">
         <div class="col-lg-6 mb-4">
@@ -118,6 +118,21 @@
                 </div>
             </a>
         </div>
+
+        <div class="col-lg-6 mb-4">
+            <a asp-controller="employees" asp-action="index">
+                <div class="symptom d-flex">
+                    <div class="img">
+                        <img src="~/images/iconos/coverpages.svg" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="text">
+                        <h3>Portada</h3>
+                        <p> En esta sección prodrás cambiar la portada de inicio.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
         }
         <br />

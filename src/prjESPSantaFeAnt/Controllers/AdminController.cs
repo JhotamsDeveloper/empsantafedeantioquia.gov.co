@@ -73,5 +73,12 @@ namespace prjESPSantaFeAnt.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin,Admin,UserApp")]
+        public IActionResult AddCoverpage()
+        {
+            return View();
+        }
     }
 }

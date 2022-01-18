@@ -10,14 +10,14 @@ using persistenDatabase;
 namespace persistenDatabase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201013060720_Version001ConfigurationAtributeLimitedNameCategory")]
-    partial class Version001ConfigurationAtributeLimitedNameCategory
+    [Migration("20210927150752_CreandoBD")]
+    partial class CreandoBD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -217,6 +217,57 @@ namespace persistenDatabase.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("model.BiddingParticipant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cellular")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationOrNit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MasterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NaturalPerson")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Proposals")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Ref")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MasterId");
+
+                    b.ToTable("BiddingParticipants");
+                });
+
             modelBuilder.Entity("model.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -250,6 +301,222 @@ namespace persistenDatabase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("model.Document", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MasterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameProyect")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MasterId");
+
+                    b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("model.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CoverPage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Occupation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmployeeId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("model.FileDocument", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DocumentoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MasterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameFile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RouteFile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DocumentoId");
+
+                    b.HasIndex("MasterId");
+
+                    b.ToTable("FileDocuments");
+                });
+
+            modelBuilder.Entity("model.Master", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Blog")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Brigade")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CoverPage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateBrigade")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NacionLicitante")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("NacionLicitanteEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NacionLicitantegStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NameMaster")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Statud")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UrlMaster")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Masters");
+                });
+
+            modelBuilder.Entity("model.PQRSD", b =>
+                {
+                    b.Property<Guid>("PQRSDID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AnswerDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("File")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAnswered")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NamePerson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameSotypeOfRequest")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PQRSDName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reply")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PQRSDID");
+
+                    b.ToTable("PQRSDs");
+                });
+
+            modelBuilder.Entity("model.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icono")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlProduct")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -301,6 +568,33 @@ namespace persistenDatabase.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("model.BiddingParticipant", b =>
+                {
+                    b.HasOne("model.Master", "Master")
+                        .WithMany("BiddingParticipants")
+                        .HasForeignKey("MasterId");
+                });
+
+            modelBuilder.Entity("model.Document", b =>
+                {
+                    b.HasOne("model.Master", "Masters")
+                        .WithMany("Documents")
+                        .HasForeignKey("MasterId");
+                });
+
+            modelBuilder.Entity("model.FileDocument", b =>
+                {
+                    b.HasOne("model.Document", "Document")
+                        .WithMany("FileDocument")
+                        .HasForeignKey("DocumentoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("model.Master", "Masters")
+                        .WithMany("FileDocument")
+                        .HasForeignKey("MasterId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

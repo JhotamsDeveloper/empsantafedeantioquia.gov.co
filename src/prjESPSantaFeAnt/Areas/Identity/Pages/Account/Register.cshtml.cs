@@ -24,16 +24,19 @@ namespace prjESPSantaFeAnt.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSendGrid _emailSendGrid;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSendGrid emailSendGrid)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
             _emailSendGrid = emailSendGrid;
         }
 
@@ -80,16 +83,10 @@ namespace prjESPSantaFeAnt.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    //Dos alternativas para asignar roles, para ambos se necesita que los roles esten creado en la base de datos
-                    //IEnumerable<string> list = new List<string> { "UserApp", "Admin", "SuperAdmin" };
-                    //await _userManager.AddToRolesAsync(user, list);
+                    if (!_roleManager.Roles.Any())
+                        CreateRoles();
 
-                    await _userManager.AddToRoleAsync(user, "UserApp");
-
-                    _logger.LogInformation("Se creo o se le asigno un rol");
-
-
-                    _logger.LogInformation("El usuario creó una nueva cuenta con contraseña.");
+                    await AssignRoles(user);
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -121,6 +118,41 @@ namespace prjESPSantaFeAnt.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private void CreateRoles()
+        {
+            List<IdentityRole> identityRoles = new List<IdentityRole>();
+
+            IdentityRole UserApp = new IdentityRole();
+            UserApp.Id = Guid.NewGuid().ToString();
+            UserApp.Name = "UserApp";
+            UserApp.NormalizedName = "UserApp".ToUpper();
+            UserApp.ConcurrencyStamp = Guid.NewGuid().ToString();
+            identityRoles.Add(UserApp);
+
+            IdentityRole Admin = new IdentityRole();
+            Admin.Id = Guid.NewGuid().ToString();
+            Admin.Name = "Admin";
+            Admin.NormalizedName = "Admin".ToUpper();
+            Admin.ConcurrencyStamp = Guid.NewGuid().ToString();
+            identityRoles.Add(Admin);
+
+            IdentityRole SuperAdmin = new IdentityRole();
+            SuperAdmin.Id = Guid.NewGuid().ToString();
+            SuperAdmin.Name = "SuperAdmin";
+            SuperAdmin.NormalizedName = "SuperAdmin".ToUpper();
+            SuperAdmin.ConcurrencyStamp = Guid.NewGuid().ToString();
+            identityRoles.Add(SuperAdmin);
+
+            identityRoles.ForEach(roles => { _roleManager.CreateAsync(roles);});
+
+        }
+
+        private async Task AssignRoles(IdentityUser user)
+        {
+            await _userManager.AddToRoleAsync(user, "UserApp");
+            _logger.LogInformation("Se creo o se le asigno un rol");
         }
     }
 }

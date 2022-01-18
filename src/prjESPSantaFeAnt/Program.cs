@@ -21,6 +21,7 @@ namespace prjESPSantaFeAnt
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseUrls("http://localhost:5024", "http://192.164.1.106:5024"); //ubunto IP
                 });
     }
 }

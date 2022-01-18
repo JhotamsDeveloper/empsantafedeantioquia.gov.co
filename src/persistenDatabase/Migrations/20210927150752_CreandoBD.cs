@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace persistenDatabase.Migrations
 {
-    public partial class SingleMigration : Migration
+    public partial class CreandoBD : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,9 +52,9 @@ namespace persistenDatabase.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NameCategory = table.Column<string>(nullable: true),
+                    NameCategory = table.Column<string>(nullable: false),
                     UrlCategory = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
                     CoverPage = table.Column<string>(nullable: true),
                     Statud = table.Column<bool>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
@@ -63,6 +63,86 @@ namespace persistenDatabase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    CoverPage = table.Column<string>(nullable: true),
+                    Occupation = table.Column<string>(nullable: true),
+                    DateCreate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Masters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameMaster = table.Column<string>(nullable: false),
+                    UrlMaster = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
+                    CoverPage = table.Column<string>(nullable: true),
+                    Statud = table.Column<bool>(nullable: false),
+                    Brigade = table.Column<bool>(nullable: false),
+                    DateBrigade = table.Column<DateTime>(nullable: false),
+                    Blog = table.Column<bool>(nullable: false),
+                    Author = table.Column<string>(nullable: true),
+                    NacionLicitante = table.Column<bool>(nullable: false),
+                    NacionLicitantegStartDate = table.Column<DateTime>(nullable: false),
+                    NacionLicitanteEndDate = table.Column<DateTime>(nullable: false),
+                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateUpdate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Masters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PQRSDs",
+                columns: table => new
+                {
+                    PQRSDID = table.Column<Guid>(nullable: false),
+                    NamePerson = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PQRSDName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    NameSotypeOfRequest = table.Column<string>(nullable: true),
+                    DateCreate = table.Column<DateTime>(nullable: false),
+                    File = table.Column<string>(nullable: true),
+                    Reply = table.Column<string>(nullable: true),
+                    IsAnswered = table.Column<bool>(nullable: false),
+                    AnswerDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PQRSDs", x => x.PQRSDID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    UrlProduct = table.Column<string>(nullable: true),
+                    Icono = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
+                    DateCreate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,6 +251,89 @@ namespace persistenDatabase.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BiddingParticipants",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ref = table.Column<Guid>(nullable: false),
+                    NaturalPerson = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    IdentificationOrNit = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Cellular = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    DateCreate = table.Column<DateTime>(nullable: false),
+                    Proposals = table.Column<string>(nullable: true),
+                    MasterId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BiddingParticipants", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BiddingParticipants_Masters_MasterId",
+                        column: x => x.MasterId,
+                        principalTable: "Masters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    UrlName = table.Column<string>(nullable: true),
+                    NameProyect = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    DateUpdate = table.Column<DateTime>(nullable: false),
+                    MasterId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Documents_Masters_MasterId",
+                        column: x => x.MasterId,
+                        principalTable: "Masters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileDocuments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameFile = table.Column<string>(nullable: false),
+                    RouteFile = table.Column<string>(nullable: false),
+                    DocumentoId = table.Column<int>(nullable: true),
+                    MasterId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileDocuments", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_FileDocuments_Documents_DocumentoId",
+                        column: x => x.DocumentoId,
+                        principalTable: "Documents",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FileDocuments_Masters_MasterId",
+                        column: x => x.MasterId,
+                        principalTable: "Masters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -209,6 +372,26 @@ namespace persistenDatabase.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BiddingParticipants_MasterId",
+                table: "BiddingParticipants",
+                column: "MasterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_MasterId",
+                table: "Documents",
+                column: "MasterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileDocuments_DocumentoId",
+                table: "FileDocuments",
+                column: "DocumentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileDocuments_MasterId",
+                table: "FileDocuments",
+                column: "MasterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -229,13 +412,34 @@ namespace persistenDatabase.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BiddingParticipants");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "FileDocuments");
+
+            migrationBuilder.DropTable(
+                name: "PQRSDs");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Masters");
         }
     }
 }
