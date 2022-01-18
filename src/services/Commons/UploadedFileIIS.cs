@@ -16,6 +16,7 @@ namespace services.Commons
         bool UploadedMultipleFileImage(List<string> value, string account);
         Boolean DeleteConfirmed(string imgModel, string account);
         string UploadedFileImage(IFormFile value, string namefile, string account);
+        string AdrressTemplete();
     }
     public class UploadedFileIIS : IUploadedFileIIS
     {
@@ -191,5 +192,7 @@ namespace services.Commons
 
             return uniqueFileName;
         }
+
+        public string AdrressTemplete() => $"{_hostingEnvironment.WebRootPath}\\images\\templete.rar";
     }
 }

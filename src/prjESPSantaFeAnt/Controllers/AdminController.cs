@@ -110,5 +110,16 @@ namespace prjESPSantaFeAnt.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        public FileResult TempleteCoverage()
+        {
+            string filePath = _uploadedFileIIS.AdrressTemplete(); ;
+            string fileName = "guia_para_la_portada.rar";
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+            return File(fileBytes, "application/force-download", fileName);
+        }
     }
 }
