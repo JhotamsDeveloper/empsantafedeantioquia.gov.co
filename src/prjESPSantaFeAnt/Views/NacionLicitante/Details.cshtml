@@ -5,9 +5,6 @@
     ViewData["Title"] = Model.NameMaster;
     ViewData["Coverpage"] = "http://www.espsantafedeantioquia.co/nacionLicitante/" + Model.CoverPage;
 
-    var _nacionLicitantegStartDate = Convert.ToDateTime(Model.NacionLicitantegStartDate);
-    var _nacionLicitanteEndDate = Convert.ToDateTime(Model.NacionLicitanteEndDate);
-    var _currentDate = DateTime.Now;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -55,14 +52,9 @@
                                 </div>
 
                                 <br />
-                                @{
-                                    if (_currentDate >= _nacionLicitantegStartDate)
-                                    {
-                                        if (_currentDate <= _nacionLicitanteEndDate)
-                                        {
-                                            <a class="text-center" href="~/convocatorias/participacion/@ViewBag.idConvocatoria"><strong>Participar de la convocatoria</strong></a>
-                                        }
-                                    }
+                                @if (Model.Statud)
+                                {
+                                    <a class="text-center" href="~/convocatorias/participacion/@ViewBag.idConvocatoria"><strong>Participar de la convocatoria</strong></a>
                                 }
                                 <div class="container">
                                     <div class="row justify-content-md-center">

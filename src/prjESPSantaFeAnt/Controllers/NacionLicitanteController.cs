@@ -67,6 +67,17 @@ namespace prjESPSantaFeAnt.Controllers
             var _dateCreate = _master.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
             var _dateUpdate = _master.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
 
+            var dateTime = DateTime.Now;
+            var statud = false;
+
+            if (dateTime >= _master.NacionLicitantegStartDate)
+            {
+                if (dateTime <= _master.NacionLicitanteEndDate)
+                {
+                    statud = true;
+                }
+            }
+
             if (_master == null)
             {
                 return NotFound();
@@ -84,7 +95,8 @@ namespace prjESPSantaFeAnt.Controllers
                 FilesDocuments = _filesDocuments,
                 DelatedDocuments = _delatedDocuments,
                 DateCreate = _dateCreate,
-                DateUpdate = _dateUpdate
+                DateUpdate = _dateUpdate,
+                Statud = statud
             };
 
             ViewData["detail"] = false;

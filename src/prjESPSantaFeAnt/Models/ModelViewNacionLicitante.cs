@@ -44,6 +44,8 @@ namespace prjESPSantaFeAnt.Models
 
         [DisplayName("F. de actualización")]
         public string DateUpdate { get; set; }
+
+        public bool Statud { get; set; }
     }
 
 }
