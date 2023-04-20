@@ -338,3 +338,9 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/src/prjESPSantaFeAnt/wwwroot/images/filesDocuments
+/src/prjESPSantaFeAnt/wwwroot/images/filesBiddingParticipant
+/src/prjESPSantaFeAnt/wwwroot/images/employees
+/src/prjESPSantaFeAnt/wwwroot/images/brigade
+/src/prjESPSantaFeAnt/wwwroot/images/blog
+/src/prjESPSantaFeAnt/wwwroot/images/nacionLicitante
