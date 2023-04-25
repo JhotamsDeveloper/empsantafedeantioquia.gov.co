@@ -33,7 +33,7 @@ namespace prjESPSantaFeAnt.Models
 
         [DisplayName("Actualización")]
         public string DateUpdate { get; set; }
-
+        public bool ItHasUpdated { get; set; }
         public IEnumerable<FileDocument> FileDocument { get; set; }
     }
 }

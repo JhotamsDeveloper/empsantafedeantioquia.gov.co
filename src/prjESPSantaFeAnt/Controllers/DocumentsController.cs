@@ -58,6 +58,14 @@ namespace prjESPSantaFeAnt.Controllers
                                   where a.DocumentoId == _document.ID
                                   select a;
 
+            var dateTime = DateTime.Now;
+            var itHasUpdated = false;
+
+            if (_document.DateUpdate >= _document.CreateDate)
+            {
+                itHasUpdated = true;
+            }
+
             var _model = new ModelViewDocument
             {
                 ID = _document.ID,
@@ -66,6 +74,7 @@ namespace prjESPSantaFeAnt.Controllers
                 Description = _document.Description,
                 CreateDate = _document.CreateDate.ToString("MMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
                 DateUpdate = _document.DateUpdate.ToString("MMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                ItHasUpdated = itHasUpdated,
                 FileDocument = _filesDocuments
             };
 

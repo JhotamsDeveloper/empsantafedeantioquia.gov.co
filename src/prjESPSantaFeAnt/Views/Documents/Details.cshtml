@@ -37,7 +37,7 @@
                             </h3>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
-                                    @if (Convert.ToDateTime(Model.DateUpdate) >= Convert.ToDateTime(Model.CreateDate))
+                                    @if (Model.ItHasUpdated)
                                     {
                                         <li class="breadcrumb-item"><h6 style="color: #0083ad;">Proyecto: @Model.NameProyect | Publicación actualizada: @Model.DateUpdate</h6></li>
                                     }
