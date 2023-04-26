@@ -52,21 +52,18 @@
                                 var _nacionLicitantegStartDate = Convert.ToDateTime(item.NacionLicitantegStartDate);
                                 var _nacionLicitanteEndDate = Convert.ToDateTime(item.NacionLicitanteEndDate);
 
-                                if (_currentDate >= _nacionLicitantegStartDate)
+                                if (item.Statud)
                                 {
-                                    if (_currentDate <= _nacionLicitanteEndDate)
-                                    {
-                                        <div class="card-footer" style="background-color:#00b451">
-                                            <small class="text-card-footer text-center">ACTIVO</small>
-                                        </div>
+                                    <div class="card-footer" style="background-color:#00b451">
+                                        <small class="text-card-footer text-center">ACTIVO</small>
+                                    </div>
 
-                                    }
-                                    else
-                                    {
-                                        <div class="card-footer" style="background-color:#ffda00">
-                                            <small class="text-card-footer text-center">INACTIVA</small>
-                                        </div>
-                                    }
+                                }
+                                else
+                                {
+                                    <div class="card-footer" style="background-color:#ffda00">
+                                        <small class="text-card-footer text-center">INACTIVA</small>
+                                    </div>
                                 }
                             }
 

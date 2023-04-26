@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using model;
 using modelDTOs;
 using persistenDatabase;
 using prjESPSantaFeAnt.Models;
@@ -67,16 +68,7 @@ namespace prjESPSantaFeAnt.Controllers
             var _dateCreate = _master.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
             var _dateUpdate = _master.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"));
 
-            var dateTime = DateTime.Now;
-            var statud = false;
-
-            if (dateTime >= _master.NacionLicitantegStartDate)
-            {
-                if (dateTime <= _master.NacionLicitanteEndDate)
-                {
-                    statud = true;
-                }
-            }
+            bool statud = ValidateActivo(_master);
 
             if (_master == null)
             {
@@ -102,6 +94,22 @@ namespace prjESPSantaFeAnt.Controllers
             ViewData["detail"] = false;
             ViewData["idConvocatoria"] = _master.Id;
             return View(_model);
+        }
+
+        private static bool ValidateActivo(Master _master)
+        {
+            var dateTime = DateTime.Now;
+            var statud = false;
+
+            if (dateTime >= _master.NacionLicitantegStartDate)
+            {
+                if (dateTime <= _master.NacionLicitanteEndDate)
+                {
+                    statud = true;
+                }
+            }
+
+            return statud;
         }
 
         // GET: NacionLicitante/Create
@@ -225,7 +233,8 @@ namespace prjESPSantaFeAnt.Controllers
                              NacionLicitantegStartDate = a.NacionLicitantegStartDate.ToString(),
                              NacionLicitanteEndDate = a.NacionLicitanteEndDate.ToString(),
                              DateCreate = a.DateCreate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
-                             DateUpdate = a.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO"))
+                             DateUpdate = a.DateUpdate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("es-CO")),
+                             Statud = ValidateActivo(a)
                          };
 
             return View(_model);
