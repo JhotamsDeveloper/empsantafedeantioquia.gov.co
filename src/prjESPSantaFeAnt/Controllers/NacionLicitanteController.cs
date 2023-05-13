@@ -98,7 +98,7 @@ namespace prjESPSantaFeAnt.Controllers
 
         private static bool ValidateActivo(Master _master)
         {
-            var dateTime = DateTime.Now;
+            var dateTime = DateTime.Now.Date;
             var statud = false;
 
             if (dateTime >= _master.NacionLicitantegStartDate)

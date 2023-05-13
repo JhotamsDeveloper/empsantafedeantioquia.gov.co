@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using modelDTOs;
+using prjESPSantaFeAnt.Models;
+using services;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using model;
-using modelDTOs;
-using persistenDatabase;
-using prjESPSantaFeAnt.Models;
-using services;
 
 namespace prjESPSantaFeAnt.Controllers
 {

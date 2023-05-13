@@ -34,14 +34,6 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">Autor @Model.Author</li>
-                                @if (Convert.ToDateTime(Model.DateUpdate) >= Convert.ToDateTime(Model.DateCreate))
-                                {
-                                    <li class="breadcrumb-item"><span>Publicación actualizada: @Model.DateUpdate</span></li>
-                                }
-                                else
-                                {
-                                    <li class="breadcrumb-item"><span>Publicación: @Model.DateCreate</span></li>
-                                }
                             </ol>
                         </nav>
                     </div>
