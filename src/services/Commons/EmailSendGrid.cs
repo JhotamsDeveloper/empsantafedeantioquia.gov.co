@@ -30,7 +30,7 @@ namespace services.Commons
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("admin@espsantafedeantioquia.co", subject),
+                From = new EmailAddress("espsantafedeantioquiasoporte@gmail.com", subject),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message,
