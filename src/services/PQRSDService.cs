@@ -91,7 +91,7 @@ namespace services
 
             await _emailSendGrid.Execute(model.NameSotypeOfRequest, _body, model.Email);
             await _emailSendGrid.Execute(model.NameSotypeOfRequest, _body, "asesoria@espsantafedeantioquia.co");
-            await _emailSendGrid.Execute(model.NameSotypeOfRequest, _body, "gerencia@espsantafedeantioquia.co");
+            await _emailSendGrid.Execute(model.NameSotypeOfRequest, _body, "admin@espsantafedeantioquia.co");
 
             return _mapper.Map<PQRSDDto>(_pqrsd);
         }
